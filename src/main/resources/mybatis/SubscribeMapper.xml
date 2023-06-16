@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.SubscribeMapper">
+
+    <insert id="insert" parameterType="subscribe">
+        INSERT INTO subscribe (custpin, subcustpin, subdate)
+        VALUES (#{custpin}, #{subcustpin}, SYSDATE)
+    </insert>
+
+    <select id="getMySubscribe" parameterType="String" resultType="subscribe">
+        SELECT A.custpin        as custpin,
+               A.subcustpin     as subcustpin,
+               A.subdate        as subdate,
+               B.profileimgname as subcustprofileimgname,
+               B.introduction   as subcustintroduction,
+               B.custid         as subcustid,
+               B.nickname       as subcustnickname
+        FROM subscribe A
+                 LEFT OUTER JOIN cust B
+                                 ON A.subcustpin = B.custpin
+                 LEFT OUTER JOIN cust C
+                                 ON A.custpin = C.custpin
+        WHERE C.custid = #{custid}
+    </select>
+
+</mapper>
+
