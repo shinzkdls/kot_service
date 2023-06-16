@@ -185,7 +185,7 @@
                                               currencyCode="KRW" pattern="###,###원"/></h5>
                         <br>
                         <a href="#" class="cart-btn" data-toggle="modal" data-target="#target${obj.classpin}">
-                            <span class="icon_check_alt2"></span> 클래스 신청</a>
+                            <span class="icon_check_alt2"></span> 클래스신청</a>
                     </div>
                     <div id="target${obj.classpin}" class="modal fade" role="dialog">
                         <div class="modal-dialog">
