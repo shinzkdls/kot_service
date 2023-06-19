@@ -114,22 +114,25 @@
             <div class="col-lg-8">
                 <div class="single-article-section">
                     <div class="single-article-text" style="margin-bottom: 50px">
-                        <div class="class-bg" style="margin-bottom: 30px;">
-                            <img src="/uimg/${classdetail.thumbnailimg}" alt="">
+                        <div class="class-bg"
+                             style="margin-bottom: 30px; background-image: url('/uimg/${classdetail.thumbnailimg}');background-size: cover; background-position: center; background-repeat: no-repeat;">
                         </div>
                         <h2 style="color:#F28123; font-weight: bolder">
                             [${classdetail.location}] ${classdetail.classtitle}</h2>
-                        <p class="blog-meta">
-                            <span class="author"><i class="fas fa-user"></i> 수업소요시간 : ${classdetail.classtime} 분</span>
-                            <span class="date"><i class="fas fa-calendar"></i> 지역 : ${classdetail.location}</span>
-                            <span class="date"><i class="fas fa-calendar"></i> 정원 : ${classdetail.personal} 명</span>
-                        </p>
                     </div>
                     <div class="class-step">
                         <div class="section-title">
                             <h5>클래스 소개</h5>
                         </div>
-                        <p>${classdetail.classdesc}</p>
+                        <h5>${classdetail.classdesc}</h5>
+                        <p></p>
+                        <p><span class="icon_clock" style="font-size: 20px;"> </span> 수업소요시간 : ${classdetail.classtime}
+                            분
+                        </p>
+                        <p><span class="icon_map" style="font-size: 20px;"> </span> 지역
+                            : ${classdetail.location}</p>
+                        <p><span class="icon_group" style="font-size: 20px;"> </span> 정원 : ${classdetail.personal} 명</p>
+
                     </div>
                     <div class="class-step" id="classmap">
                         <div class="section-title">
@@ -144,7 +147,7 @@
                             <div class="single-comment-body">
                                 <div class="anime__details__review">
                                     <div class="section-title">
-                                        <h5>Comment</h5>
+                                        <h5>댓글</h5>
                                     </div>
 
                                     <c:forEach var="obj" items="${classComment}">
@@ -183,9 +186,8 @@
                                                                     <div class="anime__details__btn">
                                                                         <button type="submit"
                                                                                 formaction="/cookingclass/commentDel"
-                                                                                style="color: #ffffff; background-color: #f28123; font-weight: 700; letter-spacing: 2px;
-                                                                    text-transform: uppercase; border-radius: 4px;
-                                                                    border: unset">X
+                                                                                style="color: #ffffff; background-color: #f28123; font-weight: 700; border-radius: 4px;
+                                                                    border: unset; "> X
                                                                         </button>
                                                                     </div>
                                                                 </form>
@@ -202,7 +204,7 @@
 
                                     <div class="anime__details__form">
                                         <div class="section-title">
-                                            <h5>Your Comment</h5>
+                                            <h5>댓글달기</h5>
                                         </div>
                                         <form id="comment_form">
                                             <input type="hidden" name="classpin" id="classpin"
@@ -226,35 +228,44 @@
                 <div class="sidebar-section">
                     <div class="archive-posts">
                         <h4>호스트 소개</h4>
-                        <div class="anime__review__item__pic">
-                            <img src="/uimg/${cbobj.profileimgname}" alt="">
-                        </div>
-                        <div>
-                            <c:choose>
-                                <c:when test="${classdetail.nickname != null}">
-                                    <h6>${classdetail.nickname}</h6>
-                                </c:when>
-                                <c:otherwise>
-                                    <h6>${classdetail.custid}</h6>
-                                </c:otherwise>
-                            </c:choose>
-                        </div>
+                        <a href="/apply/mypage?custid=${classcust.custid}">
+                            <div style="display: flex; flex-direction: row; align-items: center">
+                                <c:choose>
+                                    <c:when test="${classcust.profileimgname != null &&  classcust.profileimgname !=''}">
+                                        <div style="width: 60px; height: 60px; background-image: url('/uimg/${classcust.profileimgname}');
+                                                background-size: cover; background-position: center; background-repeat: no-repeat; margin-right: 20px;
+                                                border-radius: 50%">
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div style="width: 60px; height: 60px; background-image: url('static/img/basic_profile.png');
+                                                background-size: cover; background-position: center; background-repeat: no-repeat; margin-right: 20px;
+                                                border-radius: 50%">
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
+                                <c:choose>
+                                    <c:when test="${classdetail.nickname != null}">
+                                        <h6 style="color: black">${classdetail.nickname}</h6>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <h6 style="color: black">${classdetail.custid}</h6>
+                                    </c:otherwise>
+                                </c:choose>
+                            </div>
+                        </a>
+                        <h5 style="margin-top: 5px; color: black">${classcust.introduction}</h5>
                     </div>
-                    <div class="recent-posts">
-                        <h4>${classdetail.cooking}</h4>
+                    <div class="single-product-form" style="margin-bottom: 30px">
+                        <a role="button" class="btn cart-btn" id="class-btn" style="width: 80%;">클래스
+                            신청</a>
                     </div>
-                    <div class="single-product-form">
-                        <form action="index.html">
-                            <input type="number" placeholder="0">
-                        </form>
-                        <a href="cart.html" class="cart-btn"> 클래스 신청</a>
-                    </div>
-                    <h4>Share:</h4>
+                    <h4>공유하기</h4>
                     <ul class="product-share">
-                        <li><a href=""><i class="fab fa-facebook-f"></i></a></li>
-                        <li><a href=""><i class="fab fa-twitter"></i></a></li>
-                        <li><a href=""><i class="fab fa-google-plus-g"></i></a></li>
-                        <li><a href=""><i class="fab fa-linkedin"></i></a></li>
+                        <li><a href="#" style="font-size: 30px"><span class="social_facebook_circle"></span></a></li>
+                        <li><a href="#" style="font-size: 30px"><span class="social_twitter_circle"></span></a></li>
+                        <li><a href="#" style="font-size: 30px"><span class="social_googleplus_circle"></span></a></li>
+                        <li><a href="#" style="font-size: 30px"><span class="social_instagram_circle"></span></a></li>
                     </ul>
                 </div>
             </div>

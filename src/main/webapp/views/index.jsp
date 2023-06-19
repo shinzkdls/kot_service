@@ -88,7 +88,7 @@
                 <div class="header__nav">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="/recipe/all">Recipe</a></li>
+                            <li><a href="/recipe/all?type=&ingredients1=&recipetitle=">Recipe</a></li>
                             <li><a href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
                             <li><a href="/contacts">Contacts</a></li>
                             <c:choose>
@@ -158,18 +158,7 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="footer__nav">
-                    <ul>
-                        <li class="active"><a href="/">Homepage</a></li>
-                        <li><a href="/recipe/all">Recipe</a></li>
-                        <<<<<<< HEAD
-                        <li><a href="/class?location=&type=&sort=">Class</a></li>
-                        =======
-                        <li><a href="/class">Class</a></li>
-                        >>>>>>> 2eda8b29de8cafc28283fbbdb41859aab64b5c4e
-                        <li><a href="/contacts">Contacts</a></li>
-                    </ul>
-                </div>
+
             </div>
             <div class="col-lg-3">
                 <p>

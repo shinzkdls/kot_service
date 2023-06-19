@@ -38,18 +38,16 @@ public class RecipeController {
     String imgdir;
 
     @RequestMapping("/all")
-    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) {
+    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, RecipeBasic recipeBasic) {
         PageInfo<RecipeBasic> p;
-        List<RecipeBasic> recipeList = null;
         try {
-            p = new PageInfo<>(recipeService.getPage(pageNo), 5);
-            recipeList = p.getList();
+            p = new PageInfo<>(recipeService.getPage(pageNo, recipeBasic), 5);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
         model.addAttribute("target", "recipe");
-        model.addAttribute("recipeList", recipeList);
-        model.addAttribute("cpage", p);
+        model.addAttribute("rlist", p);
+        model.addAttribute("recipesortinfo", recipeBasic);
         model.addAttribute("center", dir + "all");
         return "index";
     }

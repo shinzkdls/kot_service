@@ -31,13 +31,24 @@
     </select>
 
     <delete id="delete" parameterType="Integer">
-        DELETE FROM recipe_basic
+        DELETE
+        FROM recipe_basic
         WHERE recipepin = #{recipepin}
     </delete>
 
-    <select id="getpage" resultType="recipebasic">
+    <select id="getpage" parameterType="RecipeBasic" resultType="RecipeBasic">
         SELECT *
-        FROM recipe_basic
+        FROM Recipe_Basic
+        WHERE 1=1
+        <if test="ingredients1 != ''">
+            AND ingredients1 LIKE '%' || #{ingredients1} || '%'
+        </if>
+        <if test="type != ''">
+            AND type LIKE '%' || #{type} || '%'
+        </if>
+        <if test="recipetitle != ''">
+            AND recipetitle LIKE '%' || #{recipetitle} || '%'
+        </if>
         ORDER BY recipepin DESC
     </select>
 
@@ -75,7 +86,7 @@
         ORDER BY recipepin DESC
     </select>
 
-<!--            이나은-->
+    <!--            이나은-->
     <select id="ranking" resultType="int">
         SELECT RECIPEPIN
         FROM goodlist
@@ -83,12 +94,15 @@
         ORDER BY COUNT(RECIPEPIN) DESC
     </select>
     <select id="latestRecipe" resultType="RecipeBasic">
-        select * from recipe_basic
+        select *
+        from recipe_basic
         order by RECIPEDATE
     </select>
 
     <select id="subscribeRecipe" resultType="RecipeBasic">
-        select * from recipe_basic where CUSTPIN= (select SUBCUSTPIN from SUBSCRIBE where CUSTPIN= 10022)
+        select *
+        from recipe_basic
+        where CUSTPIN = (select SUBCUSTPIN from SUBSCRIBE where CUSTPIN = 10022)
         ORDER BY RECIPEDATE DESC
     </select>
 

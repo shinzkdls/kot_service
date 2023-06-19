@@ -50,9 +50,9 @@ public class RecipeService implements KBService<Integer, RecipeBasic> {
         return mapper.selectall();
     }
 
-    public Page<RecipeBasic> getPage(int pageNo) throws Exception {
+    public Page<RecipeBasic> getPage(int pageNo, RecipeBasic recipeBasic) throws Exception {
         PageHelper.startPage(pageNo, 6); // 6 : 한화면에 출력되는 개수
-        return mapper.getpage();
+        return mapper.getpage(recipeBasic);
     }
 
     public Page<RecipeBasic> getPage_category(int pageNo, String ingredients1, String type) throws Exception {
@@ -65,9 +65,11 @@ public class RecipeService implements KBService<Integer, RecipeBasic> {
         return mapper.getsearch(recipetitle);
     }
 
-    public int pingetter() throws Exception{
+    public int pingetter() throws Exception {
         return mapper.pingetter();
-    };
+    }
+
+    ;
 
     public List<RecipeBasic> getMyRecipe(String custid) throws Exception {
         return mapper.getMyRecipe(custid);
@@ -75,19 +77,21 @@ public class RecipeService implements KBService<Integer, RecipeBasic> {
 
     //        이나은
     public List<RecipeBasic> ranking() throws Exception {
-        List<Integer> recipepin=mapper.ranking();
+        List<Integer> recipepin = mapper.ranking();
         List<RecipeBasic> recipeRanking = new ArrayList<>();
-        for (Integer pin: recipepin) {
+        for (Integer pin : recipepin) {
             recipeRanking.add(mapper.select(pin));
         }
         return recipeRanking;
     }
+
     public List<RecipeBasic> latestRecipe() throws Exception {
-        List<RecipeBasic> recipeList =mapper.latestRecipe();
+        List<RecipeBasic> recipeList = mapper.latestRecipe();
         return recipeList;
     }
+
     public List<RecipeBasic> subscribeRecipe() throws Exception {
-        List<RecipeBasic> subscribeList =mapper.subscribeRecipe();
+        List<RecipeBasic> subscribeList = mapper.subscribeRecipe();
         return subscribeList;
     }
 

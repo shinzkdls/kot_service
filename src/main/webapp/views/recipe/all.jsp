@@ -7,36 +7,27 @@
     let recipe_search = {
         init: function () {
             $('#search_btn').click(function () {
-                $('#search_form').attr({
-                    method: 'post',
-                    action: '/recipe/search'
+                $('#category_form').attr({
+                    method: 'get',
+                    action: '/recipe/all'
                 });
-                $('#search_form').submit();
+                $('#category_form').submit();
             });
 
             $('#ingredients1_li li').click(function () {
-                // 선택된 지역 값을 가져옴
-                ingredients1 = $(this).data('filter');
-                $('#ingredients1').val(ingredients1);
-                $('#type').val(type);
-
-                // 폼을 서버로 제출
+                $('#ingredients1').val($(this).data('filter'));
                 $('#category_form').attr({
                     method: 'get',
-                    action: '/recipe/searchIngreType'
+                    action: '/recipe/all'
                 });
                 $('#category_form').submit();
             });
 
             $('#type_li li').click(function () {
-                type = $(this).data('filter');
-                $('#ingredients1').val(ingredients1);
-                $('#type').val(type);
-
-                // 폼을 서버로 제출
+                $('#type').val($(this).data('filter'));
                 $('#category_form').attr({
-                    method: 'post',
-                    action: '/recipe/searchIngreType'
+                    method: 'get',
+                    action: '/recipe/all'
                 });
                 $('#category_form').submit();
             });
@@ -92,287 +83,147 @@
 <div class="product-section mt-50 mb-150">
     <div class="container">
         <div class="row">
-            <div class="col" style="margin-bottom: 30px">
-                <form id="search_form" class="d-flex" style="float: right;">
-                    <input class="form-control me-2" type="text" placeholder="Search by Recipe Title"
-                           aria-label="Search"
-                           name="recipetitle" id="recipetitle" value="${recipetitle}">
-                    <button id="search_btn" class="btn btn-outline" type="button"
-                            style="border: 2px solid #F28123; background-color: #F28123; color: #fff;">Search
-                    </button>
-                </form>
-            </div>
-        </div>
-        <div class="row">
             <div class="col-md-12">
                 <form id="category_form">
                     <div class="product-filters">
                         <!-- 지역별 검색 -->
                         <ul id="ingredients1_li" name="ingredients1_li">
-                            <li class="${ingredients1 == null || ingredients1 eq '' ? 'active' : ''}" data-filter="">
+                            <li class="${recipesortinfo.ingredients1 == null || ingredients1 eq '' ? 'active' : ''}"
+                                data-filter="">
                                 재료별
                             </li>
-                            <li class="${ingredients1 eq '소고기' ? 'active' : ''}" data-filter="소고기">소고기</li>
-                            <li class="${ingredients1 eq '돼지고기' ? 'active' : ''}" data-filter="돼지고기">돼지고기</li>
-                            <li class="${ingredients1 eq '닭고기' ? 'active' : ''}" data-filter="닭고기">닭고기</li>
-                            <li class="${ingredients1 eq '생선' ? 'active' : ''}" data-filter="생선">생선</li>
-                            <li class="${ingredients1 eq '오징어' ? 'active' : ''}" data-filter="오징어">오징어</li>
-                            <li class="${ingredients1 eq '면' ? 'active' : ''}" data-filter="면">면</li>
-                            <li class="${ingredients1 eq '떡' ? 'active' : ''}" data-filter="떡">떡</li>
-                            <li class="${ingredients1 eq '김치' ? 'active' : ''}" data-filter="김치">김치</li>
+                            <li class="${recipesortinfo.ingredients1 eq '소고기' ? 'active' : ''}" data-filter="소고기">소고기
+                            </li>
+                            <li class="${recipesortinfo.ingredients1 eq '돼지고기' ? 'active' : ''}" data-filter="돼지고기">
+                                돼지고기
+                            </li>
+                            <li class="${recipesortinfo.ingredients1 eq '닭고기' ? 'active' : ''}" data-filter="닭고기">닭고기
+                            </li>
+                            <li class="${recipesortinfo.ingredients1 eq '생선' ? 'active' : ''}" data-filter="생선">생선</li>
+                            <li class="${recipesortinfo.ingredients1 eq '오징어' ? 'active' : ''}" data-filter="오징어">오징어
+                            </li>
+                            <li class="${recipesortinfo.ingredients1 eq '면' ? 'active' : ''}" data-filter="면">면</li>
+                            <li class="${recipesortinfo.ingredients1 eq '떡' ? 'active' : ''}" data-filter="떡">떡</li>
+                            <li class="${recipesortinfo.ingredients1 eq '김치' ? 'active' : ''}" data-filter="김치">김치</li>
                         </ul>
                         <!-- 종류별 검색 -->
                         <ul id="type_li" name="type_li">
-                            <li class="${type == null || type eq ''? 'active' : ''}" data-filter="">종류별</li>
-                            <li class="${type eq '한식' ? 'active' : ''}" data-filter="한식">한식</li>
-                            <li class="${type eq '양식' ? 'active' : ''}" data-filter="양식">양식</li>
-                            <li class="${type eq '중식' ? 'active' : ''}" data-filter="중식">중식</li>
-                            <li class="${type eq '월남식' ? 'active' : ''}" data-filter="월남식">월남식</li>
-                            <li class="${type eq '일식' ? 'active' : ''}" data-filter="일식">일식</li>
-                            <li class="${type eq '카자흐식' ? 'active' : ''}" data-filter="카자흐식">카자흐식</li>
-                            <li class="${type eq '기타' ? 'active' : ''}" data-filter="기타">기타</li>
+                            <li class="${recipesortinfo.type == null || type eq ''? 'active' : ''}" data-filter="">종류별
+                            </li>
+                            <li class="${recipesortinfo.type eq '한식' ? 'active' : ''}" data-filter="한식">한식</li>
+                            <li class="${recipesortinfo.type eq '양식' ? 'active' : ''}" data-filter="양식">양식</li>
+                            <li class="${recipesortinfo.type eq '중식' ? 'active' : ''}" data-filter="중식">중식</li>
+                            <li class="${recipesortinfo.type eq '일식' ? 'active' : ''}" data-filter="일식">일식</li>
+                            <li class="${recipesortinfo.type eq '동남아식' ? 'active' : ''}" data-filter="동남아식">동남아식</li>
+                            <li class="${recipesortinfo.type eq '디저트' ? 'active' : ''}" data-filter="디저트">디저트</li>
+                            <li class="${recipesortinfo.type eq '기타' ? 'active' : ''}" data-filter="기타">기타</li>
                         </ul>
                     </div>
-                    <input type="hidden" id="ingredients1" name="ingredients1" value="${ingredients1}">
-                    <input type="hidden" id="type" name="type" value="${type}">
+                    <div style="display: flex">
+                        <input class="form-control me-2" type="text" placeholder="Search by recipe name"
+                               aria-label="Search"
+                               name="recipetitle" id="recipetitle" value="${recipesortinfo.recipetitle}"
+                               style="width: 200px; border: none;">&nbsp;
+                        <button id="search_btn" class="btn" type="button"
+                                style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">Search
+                        </button>
+                    </div>
+                    <input type="hidden" id="ingredients1" name="ingredients1" value="${recipesortinfo.ingredients1}">
+                    <input type="hidden" id="type" name="type" value="${recipesortinfo.type}">
                 </form>
             </div>
         </div>
 
-        <section class="product spad">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-8">
-                        <div class="trending__product">
-                            <div class="row">
-                                <div class="col-lg-8 col-md-8 col-sm-8">
-                                    <div class="section-title">
-                                        <h4>ALL Recipes</h4>
-                                    </div>
+        <!-- cooking class list start -->
+        <div class="row product-lists">
+            <c:forEach var="obj" items="${rlist.getList()}">
+                <div class="col-lg-4 col-md-6 text-center strawberry">
+                    <div class="single-product-item">
+                        <div class="product-image" style="margin-bottom: 10px">
+                            <a href="/recipe/detail?recipepin=${obj.recipepin}">
+                                <div style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
+                                        background-size: cover; background-position: center; background-repeat: no-repeat;">
                                 </div>
-                            </div>
-                            <div class="row">
-                                <c:forEach var="obj" items="${recipeList}">
-                                    <div class="col-lg-4 col-md-6 col-sm-6">
-                                        <div class="product__item">
-                                            <a href="/recipe/detail?recipepin=${obj.recipepin}"
-                                               data-target="#target${obj.recipepin}">
-                                                <div class="product__item__pic set-bg"
-                                                     data-setbg="/uimg/${obj.thumbnailimg}">
-                                                </div>
-                                            </a>
-                                            <div class="product__item__text">
-                                                <ul>
-                                                    <li>Active</li>
-                                                    <li>Movies</li>
-                                                </ul>
-                                                <h5 style="text-align: center;">
-                                                    <a href="/recipe/detail?recipepin=${obj.recipepin}">${obj.recipetitle}</a>
-                                                </h5>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </c:forEach>
-                            </div>
-
-                            <!-- pagination start -->
-                            <div class="row">
-                                <div class="col-lg-12 text-center">
-                                    <div class="pagination-wrap">
-                                        <ul>
-                                            <c:choose>
-                                                <c:when test="${cpage.getPrePage() != 0}">
-                                                    <li class="pagination-wrap">
-                                                        <a href="/recipe/all?pageNo=${cpage.getPrePage()}"
-                                                           aria-label="Previous">
-                                                            <span>Prev</span>
-                                                        </a>
-                                                    </li>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <li class="pagination-wrap disabled">
-                                                        <a href="#" aria-label="Previous">
-                                                            <span>Prev</span>
-                                                        </a>
-                                                    </li>
-                                                </c:otherwise>
-                                            </c:choose>
-
-                                            <c:forEach begin="${cpage.getNavigateFirstPage() }"
-                                                       end="${cpage.getNavigateLastPage() }" var="page">
-                                                <c:choose>
-                                                    <c:when test="${cpage.getPageNum() == page}">
-                                                        <li class="pagination-wrap active">
-                                                            <a class="pagination-wrap active"
-                                                               href="/recipe/all?pageNo=${page}">${page}</a>
-                                                        </li>
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <li>
-                                                            <a href="/recipe/all?pageNo=${page}">${page}</a>
-                                                        </li>
-                                                    </c:otherwise>
-                                                </c:choose>
-                                            </c:forEach>
-
-                                            <c:choose>
-                                                <c:when test="${cpage.getNextPage() != 0}">
-                                                    <li class="pagination-wrap">
-                                                        <a href="/recipe/all?pageNo=${cpage.getNextPage()}"
-                                                           aria-label="Next">
-                                                            <span>Next</span>
-                                                        </a>
-                                                    </li>
-                                                </c:when>
-                                                <c:otherwise>
-                                                    <li class="pagination-wrap disabled">
-                                                        <a href="#" aria-label="Next">
-                                                            <span>Next</span>
-                                                        </a>
-                                                    </li>
-                                                </c:otherwise>
-                                            </c:choose>
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- pagination end -->
-
-
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-lg-4 col-md-6 col-sm-8">
-                        <div class="product__sidebar">
-                            <div class="product__sidebar__view">
-                                <div class="section-title">
-                                    <h5>Top Views</h5>
-                                </div>
-                                <ul class="filter__controls">
-                                    <li class="active" data-filter="*">Day</li>
-                                    <li data-filter=".week">Week</li>
-                                    <li data-filter=".month">Month</li>
-                                    <li data-filter=".years">Years</li>
-                                </ul>
-                                <div class="filter__gallery">
-                                    <div
-                                            class="product__sidebar__view__item set-bg mix day years"
-                                            data-setbg="/img/sidebar/tv-1.jpg"
-                                    >
-                                        <div class="ep">18 / ?</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                        <h5><a href="#">Boruto: Naruto next generations</a></h5>
-                                    </div>
-                                    <div
-                                            class="product__sidebar__view__item set-bg mix month week"
-                                            data-setbg="/img/sidebar/tv-2.jpg"
-                                    >
-                                        <div class="ep">18 / ?</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                        <h5>
-                                            <a href="#">The Seven Deadly Sins: Wrath of the Gods</a>
-                                        </h5>
-                                    </div>
-                                    <div
-                                            class="product__sidebar__view__item set-bg mix week years"
-                                            data-setbg="/img/sidebar/tv-3.jpg"
-                                    >
-                                        <div class="ep">18 / ?</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                        <h5>
-                                            <a href="#"
-                                            >Sword art online alicization war of underworld</a
-                                            >
-                                        </h5>
-                                    </div>
-                                    <div
-                                            class="product__sidebar__view__item set-bg mix years month"
-                                            data-setbg="/img/sidebar/tv-4.jpg"
-                                    >
-                                        <div class="ep">18 / ?</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                        <h5>
-                                            <a href="#"
-                                            >Fate/stay night: Heaven's Feel I. presage flower</a
-                                            >
-                                        </h5>
-                                    </div>
-                                    <div
-                                            class="product__sidebar__view__item set-bg mix day"
-                                            data-setbg="/img/sidebar/tv-5.jpg"
-                                    >
-                                        <div class="ep">18 / ?</div>
-                                        <div class="view"><i class="fa fa-eye"></i> 9141</div>
-                                        <h5>
-                                            <a href="#">Fate stay night unlimited blade works</a>
-                                        </h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="product__sidebar__comment">
-                                <div class="section-title">
-                                    <h5>New Comment</h5>
-                                </div>
-                                <div class="product__sidebar__comment__item">
-                                    <div class="product__sidebar__comment__item__pic">
-                                        <img src="/img/sidebar/comment-1.jpg" alt=""/>
-                                    </div>
-                                    <div class="product__sidebar__comment__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5>
-                                            <a href="#">The Seven Deadly Sins: Wrath of the Gods</a>
-                                        </h5>
-                                        <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-                                    </div>
-                                </div>
-                                <div class="product__sidebar__comment__item">
-                                    <div class="product__sidebar__comment__item__pic">
-                                        <img src="/img/sidebar/comment-2.jpg" alt=""/>
-                                    </div>
-                                    <div class="product__sidebar__comment__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Shirogane Tamashii hen Kouhan sen</a></h5>
-                                        <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-                                    </div>
-                                </div>
-                                <div class="product__sidebar__comment__item">
-                                    <div class="product__sidebar__comment__item__pic">
-                                        <img src="/img/sidebar/comment-3.jpg" alt=""/>
-                                    </div>
-                                    <div class="product__sidebar__comment__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Kizumonogatari III: Reiket su-hen</a></h5>
-                                        <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-                                    </div>
-                                </div>
-                                <div class="product__sidebar__comment__item">
-                                    <div class="product__sidebar__comment__item__pic">
-                                        <img src="/img/sidebar/comment-4.jpg" alt=""/>
-                                    </div>
-                                    <div class="product__sidebar__comment__item__text">
-                                        <ul>
-                                            <li>Active</li>
-                                            <li>Movie</li>
-                                        </ul>
-                                        <h5><a href="#">Monogatari Series: Second Season</a></h5>
-                                        <span><i class="fa fa-eye"></i> 19.141 Viewes</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <h3><a href="/recipe/detail?recipepin=${obj.recipepin}">${obj.recipetitle}</a></h3>
+                        <h5 style="margin-bottom: 10px">${obj.cooking}</h5>
+                        <h5 style="color: black; font-size: 15px; margin-bottom: 10px">${obj.type}
+                            / ${obj.situation}</h5>
+                        <h5 style="color: black; font-weight: bold; font-size: 15px; margin-bottom: 10px">${obj.time}분
+                            / ${obj.recipelevel}</h5>
+                        <a href="#" class="cart-btn" data-toggle="modal" data-target="#target">
+                            <span class="icon_check_alt2"></span> 클래스 신청</a>
                     </div>
                 </div>
+            </c:forEach>
+        </div>
+        <!-- cooking class list end -->
+        <!-- pagination start -->
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <div class="pagination-wrap">
+                    <ul>
+                        <c:choose>
+                            <c:when test="${rlist.getPrePage() != 0}">
+                                <li class="pagination-wrap">
+                                    <a class="pagination-wrap"
+                                       href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}"
+                                       aria-label="Previous">
+                                        <span>Prev</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="pagination-wrap disabled">
+                                    <a class="pagination-wrap" href="#" aria-label="Previous">
+                                        <span>Prev</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                        <c:forEach begin="${rlist.getNavigateFirstPage() }" end="${rlist.getNavigateLastPage() }"
+                                   var="page">
+                            <c:choose>
+                                <c:when test="${rlist.getPageNum() == page}">
+                                    <li class="pagination-wrap active">
+                                        <a class="pagination-wrap active" style="color:#FFFFFF;"
+                                           href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}">${page }</a>
+                                    </li>
+                                </c:when>
+                                <c:otherwise>
+                                    <li>
+                                        <a class="pagination-wrap"
+                                           href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}">${page }</a>
+                                    </li>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:forEach>
+                        <c:choose>
+                            <c:when test="${rlist.getNextPage() != 0}">
+                                <li class="pagination-wrap">
+                                    <a class="pagination-wrap"
+                                       href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}"
+                                       aria-label="Next">
+                                        <span>Next</span>
+                                    </a>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li class="pagination-wrap disabled">
+                                    <a class="pagination-wrap" href="#" aria-label="Next">
+                                        <span>Next</span>
+                                    </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
+                    </ul>
+
+                </div>
             </div>
-        </section>
+            <!-- pagination end -->
+        </div>
     </div>
 </div>
-
+<!-- cooking class end -->
 </body>

@@ -11,13 +11,13 @@
         <!-- Normal Breadcrumb Begin -->
         <a href="/apply/profilemodify">
             <c:choose>
-                <c:when test="${logincust.profileimgname == null || logincust.profileimgname ==''}">
+                <c:when test="${mypagecust.profileimgname == null || mypagecust.profileimgname ==''}">
                     <section class="normal-breadcrumb set-bg" data-setbg="/img/basic_profile.png"
                              style="width: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover">
                     </section>
                 </c:when>
                 <c:otherwise>
-                    <section class="normal-breadcrumb set-bg" data-setbg="/uimg/${logincust.profileimgname}"
+                    <section class="normal-breadcrumb set-bg" data-setbg="/uimg/${mypagecust.profileimgname}"
                              style="width: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover">
                     </section>
                 </c:otherwise>

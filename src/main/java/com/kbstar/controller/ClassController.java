@@ -3,8 +3,10 @@ package com.kbstar.controller;
 import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.ClassBasic;
 import com.kbstar.dto.ClassComment;
+import com.kbstar.dto.Cust;
 import com.kbstar.service.ClassCommentService;
 import com.kbstar.service.ClassService;
+import com.kbstar.service.CustService;
 import com.kbstar.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,8 @@ public class ClassController {
     ClassService classService;
     @Autowired
     ClassCommentService commentService;
+    @Autowired
+    CustService custService;
 
 
     @RequestMapping("/class")
@@ -159,9 +163,11 @@ public class ClassController {
         ClassBasic classBasic = null;
         List<ClassComment> comment = null;
         classBasic = classService.get(classpin);
+        Cust classcust = custService.get(classBasic.getCustid());
         comment = commentService.getClassAllComment(classpin);
         model.addAttribute("classdetail", classBasic);
         model.addAttribute("classComment", comment);
+        model.addAttribute("classcust", classcust);
         model.addAttribute("center", dir + "detail");
         return "index";
     }
