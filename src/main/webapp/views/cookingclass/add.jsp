@@ -4,7 +4,8 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=186d9ac6e73cf3e121e11e749901f230"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-
+<script src="jquery.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#biz_image").on('change', function () {
@@ -14,71 +15,46 @@
     });
 
 
-    function setThumbnail(event) {
-        var reader = new FileReader();
-
-        reader.onload = function (event) {
-            var img = document.createElement("img");
-            img.setAttribute("src", event.target.result);
-            img.setAttribute("class", "image_container");
-            document.querySelector("div#image_container").appendChild(img);
-        };
-
-        reader.readAsDataURL(event.target.files[0]);
-    }
     // function setThumbnail(event) {
     //     var reader = new FileReader();
     //
     //     reader.onload = function (event) {
-    //         var thumbnail = document.createElement("img");
-    //         thumbnail.setAttribute("src", event.target.result);
-    //         thumbnail.setAttribute("class", "thumbnail");
-    //
-    //         var imageContainer = document.getElementById("image_container");
-    //         imageContainer.innerHTML = ""; // 이미지를 추가하기 전에 내용을 초기화합니다.
-    //         imageContainer.appendChild(thumbnail);
+    //         var img = document.createElement("img");
+    //         img.setAttribute("src", event.target.result);
+    //         img.setAttribute("class", "image_container");
+    //         document.querySelector("div#image_container").appendChild(img);
     //     };
-    //
     //     reader.readAsDataURL(event.target.files[0]);
     // }
-    //
-    // function displayResult(result) {
-    //     var resultContainer = document.getElementById("result_container");
-    //     resultContainer.innerHTML = "";
-    //
-    //     for (var key in result) {
-    //         var value = result[key];
-    //         var paragraph = document.createElement("p");
-    //         paragraph.textContent = key + ": " + value;
-    //         resultContainer.appendChild(paragraph);
-    //     }
-    // }
-    //
-    // document.getElementById("ocr_form").addEventListener("submit", function (event) {
-    //     event.preventDefault();
-    //
-    //     var form = event.target;
-    //     var formData = new FormData(form);
-    //
-    //     fetch(form.action, {
-    //         method: "POST",
-    //         body: formData,
-    //     })
-    //         .then(function (response) {
-    //             return response.json();
-    //         })
-    //         .then(function (result) {
-    //             displayResult(result);
-    //         })
-    //         .catch(function (error) {
-    //             console.error("Error:", error);
-    //         });
-    // });
 
+    // 이미지 파일 선택 시 썸네일 출력
+    function setThumbnail(event) {
+        var reader = new FileReader();
+        reader.onload = function(event) {
+            var thumbnail = document.getElementById("thumbnail");
+            thumbnail.setAttribute("src", event.target.result);
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
 
+    // OCR 요청 처리
+    function performOCR() {
+        var fileInput = document.getElementById("bizimg");
+        var file = fileInput.files[0];
 
+        var formData = new FormData();
+        formData.append("bizimg", file);
 
-
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "/ocrimpl", true);
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var resultContainer = document.getElementById("result_container");
+                resultContainer.innerText = xhr.responseText;
+            }
+        };
+        xhr.send(formData);
+    }
 
     let classregister_form = {
         init: function () {
@@ -179,7 +155,6 @@
             <div class="col-lg-9">
                 <div class="single-article-section">
                     <div class="login__form">
-
                         <div class="class-step">
                             <div class="section-title">
                                 <h5>STEP 01. 호스트 인증</h5>
@@ -361,7 +336,11 @@
 <%--            </div>--%>
 <%--            <!-- side section end -->--%>
         </div>
-
+        <div class="anime__details__btn" style="display: flex; justify-content: flex-end">
+            <button type="button" id="register_btn" class="follow-btn" style="border: unset;">
+                Register
+            </button>
+        </div>
     </div>
 <%--</div>--%>
 </section>
