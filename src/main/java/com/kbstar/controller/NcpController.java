@@ -1,6 +1,5 @@
 package com.kbstar.controller;
 
-import com.kbstar.dto.ClassBasic;
 import com.kbstar.dto.Ncp;
 import com.kbstar.util.FileUploadUtil;
 import com.kbstar.util.OCRUtil;
@@ -23,19 +22,20 @@ public class NcpController {
 
     @RequestMapping("/ocrimpl")
     public String ocrimpl(Model model, HttpSession session, Ncp ncp) throws ParseException {
-        ClassBasic classBasic = null;
-
+        System.out.println("getimg-------------------------------");
+        System.out.println(ncp.getBizimg());
         // img 저장
-        FileUploadUtil.saveOcrFile(ncp.getImg(), imgpath);
+        FileUploadUtil.saveOcrFile(ncp.getBizimg(), imgpath);
         // NCP 에 요청
-        String imgname = ncp.getImg().getOriginalFilename();
+        String imgname = ncp.getBizimg().getOriginalFilename();
         JSONObject result = (JSONObject) OCRUtil.getResult(imgpath, imgname);
         Map map = OCRUtil.getData(result);
         log.info(map.values().toString());
 
         model.addAttribute("result", map);
-        model.addAttribute("center", "ocr");
-        return "redirect:/cookingclass/detail";
+        return "/cookingclass/add";
     }
 }
+
+
 

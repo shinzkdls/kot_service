@@ -13,6 +13,7 @@
         });
     });
 
+
     function setThumbnail(event) {
         var reader = new FileReader();
 
@@ -25,6 +26,59 @@
 
         reader.readAsDataURL(event.target.files[0]);
     }
+    // function setThumbnail(event) {
+    //     var reader = new FileReader();
+    //
+    //     reader.onload = function (event) {
+    //         var thumbnail = document.createElement("img");
+    //         thumbnail.setAttribute("src", event.target.result);
+    //         thumbnail.setAttribute("class", "thumbnail");
+    //
+    //         var imageContainer = document.getElementById("image_container");
+    //         imageContainer.innerHTML = ""; // 이미지를 추가하기 전에 내용을 초기화합니다.
+    //         imageContainer.appendChild(thumbnail);
+    //     };
+    //
+    //     reader.readAsDataURL(event.target.files[0]);
+    // }
+    //
+    // function displayResult(result) {
+    //     var resultContainer = document.getElementById("result_container");
+    //     resultContainer.innerHTML = "";
+    //
+    //     for (var key in result) {
+    //         var value = result[key];
+    //         var paragraph = document.createElement("p");
+    //         paragraph.textContent = key + ": " + value;
+    //         resultContainer.appendChild(paragraph);
+    //     }
+    // }
+    //
+    // document.getElementById("ocr_form").addEventListener("submit", function (event) {
+    //     event.preventDefault();
+    //
+    //     var form = event.target;
+    //     var formData = new FormData(form);
+    //
+    //     fetch(form.action, {
+    //         method: "POST",
+    //         body: formData,
+    //     })
+    //         .then(function (response) {
+    //             return response.json();
+    //         })
+    //         .then(function (result) {
+    //             displayResult(result);
+    //         })
+    //         .catch(function (error) {
+    //             console.error("Error:", error);
+    //         });
+    // });
+
+
+
+
+
 
     let classregister_form = {
         init: function () {
@@ -75,6 +129,7 @@
         }).open();
     }
 
+
     $(function () {
         classregister_form.init();
     });
@@ -102,13 +157,52 @@
     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
 </head>
 <body>
-<!-- class register section -->
-<div class="mt-50 mb-150">
+<!-- Normal Breadcrumb Begin -->
+<section class="normal-breadcrumb set-bg" data-setbg="/uimg/classmain.jpg">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-lg-12 text-center">
+                <div class="normal__breadcrumb__text">
+                    <h2>COOKING CLASS</h2>
+                    <p>Welcome to the cookingclass</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Normal Breadcrumb End -->
+<!-- class register section -->
+<section class="anime-details spad">
+<%--<div class="mt-50 mb-150">--%>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
                 <div class="single-article-section">
                     <div class="login__form">
+
+                        <div class="class-step">
+                            <div class="section-title">
+                                <h5>STEP 01. 호스트 인증</h5>
+                            </div>
+                            <form action="/ocrimpl" method="post" enctype="multipart/form-data" id="ocr_form"
+                                  class="well"
+                                  style="margin-top: 30px">
+                                <p><span class="highlight">사업자 등록증으로 호스트님을 인증해주세요</span></p>
+                                <div class="filebox" style="align-items: center;">
+                                    <input class="upload-name" aria-label="Search"
+                                           value="사업자등록증을 등록해주세요"
+                                           placeholder="사업자등록증을 등록해주세요">
+                                    <label for="bizimg">파일 찾기</label>
+                                    <input type="file" name="bizimg"
+                                           id="bizimg" onchange="setThumbnail(event);">
+                                </div>
+                                    <div id="image_container" class="image_container"></div>
+                                    <div id="result_container"></div>
+                                <button id="ocr_btn" class="btn" type="submit"
+                                        style="background-color: #F28123; color: #fff; ">인증
+                                </button>
+                            </form>
+                        </div>
                         <form id="classregister_form">
                             <input type="hidden" name="custpin" id="custpin" value="${logincust.custpin}">
                             <input type="hidden" name="custid" id="custid" value="${logincust.custid}">
@@ -116,55 +210,28 @@
 
                             <div class="class-step">
                                 <div class="section-title">
-                                    <h5>STEP 01. 호스트 인증</h5>
-                                </div>
-                                <h2>${result.biz_num}</h2>
-                                <h2>${result.biz_name}</h2>
-                                <h2>${result.owner_name}</h2>
-                                <h2>${result.bizdate}</h2>
-                                <%--                                <form action="/ocrimpl" method="post" enctype="multipart/form-data" id="ocr_form"--%>
-                                <%--                                      class="well"--%>
-                                <%--                                      style="margin-top: 30px">--%>
-                                <%--                                    <p><span class="highlight">사업자 등록증으로 호스트님을 인증해주세요</span></p>--%>
-                                <%--                                    <div class="filebox" style="align-items: center;">--%>
-                                <%--                                        <input class="upload-name" aria-label="Search"--%>
-                                <%--                                               value="사업자등록증을 등록해주세요"--%>
-                                <%--                                               placeholder="사업자등록증을 등록해주세요">--%>
-                                <%--                                        <label for="biz_image">파일 찾기</label>--%>
-                                <%--                                        <input type="file" name="biz_image"--%>
-                                <%--                                               id="biz_image" onchange="setThumbnail(event);">--%>
-                                <%--                                        <div id="image_container" class="image_container"></div>--%>
-                                <%--                                    </div>--%>
-
-                                <%--                                    <button id="ocr_btn" class="btn" type="button"--%>
-                                <%--                                            style="background-color: #F28123; color: #fff; ">인증--%>
-                                <%--                                    </button>--%>
-                                <%--                                </form>--%>
-                            </div>
-                            <div class="class-step">
-                                <div class="section-title">
                                     <h5>STEP 02. 클래스 유형</h5>
                                     <div class="form-group" style="margin-top: 30px;">
                                         <div class="form-check-category">
                                             <fieldset>
                                                 <label>
-                                                    <input type="radio" id="type1" name="type" value="korean" checked/>&nbsp
+                                                    <input type="radio" id="type1" name="type" value="한식" checked/>&nbsp
                                                     <span>한식</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" id="type2" name="type" value="western"/>&nbsp
+                                                    <input type="radio" id="type2" name="type" value="양식"/>&nbsp
                                                     <span>양식</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" id="type3" name="type" value="chinese"/>&nbsp
+                                                    <input type="radio" id="type3" name="type" value="중식"/>&nbsp
                                                     <span>중식</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" id="type4" name="type" value="japanese"/>&nbsp
+                                                    <input type="radio" id="type4" name="type" value="일식"/>&nbsp
                                                     <span>일식</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" id="type5" name="type" value="etc"/>&nbsp
+                                                    <input type="radio" id="type5" name="type" value="기타"/>&nbsp
                                                     <span>기타</span>
                                                 </label>
                                             </fieldset>
@@ -267,34 +334,36 @@
                     </div>
                 </div>
             </div>
-            <!-- side section start -->
-            <div class="col-lg-4">
-                <div class="sidebar-section">
-                    <div class="archive-posts">
-                        <h4>STEP 01. 호스트 인증</h4>
-                        <h4>STEP 02. 클래스 유형</h4>
-                        <h4>STEP 03. 클래스 소개</h4>
-                        <ul>
-                            <li>클래스명</li>
-                            <li>클래스 이미지</li>
-                            <li>관련 정보</li>
-                            <li>위치 정보</li>
-                        </ul>
-                        <h4>STEP 04. 금액 및 일정</h4>
-                        <ul>
-                            <li>금액</li>
-                            <li>일정</li>
-                        </ul>
-                    </div>
+<%--            <!-- side section start -->--%>
+<%--            <div class="col-lg-4">--%>
+<%--                <div class="sidebar-section">--%>
+<%--                    <div class="archive-posts">--%>
+<%--                        <h4>STEP 01. 호스트 인증</h4>--%>
+<%--                        <h4>STEP 02. 클래스 유형</h4>--%>
+<%--                        <h4>STEP 03. 클래스 소개</h4>--%>
+<%--                        <ul>--%>
+<%--                            <li>클래스명</li>--%>
+<%--                            <li>클래스 이미지</li>--%>
+<%--                            <li>관련 정보</li>--%>
+<%--                            <li>위치 정보</li>--%>
+<%--                        </ul>--%>
+<%--                        <h4>STEP 04. 금액 및 일정</h4>--%>
+<%--                        <ul>--%>
+<%--                            <li>금액</li>--%>
+<%--                            <li>일정</li>--%>
+<%--                        </ul>--%>
+<%--                    </div>--%>
 
-                    <div class="single-product-form">
-                        <a class="cart-btn" type="button" id="register_btn"> 클래스 등록</a>
-                    </div>
-                </div>
-            </div>
-            <!-- side section end -->
+<%--                    <div class="single-product-form">--%>
+<%--                        <a class="cart-btn" type="button" id="register_btn"> 클래스 등록</a>--%>
+<%--                    </div>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--            <!-- side section end -->--%>
         </div>
+
     </div>
-</div>
+<%--</div>--%>
+</section>
 <!-- end class register section -->
 </body>

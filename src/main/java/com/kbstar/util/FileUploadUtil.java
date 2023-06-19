@@ -18,11 +18,11 @@ public class FileUploadUtil {
         }
     }
 
-    public static void saveOcrFile(MultipartFile omf, String dir) {
+    public static void saveOcrFile(MultipartFile mf, String dir) {
         byte[] data;
-        String imgname = omf.getOriginalFilename();
+        String imgname = mf.getOriginalFilename();
         try {
-            data = omf.getBytes();
+            data = mf.getBytes();
             FileOutputStream fo =
                     new FileOutputStream(dir + imgname);
             fo.write(data);

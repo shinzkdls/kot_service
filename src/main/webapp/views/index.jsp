@@ -162,7 +162,11 @@
                     <ul>
                         <li class="active"><a href="/">Homepage</a></li>
                         <li><a href="/recipe/all">Recipe</a></li>
+                        <<<<<<< HEAD
                         <li><a href="/class?location=&type=&sort=">Class</a></li>
+                        =======
+                        <li><a href="/class">Class</a></li>
+                        >>>>>>> 2eda8b29de8cafc28283fbbdb41859aab64b5c4e
                         <li><a href="/contacts">Contacts</a></li>
                     </ul>
                 </div>
