@@ -30,8 +30,7 @@ public class NcpController {
         String imgname = ncp.getBizimg().getOriginalFilename();
         JSONObject result = (JSONObject) OCRUtil.getResult(imgpath, imgname);
         Map map = OCRUtil.getData(result);
-        log.info(map.values().toString());
-
+        //log.info(map.values().toString());
         model.addAttribute("result", map);
         return "/cookingclass/add";
     }
