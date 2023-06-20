@@ -88,7 +88,7 @@
                     <div class="product-filters">
                         <!-- 지역별 검색 -->
                         <ul id="ingredients1_li" name="ingredients1_li">
-                            <li class="${recipesortinfo.ingredients1 == null || ingredients1 eq '' ? 'active' : ''}"
+                            <li class="${recipesortinfo.ingredients1 == null || recipesortinfo.ingredients1 eq '' ? 'active' : ''}"
                                 data-filter="">
                                 재료별
                             </li>
@@ -108,7 +108,8 @@
                         </ul>
                         <!-- 종류별 검색 -->
                         <ul id="type_li" name="type_li">
-                            <li class="${recipesortinfo.type == null || type eq ''? 'active' : ''}" data-filter="">종류별
+                            <li class="${recipesortinfo.type == null || recipesortinfo.type eq ''? 'active' : ''}"
+                                data-filter="">종류별
                             </li>
                             <li class="${recipesortinfo.type eq '한식' ? 'active' : ''}" data-filter="한식">한식</li>
                             <li class="${recipesortinfo.type eq '양식' ? 'active' : ''}" data-filter="양식">양식</li>
@@ -119,7 +120,7 @@
                             <li class="${recipesortinfo.type eq '기타' ? 'active' : ''}" data-filter="기타">기타</li>
                         </ul>
                     </div>
-                    <div style="display: flex">
+                    <div style="display: flex; margin-bottom: 28px">
                         <input class="form-control me-2" type="text" placeholder="Search by recipe name"
                                aria-label="Search"
                                name="recipetitle" id="recipetitle" value="${recipesortinfo.recipetitle}"
@@ -153,7 +154,7 @@
                         <h5 style="color: black; font-weight: bold; font-size: 15px; margin-bottom: 10px">${obj.time}분
                             / ${obj.recipelevel}</h5>
                         <a href="#" class="cart-btn" data-toggle="modal" data-target="#target">
-                            <span class="icon_check_alt2"></span> 클래스 신청</a>
+                            <span class="icon_heart_alt"></span> 좋아요</a>
                     </div>
                 </div>
             </c:forEach>
