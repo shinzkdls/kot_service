@@ -15,9 +15,10 @@
             <div class="hero__items set-bg" data-setbg="/uimg/${recipeBasic.thumbnailimg}">
                 <div class="row">
                     <div class="col-lg-6">
-                        <h2>${weather.rain}</h2>
-                            ${weather.desc}
-
+                        <p><span>강수량</span> ${weather.rain}</p>
+                        <p>${weather.desc}</p>
+                        <p><span class="lowest">${weather.lowest}</span></p>
+                        <p><span class="highest">${weather.highest}</span></p>
                     </div>
                 </div>
                 <div class="row">
