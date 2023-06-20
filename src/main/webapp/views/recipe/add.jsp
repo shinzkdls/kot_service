@@ -13,50 +13,16 @@
             $('#register_btn').click(function () {
                 reciperegister_form.send();
             });
-
-            $('input').keyup(function () {
-                var type = $('#type').val();
-                var classtitle = $('#classtitle').val();
-                var thumbnailimg = $('#thumbnailimg').val();
-                var cooking = $('#cooking').val();
-                var personal = $('#personal').val();
-                var classtime = $('#classtime').val();
-                var location = $('#location').val();
-                var address = $('#address').val();
-                var classdesc = $('#classdesc').val();
-                var amount = $('#amount').val();
-                console.log($('#classdate').val());
-                if (type != '' && classtitle != '' && thumbnailimg != ''
-                    && cooking != '' && personal != '' && classtime != ''
-                    && location != '' && address != '' && classdesc != ''
-                    && amount != '') {
-                    $('#register_btn').removeClass('disabled');
-                }
-            });
         },
         send: function () {
             $('#reciperegister_form').attr({
                 method: 'post',
-                action: '/cookingclass/addImpl',
+                action: '/recipe/addImpl',
                 enctype: 'multipart/form-data'
             });
             $('#reciperegister_form').submit();
         }
     };
-
-    function sample4_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function (data) {
-                var roadAddr = data.roadAddress; // 도로명 주소 변수
-
-                // 우편번호와 주소 정보를 해당 필드에 넣는다.
-                document.getElementById('zipcode').value = data.zonecode;
-                document.getElementById("address1").value = roadAddr;
-            }
-        }).open();
-    }
-
-
     $(function () {
         reciperegister_form.init();
     });
@@ -118,6 +84,7 @@
                                         <p><span class="highlight">레시피 종류를 입력해주세요</span></p>
                                         <label for="type">레시피 종류 : </label>
                                         <select class="form-control" id="type" name="type">
+                                            <option value="">종류</option>
                                             <option name="type" value="한식">한식</option>
                                             <option name="type" value="양식">양식</option>
                                             <option name="type" value="중식">중식</option>
@@ -143,43 +110,58 @@
                                 </div>
                                 <div class="recipe__form" style="padding-left: 0">
                                     <div class="form-group">
-                                        <p><span class="highlight">대표 재료를 선택해주세요</span></p>
+                                        <p><span class="highlight">대표 재료 3가지를 선택해주세요</span></p>
                                         <label for="ingredients1">대표 재료 1 : </label>
                                         <select class="form-control" id="ingredients1" name="ingredients1">
+                                            <option value="">대표 재료</option>
                                             <option name="ingredients1" value="소고기">소고기</option>
                                             <option name="ingredients1" value="돼지고기">돼지고기</option>
                                             <option name="ingredients1" value="닭고기">닭고기</option>
+                                            <option name="ingredients1" value="육류">육류</option>
+                                            <option name="ingredients1" value="채소류">채소류</option>
                                             <option name="ingredients1" value="생선">생선</option>
                                             <option name="ingredients1" value="오징어">오징어</option>
-                                            <option name="ingredients1" value="면">면</option>
-                                            <option name="ingredients1" value="떡">떡</option>
-                                            <option name="ingredients1" value="김치">김치</option>
+                                            <option name="ingredients1" value="해물류">해물류</option>
+                                            <option name="ingredients1" value="달걀">달걀</option>
+                                            <option name="ingredients1" value="쌀">쌀</option>
+                                            <option name="ingredients1" value="밀가루">밀가루</option>
+                                            <option name="ingredients1" value="기타">기타</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="ingredients2">대표 재료 2 : </label>
                                         <select class="form-control" id="ingredients2" name="ingredients2">
-                                            <option name="ingredients2" value="소고기">소고기</option>
-                                            <option name="ingredients2" value="돼지고기">돼지고기</option>
-                                            <option name="ingredients2" value="닭고기">닭고기</option>
-                                            <option name="ingredients2" value="생선">생선</option>
-                                            <option name="ingredients2" value="오징어">오징어</option>
-                                            <option name="ingredients2" value="면">면</option>
-                                            <option name="ingredients2" value="떡">떡</option>
-                                            <option name="ingredients2" value="김치">김치</option>
+                                            <option value="">대표 재료</option>
+                                            <option name="ingredients1" value="소고기">소고기</option>
+                                            <option name="ingredients1" value="돼지고기">돼지고기</option>
+                                            <option name="ingredients1" value="닭고기">닭고기</option>
+                                            <option name="ingredients1" value="육류">육류</option>
+                                            <option name="ingredients1" value="채소류">채소류</option>
+                                            <option name="ingredients1" value="생선">생선</option>
+                                            <option name="ingredients1" value="오징어">오징어</option>
+                                            <option name="ingredients1" value="해물류">해물류</option>
+                                            <option name="ingredients1" value="달걀">달걀</option>
+                                            <option name="ingredients1" value="쌀">쌀</option>
+                                            <option name="ingredients1" value="밀가루">밀가루</option>
+                                            <option name="ingredients1" value="기타">기타</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="ingredients3">대표 재료 3 : </label>
                                         <select class="form-control" id="ingredients3" name="ingredients3">
-                                            <option name="ingredients3" value="소고기">소고기</option>
-                                            <option name="ingredients3" value="돼지고기">돼지고기</option>
-                                            <option name="ingredients3" value="닭고기">닭고기</option>
-                                            <option name="ingredients3" value="생선">생선</option>
-                                            <option name="ingredients3" value="오징어">오징어</option>
-                                            <option name="ingredients3" value="면">면</option>
-                                            <option name="ingredients3" value="떡">떡</option>
-                                            <option name="ingredients3" value="김치">김치</option>
+                                            <option value="">대표 재료</option>
+                                            <option name="ingredients1" value="소고기">소고기</option>
+                                            <option name="ingredients1" value="돼지고기">돼지고기</option>
+                                            <option name="ingredients1" value="닭고기">닭고기</option>
+                                            <option name="ingredients1" value="육류">육류</option>
+                                            <option name="ingredients1" value="채소류">채소류</option>
+                                            <option name="ingredients1" value="생선">생선</option>
+                                            <option name="ingredients1" value="오징어">오징어</option>
+                                            <option name="ingredients1" value="해물류">해물류</option>
+                                            <option name="ingredients1" value="달걀">달걀</option>
+                                            <option name="ingredients1" value="쌀">쌀</option>
+                                            <option name="ingredients1" value="밀가루">밀가루</option>
+                                            <option name="ingredients1" value="기타">기타</option>
                                         </select>
                                     </div>
                                 </div>
@@ -246,7 +228,7 @@
                                 <div class="section-title">
                                     <h5>STEP 05. 레시피 상세 재료</h5>
                                 </div>
-                                <div class="class__form" style="padding-left: 0">
+                                <div class="recipe__form" style="padding-left: 0">
                                     <div class="form-group">
                                         <p><span class="highlight">레시피 상세 재료 및 수량 입력해주세요</span></p>
                                         <input type="hidden" name="ingredientnumber1" id="ingredientnumber1" value=1>
@@ -254,36 +236,76 @@
                                         <input type="hidden" name="ingredientnumber3" id="ingredientnumber3" value=3>
                                         <input type="hidden" name="ingredientnumber4" id="ingredientnumber4" value=4>
                                         <input type="hidden" name="ingredientnumber5" id="ingredientnumber5" value=5>
-                                        <label for="name1">재료 1 : </label>
-                                        <input type="text" class="form-control" id="name1"
-                                               placeholder="예) 돼지고기" name="name1">
-                                        <label for="quantity1">계량 정보 : </label>
-                                        <input type="text" class="form-control" id="quantity1"
-                                               placeholder="예) 300g" name="quantity1">
-                                        <label for="name2">재료 2 : </label>
-                                        <input type="text" class="form-control" id="name2"
-                                               placeholder="예) 양파" name="name2">
-                                        <label for="quantity2">계량 정보 : </label>
-                                        <input type="text" class="form-control" id="quantity2"
-                                               placeholder="예) 1/2개" name="quantity2">
-                                        <label for="name3">재료 3 : </label>
-                                        <input type="text" class="form-control" id="name3"
-                                               placeholder="예) 식용유" name="name3">
-                                        <label for="quantity3">계량 정보 : </label>
-                                        <input type="text" class="form-control" id="quantity3"
-                                               placeholder="예) 2T" name="quantity3">
-                                        <label for="name4">재료 4 : </label>
-                                        <input type="text" class="form-control" id="name4"
-                                               placeholder="예) 소금" name="name4">
-                                        <label for="quantity4">계량 정보 : </label>
-                                        <input type="text" class="form-control" id="quantity4"
-                                               placeholder="예) 2t" name="quantity4">
-                                        <label for="name5">재료 5 : </label>
-                                        <input type="text" class="form-control" id="name5"
-                                               placeholder="예) 고추가루" name="name5">
-                                        <label for="quantity5">계량 정보 : </label>
-                                        <input type="text" class="form-control" id="quantity5"
-                                               placeholder="예) 1T" name="quantity5">
+                                        <div id="myDiv1" class="mydiv">
+                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 80%;">
+                                                    <label for="name1">재료 1 : </label>
+                                                    <input type="text" class="form-control" id="name1"
+                                                           placeholder="예) 돼지고기" name="name1">
+                                                </div>
+                                                <div style="width: 80%;">
+                                                    <label for="quantity1">계량 정보 : </label>
+                                                    <input type="text" class="form-control" id="quantity1"
+                                                           placeholder="예) 300g" name="quantity1">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="myDiv2" class="mydiv" style="display: none;">
+                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 80%;">
+                                                    <label for="name2">재료 2 : </label>
+                                                    <input type="text" class="form-control" id="name2"
+                                                           placeholder="예) 양파" name="name2">
+                                                </div>
+                                                <div style="width: 80%;">
+                                                    <label for="quantity2">계량 정보 : </label>
+                                                    <input type="text" class="form-control" id="quantity2"
+                                                           placeholder="예) 1/2개" name="quantity2">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="myDiv3" class="mydiv" style="display: none;">
+                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 80%;">
+                                                    <label for="name3">재료 3 : </label>
+                                                    <input type="text" class="form-control" id="name3"
+                                                           placeholder="예) 식용유" name="name3">
+                                                </div>
+                                                <div style="width: 80%;">
+                                                    <label for="quantity3">계량 정보 : </label>
+                                                    <input type="text" class="form-control" id="quantity3"
+                                                           placeholder="예) 2T" name="quantity3">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="myDiv4" class="mydiv" style="display: none;">
+                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 80%;">
+                                                    <label for="name4">재료 4 : </label>
+                                                    <input type="text" class="form-control" id="name4"
+                                                           placeholder="예) 소금" name="name4">
+                                                </div>
+                                                <div style="width: 80%;">
+                                                    <label for="quantity4">계량 정보 : </label>
+                                                    <input type="text" class="form-control" id="quantity4"
+                                                           placeholder="예) 2t" name="quantity4">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="myDiv5" class="mydiv" style="display: none;">
+                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 80%;">
+                                                    <label for="name5">재료 5 : </label>
+                                                    <input type="text" class="form-control" id="name5"
+                                                           placeholder="예) 고추가루" name="name5">
+                                                </div>
+                                                <div style="width: 80%;">
+                                                    <label for="quantity5">계량 정보 : </label>
+                                                    <input type="text" class="form-control" id="quantity5"
+                                                           placeholder="예) 1T" name="quantity5">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -299,6 +321,22 @@
                                         <input type="hidden" name="step3" id="step3" value=3>
                                         <input type="hidden" name="step4" id="step4" value=4>
                                         <input type="hidden" name="step5" id="step5" value=5>
+                                        <div id="rstep1" class="rstep">
+                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
+                                                <div>
+                                                    <input type="hidden" class="form-control" id="stepimg" name="stepimg">
+                                                    <label for="stepimg">이미지 : </label>
+                                                    <input type="file" class="form-control" id="simg"
+                                                           placeholder="Input Image"
+                                                           name="simg">
+                                                </div>
+                                                <div style="width: 80%;">
+                                                    <label for="stepdesc1">STEP 01 : </label>
+                                                    <input type="text" class="form-control" id="stepdesc1"
+                                                           placeholder="예) 300g" name="stepdesc1">
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

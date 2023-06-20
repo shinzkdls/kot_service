@@ -28,4 +28,6 @@ public class RecipeBasic {
     private String recipetitle;
     private String recipedesc;
     private Date recipedate;
+    private int logincustpin;
+    private String logincustlike;
 }
