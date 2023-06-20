@@ -37,19 +37,23 @@
     </delete>
 
     <select id="getpage" parameterType="RecipeBasic" resultType="RecipeBasic">
-        SELECT *
-        FROM Recipe_Basic
+        SELECT R.*,
+        NVL2(G.custpin,'1','0') as logincustlike
+        FROM Recipe_Basic R
+        LEFT OUTER JOIN GoodList G
+        ON R.recipepin = G.recipepin
+        AND G.custpin = #{logincustpin}
         WHERE 1=1
         <if test="ingredients1 != ''">
-            AND ingredients1 LIKE '%' || #{ingredients1} || '%'
+            AND R.ingredients1 LIKE '%' || #{ingredients1} || '%'
         </if>
         <if test="type != ''">
-            AND type LIKE '%' || #{type} || '%'
+            AND R.type LIKE '%' || #{type} || '%'
         </if>
         <if test="recipetitle != ''">
-            AND recipetitle LIKE '%' || #{recipetitle} || '%'
+            AND R.recipetitle LIKE '%' || #{recipetitle} || '%'
         </if>
-        ORDER BY recipepin DESC
+        ORDER BY R.recipepin DESC
     </select>
 
     <select id="getsearch" parameterType="String" resultType="recipebasic">
@@ -110,6 +114,14 @@
         SELECT *
         FROM recipe_basic
         WHERE custid = #{custid}
+    </select>
+
+    <select id="getMyLikeRecipe" parameterType="Integer" resultType="recipebasic">
+        SELECT R.*
+        FROM recipe_basic R
+                 INNER JOIN goodlist G
+                            ON R.recipepin = G.recipepin
+        WHERE G.custpin = #{custpin}
     </select>
 
 </mapper>

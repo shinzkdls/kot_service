@@ -33,13 +33,18 @@ public class RecipeController {
     GoodlistService goodlistService;
     @Autowired
     SubscribeService subscribeService;
+    @Autowired
+    CustService custService;
     String dir = "recipe/";
     @Value("${uploadimgdir}")
     String imgdir;
 
     @RequestMapping("/all")
-    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, RecipeBasic recipeBasic) {
+    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, RecipeBasic recipeBasic, HttpSession session) {
         PageInfo<RecipeBasic> p;
+        Cust cust = (Cust) session.getAttribute("logincust");
+        if (cust != null)
+            recipeBasic.setLogincustpin(cust.getCustpin());
         try {
             p = new PageInfo<>(recipeService.getPage(pageNo, recipeBasic), 5);
         } catch (Exception e) {
@@ -60,10 +65,12 @@ public class RecipeController {
         List<RecipeComment> comment = null;
 
         recipe = recipeService.get(recipepin);
+        Cust cust = custService.get(recipe.getCustid());
         ingredient = ingredientService.getRecipeAllIngredient(recipepin);
         step = recipeStepService.getRecipeAllStep(recipepin);
         comment = commentService.getRecipeAllComment(recipepin);
 
+        model.addAttribute("recipecust", cust);
         model.addAttribute("recipedetail", recipe);
         model.addAttribute("ingredientList", ingredient);
         model.addAttribute("recipeStep", step);
