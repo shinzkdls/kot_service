@@ -15,20 +15,9 @@
             <div class="hero__items set-bg" data-setbg="/uimg/${recipeBasic.thumbnailimg}">
                 <div class="row">
                     <div class="col-lg-6">
-                        <table>
-                            <tr>
-                                <th style="width: 200px">Date</th>
-                                <th style="width: 200px">Rain</th>
-                                <th style="width: 200px">Description</th>
-                            </tr>
-                            <c:forEach items="${weather.date}" var="date" varStatus="loop">
-                                <tr>
-                                    <td>${date}</td>
-                                    <td>${weather.rain[loop.index]}</td>
-                                    <td>${weather.desc[loop.index]}</td>
-                                </tr>
-                            </c:forEach>
-                        </table>
+                        <h2>${weather.rain}</h2>
+                            ${weather.desc}
+
                     </div>
                 </div>
                 <div class="row">

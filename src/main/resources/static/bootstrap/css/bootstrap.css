@@ -2568,9 +2568,14 @@ textarea.form-control {
     display: block;
     align-items: center;
     margin-bottom: 30px;
+    flex: 1;
 }
 
 .recipe__form .form-group > input {
+    margin-bottom: 20px;
+}
+
+.mydiv {
     margin-bottom: 20px;
 }
 /*recipe 등록 화면 end*/
