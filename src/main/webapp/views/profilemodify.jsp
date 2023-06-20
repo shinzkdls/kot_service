@@ -3,6 +3,75 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
+<!-- Camera Script Begin -->
+<script>
+    let pic = {
+        myVideoStream:null,
+        init:function(){
+            this.myVideoStream = document.querySelector('#myVideo');
+            $('#cfr_btn').click(function(){
+            });
+        },
+        getVideo:function(){
+            navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+            navigator.getMedia(
+                {video: true, audio: false},
+                function(stream) {
+                    pic.myVideoStream.srcObject = stream
+                    pic.myVideoStream.play();
+                },
+                function(error) {
+                    alert('webcam not working');
+                });
+        },
+        takeSnapshot:function(){
+            var myCanvasElement = document.querySelector('#myCanvas');
+            var myCTX = myCanvasElement.getContext('2d');
+            myCTX.drawImage(this.myVideoStream, 0, 0, myCanvasElement.width, myCanvasElement.height);
+        },
+        send:function(){
+            const canvas = document.querySelector('#myCanvas');
+            const imgBase64 = canvas.toDataURL('image/jpeg', 'image/octet-stream');
+            const decodImg = atob(imgBase64.split(',')[1]);
+            let array = [];
+            for (let i = 0; i < decodImg .length; i++) {
+                array.push(decodImg .charCodeAt(i));
+            }
+            const file = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
+            // const fileName = new Date().getMilliseconds() +'_profileimg.jpg';
+            const fileName = '${logincust.custid}' + '_profileimg.jpg';
+            let formData = new FormData();
+            formData.append('file', file, fileName);
+            var reader = new FileReader();
+            reader.readAsDataURL(file);
+            $('#img').val(reader.result);
+            // $.ajax({
+            //     type: 'post',
+            //     url: '/saveimg/',
+            //     enctype: 'multipart/form-data',
+            //     cache: false,
+            //     data: formData,
+            //     processData: false,
+            //     contentType: false,
+            //     success: function (data) {
+            //         $('#imgname').val(data);
+            //     }
+            // });
+        },
+        takeAuto:function(interval){
+            this.getVideo();
+            myStoredInterval = setInterval(function(){
+                pic.takeSnapshot();
+                pic.send();
+            }, interval);
+        }
+    };
+    $(function(){
+        pic.init();
+    });
+</script>
+<!-- Camera Script End -->
+
 <script>
     function displayImage(event) {
         var reader = new FileReader();
@@ -123,6 +192,31 @@
     });
 </script>
 
+<!-- Profile Image Appear & Hidden Begin -->
+<script>
+    function toggleCamera() {
+        var section = document.getElementById("profileimgview")
+        var div = document.getElementById("cameraDiv");
+        if (div.style.display === "none") {
+            div.style.display = "block";
+            section.style.display = "none";
+        }
+    }
+</script>
+<script>
+    function toggleNoCamera() {
+        var section = document.getElementById("profileimgview")
+        var div = document.getElementById("cameraDiv");
+        if (section.style.display === "none") {
+            section.style.display = "block";
+            div.style.display = "none";
+        }
+    }
+</script>
+
+<!-- Profile Image Appear & Hidden End -->
+
+
 <!-- Normal Breadcrumb Begin -->
 
 
@@ -139,6 +233,19 @@
     </c:otherwise>
 </c:choose>
 
+                <div class="col-sm-12 text-center" id="cameraDiv" style="display: none;">
+                    <video id="myVideo" style="width: 300px; height: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover"></video>
+                    <canvas id="myCanvas" style="width: 300px; height: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover"></canvas><br/><br/>
+                    <input type=button class="btn btn-primary" value="Camera On" onclick="pic.getVideo();">&nbsp;
+                    <input type=button class="btn btn-primary" value="Take Pic" onclick="pic.takeSnapshot();">&nbsp;
+                    <input type=button class="btn btn-primary" value="Save Pic" onclick="pic.send();">&nbsp;
+<%--                    <input type=button class="btn btn-primary" value="Auto Pic(3sec)" onclick="pic.takeAuto(3000);">--%>
+                    <br/><br/>
+                    <div style="align-items: flex-start">
+                        <h5 style="color: black;">Image Name : </h5><input type="text" class="form-control" style="width: 300px; align-items: center" name="imgname" id="imgname">
+                    </div>
+                </div>
+
 <!-- Normal Breadcrumb End -->
 <!-- Signup Section Begin -->
 <section class="signup spad">
@@ -149,12 +256,17 @@
                     <h3 style="color: #b7b7b7">My Profile</h3>
                     <form id="profilemodify_form">
                         <input type="hidden" name="profileimgname" value="${logincust.profileimgname}">
-                        <div class="input__item" style="width: 90%">
-                            <input type="file" placeholder="Your ProfileImage" name="img"
-                                   id="img" style="display: none" onchange="displayImage(event)">
-                            <input type="button" value="Profile Image"
-                                   onclick="document.getElementById('img').click();" style="text-align: left"/>
-                            <span class="icon_image"></span>
+                        <div style="justify-content: flex-start;">
+                            <div class="input__item">
+                                <input type="file" placeholder="Your ProfileImage" name="img"
+                                       id="img" style="display: none" onchange="displayImage(event)"/>
+                                <input type="button" value="Select Profile Image"
+                                       onclick="document.getElementById('img').click(); toggleNoCamera();" style="text-align: left"/>
+                                <span class="icon_image"></span>
+                            </div>
+                            <div class="input__item">
+                                <input type="button" onclick="toggleCamera()" value="Take Profile Picture" style="text-align: left"/>
+                            </div>
                         </div>
                         <div class="input__item" style="width: 90%">
                             <input type="text" placeholder="Your ID" name="custid" id="custid"

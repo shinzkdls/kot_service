@@ -32,4 +32,18 @@ public class FileUploadUtil {
         }
     }
 
+    public static void saveProfFile(MultipartFile mf, String dir) {
+        byte [] data;
+        String imgname = mf.getOriginalFilename();
+        try {
+            data = mf.getBytes();
+            FileOutputStream fo =
+                    new FileOutputStream(dir+imgname);
+            fo.write(data);
+            fo.close();
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

@@ -7,6 +7,7 @@ import com.kbstar.service.CustService;
 import com.kbstar.service.RecipeService;
 import com.kbstar.service.SubscribeService;
 import com.kbstar.util.FileUploadUtil;
+import com.kbstar.util.SendMailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,6 +31,8 @@ public class ApplyController {
     RecipeService recipeService;
     @Autowired
     SubscribeService subscribeService;
+    @Autowired
+    SendMailUtil sendMailUtil;
     String dir = "apply/";
     @Value("${uploadimgdir}")
     String imgdir;
@@ -67,6 +70,8 @@ public class ApplyController {
             cust.setPassword(encoder.encode(cust.getPassword()));
             custService.register(cust);
             session.setAttribute("logincust", cust);
+            String email = cust.getEmail();
+            sendMailUtil.sendSimpleMessage(email, "123");
         } catch (Exception e) {
             throw new Exception("가입 오류");
         }
