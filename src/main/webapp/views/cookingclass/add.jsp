@@ -149,7 +149,6 @@
 <!-- Normal Breadcrumb End -->
 <!-- class register section -->
 <section class="anime-details spad">
-<%--<div class="mt-50 mb-150">--%>
     <div class="container">
         <div class="row">
             <div class="col-lg-9">
@@ -235,8 +234,6 @@
                                         <li>용량은 3mb 이하를 사용해 주세요</li>
                                         <li>이미지 사이즈는 750px * 500px (3:2)이에요 (비율이 맞지 않으면 이미지가 잘릴 수 있어요)</li>
                                     </div>
-
-
                                     <div class="form-group">
                                         <p><span class="highlight">클래스 관련 정보를 입력해주세요</span></p>
                                         <label for="cooking">요리명 : </label>
@@ -309,32 +306,6 @@
                     </div>
                 </div>
             </div>
-<%--            <!-- side section start -->--%>
-<%--            <div class="col-lg-4">--%>
-<%--                <div class="sidebar-section">--%>
-<%--                    <div class="archive-posts">--%>
-<%--                        <h4>STEP 01. 호스트 인증</h4>--%>
-<%--                        <h4>STEP 02. 클래스 유형</h4>--%>
-<%--                        <h4>STEP 03. 클래스 소개</h4>--%>
-<%--                        <ul>--%>
-<%--                            <li>클래스명</li>--%>
-<%--                            <li>클래스 이미지</li>--%>
-<%--                            <li>관련 정보</li>--%>
-<%--                            <li>위치 정보</li>--%>
-<%--                        </ul>--%>
-<%--                        <h4>STEP 04. 금액 및 일정</h4>--%>
-<%--                        <ul>--%>
-<%--                            <li>금액</li>--%>
-<%--                            <li>일정</li>--%>
-<%--                        </ul>--%>
-<%--                    </div>--%>
-
-<%--                    <div class="single-product-form">--%>
-<%--                        <a class="cart-btn" type="button" id="register_btn"> 클래스 등록</a>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--            <!-- side section end -->--%>
         </div>
         <div class="anime__details__btn" style="display: flex; justify-content: flex-end">
             <button type="button" id="register_btn" class="follow-btn" style="border: unset;">
@@ -342,7 +313,6 @@
             </button>
         </div>
     </div>
-<%--</div>--%>
 </section>
 <!-- end class register section -->
 </body>

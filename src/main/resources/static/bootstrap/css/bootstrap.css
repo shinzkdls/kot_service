@@ -2536,6 +2536,14 @@ textarea.form-control {
     margin-bottom: 30px;
 }
 
+.class__form .form-group > input {
+    margin-bottom: 20px;
+}
+
+.class__form .form-group .form-control {
+    margin-bottom: 20px;
+}
+
 .highlight {
     font-weight: bold;
     background: linear-gradient(to top, rgba(114, 204, 130, 0.87) 50%, transparent 50%);
@@ -2544,6 +2552,29 @@ textarea.form-control {
 /*class 등록 화면 input end*/
 
 /*class 등록 화면 end*/
+
+/*recipe 등록 화면 start*/
+.recipe__form {
+    position: relative;
+    padding-left: 145px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    flex-direction: row;
+}
+
+.recipe__form .form-group {
+    position: relative;
+    display: block;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.recipe__form .form-group > input {
+    margin-bottom: 20px;
+}
+/*recipe 등록 화면 end*/
+
 
 .valid-feedback {
     display: none;

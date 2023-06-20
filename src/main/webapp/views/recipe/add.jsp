@@ -111,7 +111,7 @@
                             <input type="hidden" name="nickname" id="nickname" value="${logincust.nickname}">
                             <div class="class-step">
                                 <div class="section-title">
-                                    <h5>STEP 01. 요리 종류</h5>
+                                    <h5>STEP 01. 레시피 유형</h5>
                                 </div>
                                 <div class="class__form" style="padding-left: 0">
                                     <div class="form-group">
@@ -128,11 +128,6 @@
                                         </select>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="class-step">
-                                <div class="section-title">
-                                    <h5>STEP 02. 추천 상황</h5>
-                                </div>
                                 <div class="class__form" style="padding-left: 0">
                                     <div class="form-group">
                                         <p><span class="highlight">레시피를 추천하고 싶은 상황을 입력해주세요</span></p>
@@ -144,9 +139,9 @@
                             </div>
                             <div class="class-step">
                                 <div class="section-title">
-                                    <h5>STEP 03. 요리 재료</h5>
+                                    <h5>STEP 02. 대표 재료</h5>
                                 </div>
-                                <div class="class__form" style="padding-left: 0">
+                                <div class="recipe__form" style="padding-left: 0">
                                     <div class="form-group">
                                         <p><span class="highlight">대표 재료를 선택해주세요</span></p>
                                         <label for="ingredients1">대표 재료 1 : </label>
@@ -191,7 +186,7 @@
                             </div>
                             <div class="class-step">
                                 <div class="section-title">
-                                    <h5>STEP 04. 레시피 소개</h5>
+                                    <h5>STEP 03. 레시피 소개</h5>
                                 </div>
                                 <div class="class__form" style="padding-left: 0">
                                     <div class="form-group">
@@ -211,54 +206,113 @@
                                         <li>이미지 사이즈는 750px * 500px (3:2)이에요 (비율이 맞지 않으면 이미지가 잘릴 수 있어요)</li>
                                     </div>
                                     <div class="form-group">
-                                        <p><span class="highlight">레시피 설명을 입력해주세요</span></p>
-                                        <label for="recipedesc">레시피 설명 : </label>
+                                        <p><span class="highlight">레시피 소개를 입력해주세요</span></p>
+                                        <label for="recipedesc">레시피 소개 : </label>
                                         <input type="text" class="form-control" id="recipedesc"
                                                placeholder="Enter recipe" name="recipedesc">
                                     </div>
                                 </div>
-
                             </div>
                             <div class="class-step">
                                 <div class="section-title">
-                                    <h5>STEP 05. 레시피 관련 정보</h5>
+                                    <h5>STEP 04. 레시피 관련 정보</h5>
+                                </div>
+                                <div class="class__form" style="padding-left: 0">
+                                    <div class="form-group">
+                                        <p><span class="highlight">레시피 관련 정보를 입력해주세요</span></p>
+                                        <label for="cooking">요리명 : </label>
+                                        <input type="text" class="form-control" id="cooking"
+                                               placeholder="Enter cooking Name" name="cooking">
+                                        <label for="time">소요 시간 : </label>
+                                        <input type="text" class="form-control" id="time"
+                                               placeholder="Enter Cooking Time" name="time">
+                                        <label for="recipelevel">난이도 : </label>
+                                        <input type="text" class="form-control" id="recipelevel"
+                                               placeholder="Enter Recipe Level" name="recipelevel">
+                                    </div>
                                 </div>
                                 <div class="form-group">
-                                    <p><span class="highlight">레시피 관련 정보를 입력해주세요</span></p>
-                                    <label for="cooking">요리명 : </label>
-                                    <input type="text" class="form-control" id="cooking"
-                                           placeholder="Enter cooking Name" name="cooking">
-                                    <label for="time">소요 시간 : </label>
-                                    <input type="text" class="form-control" id="time"
-                                           placeholder="Enter Cooking Time" name="time">
-                                    <label for="recipelevel">난이도 : </label>
-                                    <input type="text" class="form-control" id="recipelevel"
-                                           placeholder="Enter Recipe Level" name="recipelevel">
+                                    <input type="hidden" class="form-control" id="finishedimg" name="finishedimg">
+                                    <p><span class="highlight">완성된 요리 이미지를 등록해주세요</span></p>
+                                    <label for="thumbnailimg">이미지 : </label>
+                                    <input type="file" class="form-control" id="fimg"
+                                           placeholder="Input Cooking Image"
+                                           name="fimg">
+                                    <li>용량은 3mb 이하를 사용해 주세요</li>
+                                    <li>이미지 사이즈는 750px * 500px (3:2)이에요 (비율이 맞지 않으면 이미지가 잘릴 수 있어요)</li>
+                                </div>
+                            </div>
+                            <div class="class-step">
+                                <div class="section-title">
+                                    <h5>STEP 05. 레시피 상세 재료</h5>
+                                </div>
+                                <div class="class__form" style="padding-left: 0">
                                     <div class="form-group">
-                                        <input type="hidden" class="form-control" id="finishedimg" name="finishedimg">
-                                        <p><span class="highlight">완성된 요리 이미지를 등록해주세요</span></p>
-                                        <label for="thumbnailimg">이미지 : </label>
-                                        <input type="file" class="form-control" id="fimg"
-                                               placeholder="Input Cooking Image"
-                                               name="fimg">
-                                        <li>용량은 3mb 이하를 사용해 주세요</li>
-                                        <li>이미지 사이즈는 750px * 500px (3:2)이에요 (비율이 맞지 않으면 이미지가 잘릴 수 있어요)</li>
+                                        <p><span class="highlight">레시피 상세 재료 및 수량 입력해주세요</span></p>
+                                        <input type="hidden" name="ingredientnumber1" id="ingredientnumber1" value=1>
+                                        <input type="hidden" name="ingredientnumber2" id="ingredientnumber2" value=2>
+                                        <input type="hidden" name="ingredientnumber3" id="ingredientnumber3" value=3>
+                                        <input type="hidden" name="ingredientnumber4" id="ingredientnumber4" value=4>
+                                        <input type="hidden" name="ingredientnumber5" id="ingredientnumber5" value=5>
+                                        <label for="name1">재료 1 : </label>
+                                        <input type="text" class="form-control" id="name1"
+                                               placeholder="예) 돼지고기" name="name1">
+                                        <label for="quantity1">계량 정보 : </label>
+                                        <input type="text" class="form-control" id="quantity1"
+                                               placeholder="예) 300g" name="quantity1">
+                                        <label for="name2">재료 2 : </label>
+                                        <input type="text" class="form-control" id="name2"
+                                               placeholder="예) 양파" name="name2">
+                                        <label for="quantity2">계량 정보 : </label>
+                                        <input type="text" class="form-control" id="quantity2"
+                                               placeholder="예) 1/2개" name="quantity2">
+                                        <label for="name3">재료 3 : </label>
+                                        <input type="text" class="form-control" id="name3"
+                                               placeholder="예) 식용유" name="name3">
+                                        <label for="quantity3">계량 정보 : </label>
+                                        <input type="text" class="form-control" id="quantity3"
+                                               placeholder="예) 2T" name="quantity3">
+                                        <label for="name4">재료 4 : </label>
+                                        <input type="text" class="form-control" id="name4"
+                                               placeholder="예) 소금" name="name4">
+                                        <label for="quantity4">계량 정보 : </label>
+                                        <input type="text" class="form-control" id="quantity4"
+                                               placeholder="예) 2t" name="quantity4">
+                                        <label for="name5">재료 5 : </label>
+                                        <input type="text" class="form-control" id="name5"
+                                               placeholder="예) 고추가루" name="name5">
+                                        <label for="quantity5">계량 정보 : </label>
+                                        <input type="text" class="form-control" id="quantity5"
+                                               placeholder="예) 1T" name="quantity5">
                                     </div>
                                 </div>
                             </div>
-
-
+                            <div class="class-step">
+                                <div class="section-title">
+                                    <h5>STEP 06. 요리 순서</h5>
+                                </div>
+                                <div class="class__form" style="padding-left: 0">
+                                    <div class="form-group">
+                                        <p><span class="highlight">요리 순서를 입력해주세요</span></p>
+                                        <input type="hidden" name="step1" id="step1" value=1>
+                                        <input type="hidden" name="step2" id="step2" value=2>
+                                        <input type="hidden" name="step3" id="step3" value=3>
+                                        <input type="hidden" name="step4" id="step4" value=4>
+                                        <input type="hidden" name="step5" id="step5" value=5>
+                                    </div>
+                                </div>
+                            </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <div class="anime__details__btn" style="display: flex; justify-content: flex-end">
+            <button type="button" id="register_btn" class="follow-btn" style="border: unset;">
+                Register
+            </button>
+        </div>
     </div>
-    <div class="single-product-form">
-        <a class="cart-btn" type="button" id="register_btn"> 레시피 등록</a>
-    </div>
-    </div>
-    <%--</div>--%>
 </section>
 <!-- end class register section -->
 </body>

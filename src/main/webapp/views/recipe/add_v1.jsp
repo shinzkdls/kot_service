@@ -269,7 +269,7 @@
                                         <form id="ingredient_form">
 
                                             <div id="myDiv1">
-                                                <input type="hidden" name="ingredientnumber1" id="ingredientnumber1" value=1>
+                                                <input type="hidden" name="ingredientnumber1" id="ingredientnumber1" value=1>을
                                                 <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
                                                     <div class="input__item" style="margin-right: 10px; width: 80%;">
                                                         <input type="text" name="name1" id="name1" placeholder="Enter Ingredient">
