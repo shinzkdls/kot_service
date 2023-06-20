@@ -131,6 +131,8 @@
                         </p>
                         <p><span class="icon_map" style="font-size: 20px;"> </span> 지역
                             : ${classdetail.location}</p>
+                        <p><span class="icon_calendar" style="font-size: 20px;"> </span> 날짜
+                            : ${classdetail.classdate.substring(0,10)}</p>
                         <p><span class="icon_group" style="font-size: 20px;"> </span> 정원 : ${classdetail.personal} 명</p>
 
                     </div>

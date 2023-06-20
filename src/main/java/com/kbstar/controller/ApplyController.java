@@ -49,13 +49,16 @@ public class ApplyController {
     public String mypage(Model model, Cust cust) throws Exception {
         Cust c = custService.get(cust.getCustid());
         List<RecipeBasic> rlist = recipeService.getMyRecipe(cust.getCustid());
+        List<RecipeBasic> likelist = recipeService.getMyLikeRecipe(c.getCustpin());
         List<Subscribe> slist = subscribeService.getMySubscribe(cust.getCustid());
         model.addAttribute("mypagecust", c);
         model.addAttribute("myrecipelist", rlist);
+        model.addAttribute("mylikerecipelist", likelist);
         model.addAttribute("mysubscribelist", slist);
         model.addAttribute("center", "mypage");
         return "index";
     }
+
 
     @RequestMapping("/profilemodify")
     public String profilemodify(Model model) {

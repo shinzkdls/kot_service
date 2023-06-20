@@ -95,4 +95,7 @@ public class RecipeService implements KBService<Integer, RecipeBasic> {
         return subscribeList;
     }
 
+    public List<RecipeBasic> getMyLikeRecipe(Integer custpin) {
+        return mapper.getMyLikeRecipe(custpin);
+    }
 }

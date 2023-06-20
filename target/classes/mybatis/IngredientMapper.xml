@@ -8,6 +8,7 @@
         SELECT *
         FROM recipe_ingredient
         WHERE recipepin = #{recipepin}
+        ORDER BY ingredientnumber
     </select>
 
     <insert id="insert" parameterType="recipeingredient">
@@ -15,8 +16,7 @@
         VALUES (#{ingredientnumber},
                 recipe_basic_seq.CURRVAL,
                 #{name},
-                #{quantity}
-                )
+                #{quantity})
     </insert>
 
 </mapper>

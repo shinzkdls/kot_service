@@ -99,12 +99,20 @@
                             </li>
                             <li class="${recipesortinfo.ingredients1 eq '닭고기' ? 'active' : ''}" data-filter="닭고기">닭고기
                             </li>
+                            <li class="${recipesortinfo.ingredients1 eq '육류' ? 'active' : ''}" data-filter="육류">육류
+                            </li>
+                            <li class="${recipesortinfo.ingredients1 eq '채소류' ? 'active' : ''}" data-filter="채소류">채소류
+                            </li>
                             <li class="${recipesortinfo.ingredients1 eq '생선' ? 'active' : ''}" data-filter="생선">생선</li>
                             <li class="${recipesortinfo.ingredients1 eq '오징어' ? 'active' : ''}" data-filter="오징어">오징어
                             </li>
-                            <li class="${recipesortinfo.ingredients1 eq '면' ? 'active' : ''}" data-filter="면">면</li>
-                            <li class="${recipesortinfo.ingredients1 eq '떡' ? 'active' : ''}" data-filter="떡">떡</li>
-                            <li class="${recipesortinfo.ingredients1 eq '김치' ? 'active' : ''}" data-filter="김치">김치</li>
+                            <li class="${recipesortinfo.ingredients1 eq '해물류' ? 'active' : ''}" data-filter="해물류">해물류
+                            </li>
+                            <li class="${recipesortinfo.ingredients1 eq '달걀' ? 'active' : ''}" data-filter="달걀">달걀</li>
+                            <li class="${recipesortinfo.ingredients1 eq '쌀' ? 'active' : ''}" data-filter="쌀">쌀</li>
+                            <li class="${recipesortinfo.ingredients1 eq '밀가루' ? 'active' : ''}" data-filter="밀가루">밀가루
+                            </li>
+                            <li class="${recipesortinfo.ingredients1 eq '기타' ? 'active' : ''}" data-filter="기타">기타</li>
                         </ul>
                         <!-- 종류별 검색 -->
                         <ul id="type_li" name="type_li">
@@ -152,9 +160,28 @@
                         <h5 style="color: black; font-size: 15px; margin-bottom: 10px">${obj.type}
                             / ${obj.situation}</h5>
                         <h5 style="color: black; font-weight: bold; font-size: 15px; margin-bottom: 10px">${obj.time}분
-                            / ${obj.recipelevel}</h5>
-                        <a href="#" class="cart-btn" data-toggle="modal" data-target="#target">
-                            <span class="icon_heart_alt"></span> 좋아요</a>
+                            / ${obj.recipelevel}Level</h5>
+                        <c:choose>
+                            <c:when test="${logincust != null}">
+                                <c:choose>
+                                    <c:when test="${obj.logincustlike == '0'}">
+                                        <a class="cart-btn"
+                                           href="/recipe/likeImpl?custpinlike=${logincust.custpin}&recipepinlike=${obj.recipepin}"
+                                           style="background-color: #b7b7b7">
+                                            <span class="icon_heart_alt"></span> 좋아요</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a class="cart-btn"
+                                           href="/recipe/likeImpl?custpinlike=${logincust.custpin}&recipepinlike=${obj.recipepin}">
+                                            <span class="icon_heart_alt"></span> 좋아요</a>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="cart-btn" href="/login">
+                                    <span class="icon_heart_alt"></span> 좋아요</a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </c:forEach>

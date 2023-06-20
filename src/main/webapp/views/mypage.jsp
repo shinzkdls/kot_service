@@ -116,7 +116,31 @@
                     <c:forEach var="obj" items="${myrecipelist}">
                         <div class="product__sidebar__view__item set-bg" data-setbg="/uimg/${obj.thumbnailimg}">
                             <h5>
-                                <a href="/recipe/detail?recipepin=${obj.recipepin}">${obj.recipetitle}</a>
+                                <a href="/recipe/detail?recipepin=${obj.recipepin}"
+                                   style="padding: 5px; background-color: rgba(0,0,0, 0.5); border-radius: 5px;"
+                                >${obj.recipetitle}</a>
+                            </h5>
+                        </div>
+                    </c:forEach>
+                </div>
+
+                <div class="anime__details__sidebar">
+                    <div class="section-title">
+                        <h5><c:choose>
+                            <c:when test="${mypagecust.nickname == null || mypagecust.nickname ==''}">
+                                ${mypagecust.custid}
+                            </c:when>
+                            <c:otherwise>
+                                ${mypagecust.nickname}
+                            </c:otherwise>
+                        </c:choose>
+                            's Like List</h5>
+                    </div>
+                    <c:forEach var="obj" items="${mylikerecipelist}">
+                        <div class="product__sidebar__view__item set-bg" data-setbg="/uimg/${obj.thumbnailimg}">
+                            <h5>
+                                <a href="/recipe/detail?recipepin=${obj.recipepin}"
+                                   style="padding: 5px; background-color: rgba(0,0,0, 0.5); border-radius: 5px;">${obj.recipetitle}</a>
                             </h5>
                         </div>
                     </c:forEach>

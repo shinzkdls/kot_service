@@ -15,46 +15,18 @@
     });
 
 
-    // function setThumbnail(event) {
-    //     var reader = new FileReader();
-    //
-    //     reader.onload = function (event) {
-    //         var img = document.createElement("img");
-    //         img.setAttribute("src", event.target.result);
-    //         img.setAttribute("class", "image_container");
-    //         document.querySelector("div#image_container").appendChild(img);
-    //     };
-    //     reader.readAsDataURL(event.target.files[0]);
-    // }
-
-    // 이미지 파일 선택 시 썸네일 출력
     function setThumbnail(event) {
         var reader = new FileReader();
-        reader.onload = function(event) {
-            var thumbnail = document.getElementById("thumbnail");
-            thumbnail.setAttribute("src", event.target.result);
+
+        reader.onload = function (event) {
+            var img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            img.setAttribute("class", "image_container");
+            document.querySelector("div#image_container").appendChild(img);
         };
         reader.readAsDataURL(event.target.files[0]);
     }
 
-    // OCR 요청 처리
-    function performOCR() {
-        var fileInput = document.getElementById("bizimg");
-        var file = fileInput.files[0];
-
-        var formData = new FormData();
-        formData.append("bizimg", file);
-
-        var xhr = new XMLHttpRequest();
-        xhr.open("POST", "/ocrimpl", true);
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var resultContainer = document.getElementById("result_container");
-                resultContainer.innerText = xhr.responseText;
-            }
-        };
-        xhr.send(formData);
-    }
 
     let classregister_form = {
         init: function () {
@@ -170,8 +142,8 @@
                                     <input type="file" name="bizimg"
                                            id="bizimg" onchange="setThumbnail(event);">
                                 </div>
-                                    <div id="image_container" class="image_container"></div>
-                                    <div id="result_container"></div>
+                                <div id="image_container" class="image_container"></div>
+                                <div id="result_container"></div>
                                 <button id="ocr_btn" class="btn" type="submit"
                                         style="background-color: #F28123; color: #fff; ">인증
                                 </button>
@@ -248,32 +220,45 @@
                                     </div>
                                     <div class="form-group">
                                         <p><span class="highlight">클래스 위치 정보를 입력해주세요</span></p>
-                                        <label for="location">클래스 지역 : </label>
-                                        <input type="text" class="form-control" id="location"
-                                               placeholder="Enter location" name="location">
-
+                                        <div>
+                                            <label for="location">클래스 지역 : </label>
+                                            <select class="form-control" id="location" name="location">
+                                                <option value="">지역</option>
+                                                <option name="location" value="서울">서울</option>
+                                                <option name="location" value="인천">인천</option>
+                                                <option name="location" value="경기">경기</option>
+                                                <option name="location" value="대전">대전</option>
+                                                <option name="location" value="충청">충청</option>
+                                                <option name="location" value="부산">부산</option>
+                                                <option name="location" value="대구">대구</option>
+                                                <option name="location" value="울산">울산</option>
+                                                <option name="location" value="경상">경상</option>
+                                                <option name="location" value="광주">광주</option>
+                                                <option name="location" value="전라">전라</option>
+                                                <option name="location" value="강원">강원</option>
+                                                <option name="location" value="제주">제주</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label for="address">클래스 주소 : </label>
                                         <input type="hidden" name="address" id="address" value="">
-                                        <div class="form-group">
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" id="zipcode" name="zipcode"
-                                                       placeholder="우편번호"
-                                                       style="margin-right: 10px">
-                                                <div class="input-group-append">
-                                                    <input type="button" onclick="sample4_execDaumPostcode()"
-                                                           value="우편번호 찾기"><br>
-                                                </div>
+                                        <div class="input-group mb-3">
+                                            <input type="text" class="form-control" id="zipcode" name="zipcode"
+                                                   placeholder="우편번호"
+                                                   style="margin-right: 10px">
+                                            <div class="input-group-append">
+                                                <input type="button" onclick="sample4_execDaumPostcode()"
+                                                       value="우편번호 찾기"><br>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="address1" name="address1"
-                                                   placeholder="도로명주소">
-                                            <span id="guide" style="color:#999;display:none"></span>
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="text" class="form-control" id="address2" name="address2"
-                                                   placeholder="상세주소">
-                                        </div>
+                                        <input type="text" class="form-control" id="address1" name="address1"
+                                               placeholder="도로명주소">
+                                        <span id="guide" style="color:#999;display:none"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="address2" name="address2"
+                                               placeholder="상세주소">
                                     </div>
                                     <div class="form-group">
                                         <p><span class="highlight">클래스 상세 내용을 입력해주세요</span></p>

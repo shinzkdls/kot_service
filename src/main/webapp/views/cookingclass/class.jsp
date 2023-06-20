@@ -168,7 +168,7 @@
         <div class="row product-lists">
             <c:forEach var="obj" items="${clist.getList()}">
                 <div class="col-lg-4 col-md-6 text-center strawberry">
-                    <div class="single-product-item">
+                    <div class="single-product-item" style="padding-bottom: 20px">
                         <div class="product-image" style="margin-bottom: 10px">
                             <a href="/cookingclass/detail?classpin=${obj.classpin}">
                                 <div style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
