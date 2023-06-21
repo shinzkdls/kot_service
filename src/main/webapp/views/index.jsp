@@ -2,7 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-
+<script>
+    function openPopup() {
+        // 팝업창 열기
+        window.open('/gpt', 'popup', 'width=500,height=300');
+    }
+</script>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -47,6 +52,14 @@
             animation: action 1s infinite alternate
         }
 
+        .gptIcon {
+            position: fixed;
+            right: 20px;
+            bottom: 200px;
+            z-index: 11;
+            animation: action 1s infinite alternate
+        }
+
         @keyframes action {
             0% {
                 transform: translateY(0)
@@ -56,9 +69,9 @@
             }
         }
 
-        #magicIcon {
-            width: 180px;
-            height: 190px
+        #magicIcon, #gptIcon {
+            width: 100px;
+            height: 100px
         }
     </style>
 </head>
@@ -67,6 +80,9 @@
 
 <div class="magicIcon">
     <a href="/magic"><img id="magicIcon" src="/img/conch.png" alt="Conch Shell"></a>
+</div>
+<div class="gptIcon">
+    <img id="gptIcon" src="/img/gpt.png" alt="gpt" onclick="openPopup()">
 </div>
 <!-- Page Preloder -->
 <div id="preloder">

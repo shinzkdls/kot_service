@@ -11,10 +11,10 @@ import java.util.Date;
 @Getter
 @ToString
 public class Payment {
-    private int paymentpin;
-    private int classpin;
-    private int custpin;
-    private int amount;
+    private Integer paymentpin;
+    private Integer classpin;
+    private Integer custpin;
+    private Integer amount;
     private String paymentstatus;
     private Date paydate;
 }
