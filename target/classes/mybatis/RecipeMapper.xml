@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kbstar.mapper.RecipeMapper">
+
+    <insert id="insert" parameterType="recipebasic">
+        INSERT INTO recipe_basic
+        VALUES (recipe_basic_seq.NEXTVAL,
+                #{custpin},
+                #{custid},
+                #{nickname},
+                #{type},
+                #{situation},
+                #{ingredients1},
+                #{ingredients2},
+                #{ingredients3},
+                #{cooking},
+                recipe_basic_seq.CURRVAL || '_thumb.jpg',
+                recipe_basic_seq.CURRVAL || '_fin.jpg',
+                #{time},
+                #{recipelevel},
+                #{recipetitle},
+                #{recipedesc},
+                SYSDATE)
+    </insert>
+
+    <select id="pingetter" resultType="Integer">
+        SELECT recipe_basic_SEQ.CURRVAL
+        FROM dual
+    </select>
+
+    <delete id="delete" parameterType="Integer">
+        DELETE
+        FROM recipe_basic
+        WHERE recipepin = #{recipepin}
+    </delete>
+
+    <select id="getpage" parameterType="RecipeBasic" resultType="RecipeBasic">
+        SELECT R.*,
+        NVL2(G.custpin,'1','0') as logincustlike
+        FROM Recipe_Basic R
+        LEFT OUTER JOIN GoodList G
+        ON R.recipepin = G.recipepin
+        AND G.custpin = #{logincustpin}
+        WHERE 1=1
+        <if test="ingredients1 != ''">
+            AND R.ingredients1 LIKE '%' || #{ingredients1} || '%'
+        </if>
+        <if test="type != ''">
+            AND R.type LIKE '%' || #{type} || '%'
+        </if>
+        <if test="recipetitle != ''">
+            AND R.recipetitle LIKE '%' || #{recipetitle} || '%'
+        </if>
+        ORDER BY R.recipepin DESC
+    </select>
+
+    <select id="getsearch" parameterType="String" resultType="recipebasic">
+        SELECT *
+        FROM recipe_basic
+        where recipetitle LIKE '%' || #{recipetitle} || '%'
+        ORDER BY recipepin DESC
+    </select>
+
+    <select id="select" parameterType="RecipeBasic" resultType="recipebasic">
+        SELECT R.*,
+               NVL2(G.custpin, '1', '0') as logincustlike
+        FROM recipe_basic R
+                 LEFT OUTER JOIN goodlist G
+                                 ON R.recipepin = G.recipepin
+                                     AND G.custpin = #{logincustpin}
+        WHERE R.recipepin = #{recipepin}
+    </select>
+
+    <select id="selectall" resultType="recipebasic">
+        SELECT *
+        FROM recipe_basic
+    </select>
+
+    <select id="gettype" parameterType="String" resultType="recipebasic">
+        SELECT *
+        FROM (SELECT *
+              FROM recipe_basic
+              WHERE situation = '1') AS subtable
+        WHERE type = #{type}
+        ORDER BY recipepin DESC
+    </select>
+
+    <select id="getsituation" parameterType="String" resultType="recipebasic">
+        SELECT *
+        FROM recipe_basic
+        WHERE situation = #{situation}
+        ORDER BY recipepin DESC
+    </select>
+
+    <!--            이나은-->
+    <select id="ranking" resultType="int">
+        SELECT RECIPEPIN
+        FROM goodlist
+        GROUP BY RECIPEPIN
+        ORDER BY COUNT(RECIPEPIN) DESC
+    </select>
+    <!-- 0620 jeong : ranking modify -->
+<!--    <select id="ranking" parameterType="String" resultType="RecipeBasic">-->
+<!--        SELECT goodlist.RECIPEPIN, recipe_basic.custid-->
+<!--        FROM goodlist-->
+<!--                 JOIN recipe_basic ON goodlist.RECIPEPIN = recipe_basic.recipepin-->
+<!--        GROUP BY goodlist.RECIPEPIN, recipe_basic.custid-->
+<!--        ORDER BY COUNT(goodlist.RECIPEPIN) DESC-->
+<!--    </select>-->
+
+
+    <select id="latestRecipe" resultType="RecipeBasic">
+        select *
+        from recipe_basic
+        order by RECIPEDATE
+    </select>
+
+    <select id="subscribeRecipe" resultType="RecipeBasic">
+        select *
+        from recipe_basic
+        where CUSTPIN = (select SUBCUSTPIN from SUBSCRIBE where CUSTPIN = 10022)
+        ORDER BY RECIPEDATE DESC
+    </select>
+
+    <select id="getMyRecipe" parameterType="String" resultType="recipebasic">
+        SELECT *
+        FROM recipe_basic
+        WHERE custid = #{custid}
+    </select>
+
+    <select id="getMyLikeRecipe" parameterType="Integer" resultType="recipebasic">
+        SELECT R.*
+        FROM recipe_basic R
+                 INNER JOIN goodlist G
+                            ON R.recipepin = G.recipepin
+        WHERE G.custpin = #{custpin}
+    </select>
+
+</mapper>
