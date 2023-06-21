@@ -9,5 +9,20 @@
         VALUES (#{custpin}, #{recipepin}, SYSDATE)
     </insert>
 
+    <delete id="removegood" parameterType="goodlist">
+        DELETE
+        FROM goodlist
+        WHERE custpin = #{custpin}
+          AND recipepin = #{recipepin}
+    </delete>
+
+    <select id="searchgood" parameterType="Integer" resultType="String">
+        SELECT count(*) as logincustlike
+        FROM goodlist
+        WHERE custpin = #{custpin}
+          AND recipepin = #{recipepin}
+    </select>
+
+
 </mapper>
 

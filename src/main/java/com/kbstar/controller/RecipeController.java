@@ -58,13 +58,15 @@ public class RecipeController {
     }
 
     @RequestMapping("/detail")
-    public String get(Model model, Integer recipepin) throws Exception {
+    public String get(Model model, Integer recipepin, HttpSession session) throws Exception {
         RecipeBasic recipe = null;
         List<RecipeIngredient> ingredient = null;
         List<RecipeStep> step = null;
         List<RecipeComment> comment = null;
-
+        Cust sessioncust = (Cust) session.getAttribute("logincust");
         recipe = recipeService.get(recipepin);
+        if (sessioncust != null)
+            recipe.setLogincustlike(goodlistService.searchgood(recipepin, sessioncust.getCustpin()));
         Cust cust = custService.get(recipe.getCustid());
         ingredient = ingredientService.getRecipeAllIngredient(recipepin);
         step = recipeStepService.getRecipeAllStep(recipepin);
@@ -205,6 +207,20 @@ public class RecipeController {
             goodlist.setCustpin(custpinlike);
             goodlist.setRecipepin(recipepinlike);
             goodlistService.register(goodlist);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+            // e.printStackTrace();
+        }
+        return "redirect:/recipe/detail?recipepin=" + recipepinlike;
+    }
+
+    @RequestMapping("/likeDel")
+    public String likeDel(Model model, Integer custpinlike, Integer recipepinlike, HttpSession session) throws Exception {
+        try {
+            Goodlist goodlist = new Goodlist();
+            goodlist.setCustpin(custpinlike);
+            goodlist.setRecipepin(recipepinlike);
+            goodlistService.removegood(goodlist);
         } catch (Exception e) {
             throw new Exception(e.getMessage());
             // e.printStackTrace();

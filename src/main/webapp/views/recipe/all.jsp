@@ -147,7 +147,7 @@
         <div class="row product-lists">
             <c:forEach var="obj" items="${rlist.getList()}">
                 <div class="col-lg-4 col-md-6 text-center strawberry">
-                    <div class="single-product-item">
+                    <div class="single-product-item" style="padding-bottom: 20px">
                         <div class="product-image" style="margin-bottom: 10px">
                             <a href="/recipe/detail?recipepin=${obj.recipepin}">
                                 <div style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
@@ -172,7 +172,7 @@
                                     </c:when>
                                     <c:otherwise>
                                         <a class="cart-btn"
-                                           href="/recipe/likeImpl?custpinlike=${logincust.custpin}&recipepinlike=${obj.recipepin}">
+                                           href="/recipe/likeDel?custpinlike=${logincust.custpin}&recipepinlike=${obj.recipepin}">
                                             <span class="icon_heart_alt"></span> 좋아요</a>
                                     </c:otherwise>
                                 </c:choose>
