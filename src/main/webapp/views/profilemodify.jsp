@@ -5,68 +5,80 @@
 
 <!-- Camera Script Begin -->
 <script>
+    // function blobToImage(blob) {
+    //     return new Promise((resolve, reject) => {
+    //         const reader = new FileReader();
+    //         reader.onloadend = () => {
+    //             const img = new Image();
+    //             img.src = reader.result;
+    //             img.onload = () => resolve(img);
+    //             img.onerror = reject;
+    //         };
+    //         reader.onerror = reject;
+    //         reader.readAsDataURL(blob);
+    //     });
+    // }
+
     let pic = {
-        myVideoStream:null,
-        init:function(){
+        myVideoStream: null,
+        init: function () {
             this.myVideoStream = document.querySelector('#myVideo');
-            $('#cfr_btn').click(function(){
-            });
         },
-        getVideo:function(){
+        getVideo: function () {
             navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
             navigator.getMedia(
                 {video: true, audio: false},
-                function(stream) {
+                function (stream) {
                     pic.myVideoStream.srcObject = stream
                     pic.myVideoStream.play();
                 },
-                function(error) {
+                function (error) {
                     alert('webcam not working');
                 });
         },
-        takeSnapshot:function(){
+        takeSnapshot: function () {
+            var section = document.getElementById("profileimgview")
+            var div = document.getElementById("cameraDiv");
+            var candiv = document.getElementById("canvasDiv");
+            if (candiv.style.display === "none") {
+                candiv.style.display = "block";
+                div.style.display = "none";
+                section.style.display = "none";
+            }
+
             var myCanvasElement = document.querySelector('#myCanvas');
             var myCTX = myCanvasElement.getContext('2d');
+
             myCTX.drawImage(this.myVideoStream, 0, 0, myCanvasElement.width, myCanvasElement.height);
         },
-        send:function(){
+        send: function () {
             const canvas = document.querySelector('#myCanvas');
             const imgBase64 = canvas.toDataURL('image/jpeg', 'image/octet-stream');
             const decodImg = atob(imgBase64.split(',')[1]);
             let array = [];
-            for (let i = 0; i < decodImg .length; i++) {
-                array.push(decodImg .charCodeAt(i));
+            for (let i = 0; i < decodImg.length; i++) {
+                array.push(decodImg.charCodeAt(i));
             }
             const file = new Blob([new Uint8Array(array)], {type: 'image/jpeg'});
-            // const fileName = new Date().getMilliseconds() +'_profileimg.jpg';
             const fileName = '${logincust.custid}' + '_profileimg.jpg';
             let formData = new FormData();
             formData.append('file', file, fileName);
-            var reader = new FileReader();
-            reader.readAsDataURL(file);
-            $('#img').val(reader.result);
-            // $.ajax({
-            //     type: 'post',
-            //     url: '/saveimg/',
-            //     enctype: 'multipart/form-data',
-            //     cache: false,
-            //     data: formData,
-            //     processData: false,
-            //     contentType: false,
-            //     success: function (data) {
-            //         $('#imgname').val(data);
-            //     }
-            // });
-        },
-        takeAuto:function(interval){
-            this.getVideo();
-            myStoredInterval = setInterval(function(){
-                pic.takeSnapshot();
-                pic.send();
-            }, interval);
+            $('#profileimgname').val(fileName);
+            $.ajax({
+                type: 'post',
+                url: '/saveimg/',
+                enctype: 'multipart/form-data',
+                cache: false,
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                }
+            });
         }
+
     };
-    $(function(){
+    $(function () {
         pic.init();
     });
 </script>
@@ -78,6 +90,7 @@
         reader.onload = function () {
             var section = document.getElementById('profileimgview');
             section.style.backgroundImage = 'url(' + reader.result + ')';
+            console.log(document.getElementById('img').files[0]);
         };
         reader.readAsDataURL(event.target.files[0]);
     }
@@ -163,6 +176,10 @@
             var password = $('#password').val();
             var email = $('#email').val();
             var emailCheck = document.getElementById("email");
+            var candiv = document.getElementById("canvasDiv");
+            if (candiv.style.display === "block") {
+                pic.send();
+            }
 
             if (password == '') {
                 $('#password').focus();
@@ -197,19 +214,24 @@
     function toggleCamera() {
         var section = document.getElementById("profileimgview")
         var div = document.getElementById("cameraDiv");
+        var candiv = document.getElementById("canvasDiv");
         if (div.style.display === "none") {
             div.style.display = "block";
             section.style.display = "none";
+            candiv.style.display = "none";
         }
+        pic.getVideo();
     }
 </script>
 <script>
     function toggleNoCamera() {
         var section = document.getElementById("profileimgview")
         var div = document.getElementById("cameraDiv");
+        var candiv = document.getElementById("canvasDiv");
         if (section.style.display === "none") {
             section.style.display = "block";
             div.style.display = "none";
+            candiv.style.display = "none";
         }
     }
 </script>
@@ -223,28 +245,32 @@
 <c:choose>
     <c:when test="${logincust.profileimgname == null || logincust.profileimgname ==''}">
         <section id="profileimgview" class="normal-breadcrumb set-bg" data-setbg="/img/basic_profile.png"
-                 style="width: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover">
+                 style="width: 300px; overflow: hidden; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover;background-position: center">
         </section>
     </c:when>
     <c:otherwise>
         <section id="profileimgview" class="normal-breadcrumb set-bg" data-setbg="/uimg/${logincust.profileimgname}"
-                 style="width: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover">
+                 style="width: 300px; overflow: hidden; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover; background-position: center">
         </section>
     </c:otherwise>
 </c:choose>
 
-                <div class="col-sm-12 text-center" id="cameraDiv" style="display: none;">
-                    <video id="myVideo" style="width: 300px; height: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover"></video>
-                    <canvas id="myCanvas" style="width: 300px; height: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover"></canvas><br/><br/>
-                    <input type=button class="btn btn-primary" value="Camera On" onclick="pic.getVideo();">&nbsp;
-                    <input type=button class="btn btn-primary" value="Take Pic" onclick="pic.takeSnapshot();">&nbsp;
-                    <input type=button class="btn btn-primary" value="Save Pic" onclick="pic.send();">&nbsp;
-<%--                    <input type=button class="btn btn-primary" value="Auto Pic(3sec)" onclick="pic.takeAuto(3000);">--%>
-                    <br/><br/>
-                    <div style="align-items: flex-start">
-                        <h5 style="color: black;">Image Name : </h5><input type="text" class="form-control" style="width: 300px; align-items: center" name="imgname" id="imgname">
-                    </div>
-                </div>
+<section id="cameraDiv" class="normal-breadcrumb set-bg"
+         style="display: none; position: relative;  overflow-x: hidden; width: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover">
+    <video id="myVideo" style="height: 100%; border-radius: 50%;  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);"></video>
+    <input type=button class="btn" value="Take Pic" onclick="pic.takeSnapshot();"
+           style="background-color: #f28123; font-weight: bold; color: #FFFFFF; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
+</section>
+<section id="canvasDiv" class="normal-breadcrumb set-bg"
+         style="display: none;  position: relative;  overflow-x: hidden; width: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover">
+    <canvas id="myCanvas" style="width: 387.2px; height: 100%; border-radius: 50%; position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);"></canvas>
+</section>
 
 <!-- Normal Breadcrumb End -->
 <!-- Signup Section Begin -->
@@ -255,17 +281,20 @@
                 <div class="login__form">
                     <h3 style="color: #b7b7b7">My Profile</h3>
                     <form id="profilemodify_form">
-                        <input type="hidden" name="profileimgname" value="${logincust.profileimgname}">
+                        <input type="hidden" id="profileimgname" name="profileimgname"
+                               value="${logincust.profileimgname}">
                         <div style="justify-content: flex-start;">
-                            <div class="input__item">
+                            <div class="input__item" style="width: 45%">
                                 <input type="file" placeholder="Your ProfileImage" name="img"
                                        id="img" style="display: none" onchange="displayImage(event)"/>
                                 <input type="button" value="Select Profile Image"
-                                       onclick="document.getElementById('img').click(); toggleNoCamera();" style="text-align: left"/>
+                                       onclick="document.getElementById('img').click(); toggleNoCamera();"
+                                       style="text-align: left"/>
                                 <span class="icon_image"></span>
                             </div>
-                            <div class="input__item">
-                                <input type="button" onclick="toggleCamera()" value="Take Profile Picture" style="text-align: left"/>
+                            <div class="input__item" style="width: 45%">
+                                <input type="button" onclick="toggleCamera()" value="Take Profile Picture"
+                                       style="text-align: left"/>
                             </div>
                         </div>
                         <div class="input__item" style="width: 90%">

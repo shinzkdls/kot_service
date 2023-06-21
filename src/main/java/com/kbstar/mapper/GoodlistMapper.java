@@ -8,4 +8,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface GoodlistMapper extends KBMapper<Integer, Goodlist> {
+    public void removegood(Goodlist goodlist);
+
+    public String searchgood(Integer recipepin, Integer custpin);
 }
