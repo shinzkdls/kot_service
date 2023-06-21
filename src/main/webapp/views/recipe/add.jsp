@@ -6,12 +6,69 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="jquery.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 <script>
     let reciperegister_form = {
         init: function () {
             $('#register_btn').addClass('disabled');
             $('#register_btn').click(function () {
                 reciperegister_form.send();
+            });
+
+            $('.add_btn').click(function () {
+                var ingredientnum = $('#ingredientnumber').val();
+                if (ingredientnum == '5') {
+                    return;
+                }
+
+                var addbtn = $('.add_btn').eq(parseInt(ingredientnum) - 1).css('opacity', '0');
+                var delbtn = $('.del_btn').eq(parseInt(ingredientnum) - 1).css('opacity', '0');
+
+                var ingredient = $('.mydiv').eq(ingredientnum);
+                ingredient.css('display', 'block');
+                $('#ingredientnumber').val(parseInt(ingredientnum) + 1);
+            });
+
+            $('.del_btn').click(function () {
+                var ingredientnum = $('#ingredientnumber').val();
+                if (ingredientnum == '1') {
+                    return;
+                }
+
+                var addbtn = $('.add_btn').eq(parseInt(ingredientnum) - 2).css('opacity', '1');
+                if (ingredientnum != '2')
+                    var delbtn = $('.del_btn').eq(parseInt(ingredientnum) - 2).css('opacity', '1');
+
+                var ingredient = $('.mydiv').eq(parseInt(ingredientnum) - 1);
+                ingredient.css('display', 'none');
+                $('#ingredientnumber').val(parseInt(ingredientnum) - 1);
+            });
+
+            $('.stepadd_btn').click(function () {
+                var stepnumber = $('#stepnumber').val();
+                if (stepnumber == '5') {
+                    return;
+                }
+                var addbtn = $('.stepadd_btn').eq(parseInt(stepnumber) - 1).css('opacity', '0');
+                var delbtn = $('.stepdel_btn').eq(parseInt(stepnumber) - 1).css('opacity', '0');
+
+                var restep = $('.stepmydiv').eq(stepnumber);
+                restep.css('display', 'block');
+                $('#stepnumber').val(parseInt(stepnumber) + 1);
+            });
+
+            $('.stepdel_btn').click(function () {
+                var stepnumber = $('#stepnumber').val();
+                if (stepnumber == '1') {
+                    return;
+                }
+                var addbtn = $('.stepadd_btn').eq(parseInt(stepnumber) - 2).css('opacity', '1');
+                if (stepnumber != '2')
+                    var delbtn = $('.stepdel_btn').eq(parseInt(stepnumber) - 2).css('opacity', '1');
+                var restep = $('.stepmydiv').eq(parseInt(stepnumber) - 1);
+                restep.css('display', 'none');
+                $('#stepnumber').val(parseInt(stepnumber) - 1);
             });
         },
         send: function () {
@@ -231,78 +288,119 @@
                                 <div class="recipe__form" style="padding-left: 0">
                                     <div class="form-group">
                                         <p><span class="highlight">레시피 상세 재료 및 수량 입력해주세요</span></p>
-                                        <input type="hidden" name="ingredientnumber1" id="ingredientnumber1" value=1>
-                                        <input type="hidden" name="ingredientnumber2" id="ingredientnumber2" value=2>
-                                        <input type="hidden" name="ingredientnumber3" id="ingredientnumber3" value=3>
-                                        <input type="hidden" name="ingredientnumber4" id="ingredientnumber4" value=4>
-                                        <input type="hidden" name="ingredientnumber5" id="ingredientnumber5" value=5>
-                                        <div id="myDiv1" class="mydiv">
-                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
-                                                <div style="width: 80%;">
+                                        <input type="hidden" name="ingredientnumber" id="ingredientnumber" value=1>
+                                        <div id="ingredient1" class="mydiv" style="margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
                                                     <label for="name1">재료 1 : </label>
                                                     <input type="text" class="form-control" id="name1"
                                                            placeholder="예) 돼지고기" name="name1">
                                                 </div>
-                                                <div style="width: 80%;">
+                                                <div style="width: 50%;">
                                                     <label for="quantity1">계량 정보 : </label>
-                                                    <input type="text" class="form-control" id="quantity1"
-                                                           placeholder="예) 300g" name="quantity1">
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="quantity1"
+                                                               placeholder="예) 300g" name="quantity1">
+                                                        <img id="add_btn1" class="add_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="del_btn1" class="del_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px; opacity: 0">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="myDiv2" class="mydiv" style="display: none;">
-                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
-                                                <div style="width: 80%;">
+                                        <div id="ingredient2" class="mydiv" style="display: none;margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
                                                     <label for="name2">재료 2 : </label>
                                                     <input type="text" class="form-control" id="name2"
                                                            placeholder="예) 양파" name="name2">
                                                 </div>
-                                                <div style="width: 80%;">
+                                                <div style="width: 50%;">
                                                     <label for="quantity2">계량 정보 : </label>
-                                                    <input type="text" class="form-control" id="quantity2"
-                                                           placeholder="예) 1/2개" name="quantity2">
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="quantity2"
+                                                               placeholder="예) 1/2개" name="quantity2">
+                                                        <img id="add_btn2" class="add_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="del_btn2" class="del_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px;">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="myDiv3" class="mydiv" style="display: none;">
-                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
-                                                <div style="width: 80%;">
+                                        <div id="ingredient3" class="mydiv" style="display: none;margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
                                                     <label for="name3">재료 3 : </label>
                                                     <input type="text" class="form-control" id="name3"
                                                            placeholder="예) 식용유" name="name3">
                                                 </div>
-                                                <div style="width: 80%;">
+                                                <div style="width: 50%;">
                                                     <label for="quantity3">계량 정보 : </label>
-                                                    <input type="text" class="form-control" id="quantity3"
-                                                           placeholder="예) 2T" name="quantity3">
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="quantity3"
+                                                               placeholder="예) 2T" name="quantity3">
+                                                        <img id="add_btn3" class="add_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="del_btn3" class="del_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px;">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="myDiv4" class="mydiv" style="display: none;">
-                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
-                                                <div style="width: 80%;">
+                                        <div id="ingredient4" class="mydiv" style="display: none;margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
                                                     <label for="name4">재료 4 : </label>
                                                     <input type="text" class="form-control" id="name4"
                                                            placeholder="예) 소금" name="name4">
                                                 </div>
-                                                <div style="width: 80%;">
+                                                <div style="width: 50%;">
                                                     <label for="quantity4">계량 정보 : </label>
-                                                    <input type="text" class="form-control" id="quantity4"
-                                                           placeholder="예) 2t" name="quantity4">
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="quantity4"
+                                                               placeholder="예) 2t" name="quantity4">
+                                                        <img id="add_btn4" class="add_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="del_btn4" class="del_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px;">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="myDiv5" class="mydiv" style="display: none;">
-                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
-                                                <div style="width: 80%;">
+                                        <div id="ingredient5" class="mydiv" style="display: none;margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
                                                     <label for="name5">재료 5 : </label>
                                                     <input type="text" class="form-control" id="name5"
                                                            placeholder="예) 고추가루" name="name5">
                                                 </div>
-                                                <div style="width: 80%;">
+                                                <div style="width: 50%;">
                                                     <label for="quantity5">계량 정보 : </label>
-                                                    <input type="text" class="form-control" id="quantity5"
-                                                           placeholder="예) 1T" name="quantity5">
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="quantity5"
+                                                               placeholder="예) 1T" name="quantity5">
+                                                        <img id="del_btn5" class="del_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="add_btn5" class="add_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px; opacity: 0">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -313,27 +411,137 @@
                                 <div class="section-title">
                                     <h5>STEP 06. 요리 순서</h5>
                                 </div>
-                                <div class="class__form" style="padding-left: 0">
+                                <div class="recipe__form" style="padding-left: 0">
                                     <div class="form-group">
-                                        <p><span class="highlight">요리 순서를 입력해주세요</span></p>
-                                        <input type="hidden" name="step1" id="step1" value=1>
-                                        <input type="hidden" name="step2" id="step2" value=2>
-                                        <input type="hidden" name="step3" id="step3" value=3>
-                                        <input type="hidden" name="step4" id="step4" value=4>
-                                        <input type="hidden" name="step5" id="step5" value=5>
-                                        <div id="rstep1" class="rstep">
-                                            <div class="form-horizontal" style="display: flex; justify-content: flex-start;">
-                                                <div>
-                                                    <input type="hidden" class="form-control" id="stepimg" name="stepimg">
-                                                    <label for="stepimg">이미지 : </label>
-                                                    <input type="file" class="form-control" id="simg"
+                                        <p><span class="highlight">요리 순서를 이미지와 함께 입력해주세요</span></p>
+                                        <input type="hidden" name="stepnumber" id="stepnumber" value=1>
+                                        <div id="step1" class="stepmydiv" style="margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
+                                                    <input type="hidden" class="form-control" id="stepimg1"
+                                                           name="stepimg1">
+                                                    <label for="stepimg1">이미지 1 : </label>
+                                                    <input type="file" class="form-control" id="simg1"
                                                            placeholder="Input Image"
-                                                           name="simg">
+                                                           name="simg1">
                                                 </div>
-                                                <div style="width: 80%;">
-                                                    <label for="stepdesc1">STEP 01 : </label>
-                                                    <input type="text" class="form-control" id="stepdesc1"
-                                                           placeholder="예) 300g" name="stepdesc1">
+                                                <div style="width: 50%;">
+                                                    <label for="stepdesc1">STEP 1 : </label>
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="stepdesc1"
+                                                               placeholder="조리방법을 적어주세요." name="stepdesc1">
+                                                        <img id="stepadd_btn1" class="stepadd_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="stepdel_btn1" class="stepdel_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px; opacity: 0">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="step2" class="stepmydiv" style="display: none;margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
+                                                    <input type="hidden" class="form-control" id="stepimg2"
+                                                           name="stepimg2">
+                                                    <label for="stepimg2">이미지 2 : </label>
+                                                    <input type="file" class="form-control" id="simg2"
+                                                           placeholder="Input Image"
+                                                           name="simg2">
+                                                </div>
+                                                <div style="width: 50%;">
+                                                    <label for="stepdesc2">STEP 2 : </label>
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="stepdesc2"
+                                                               placeholder="조리방법을 적어주세요." name="stepdesc2">
+                                                        <img id="stepadd_btn2" class="stepadd_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="stepdel_btn2" class="stepdel_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="step3" class="stepmydiv" style="display: none;margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
+                                                    <input type="hidden" class="form-control" id="stepimg3"
+                                                           name="stepimg3">
+                                                    <label for="stepimg3">이미지 3 : </label>
+                                                    <input type="file" class="form-control" id="simg3"
+                                                           placeholder="Input Image"
+                                                           name="simg3">
+                                                </div>
+                                                <div style="width: 50%;">
+                                                    <label for="stepdesc3">STEP 3 : </label>
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="stepdesc3"
+                                                               placeholder="조리방법을 적어주세요." name="stepdesc3">
+                                                        <img id="stepadd_btn3" class="stepadd_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="stepdel_btn3" class="stepdel_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="step4" class="stepmydiv" style="display: none;margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
+                                                    <input type="hidden" class="form-control" id="stepimg4"
+                                                           name="stepimg4">
+                                                    <label for="stepimg4">이미지 4 : </label>
+                                                    <input type="file" class="form-control" id="simg4"
+                                                           placeholder="Input Image"
+                                                           name="simg4">
+                                                </div>
+                                                <div style="width: 50%;">
+                                                    <label for="stepdesc4">STEP 4 : </label>
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="stepdesc4"
+                                                               placeholder="조리방법을 적어주세요." name="stepdesc4">
+                                                        <img id="stepadd_btn4" class="stepadd_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="stepdel_btn4" class="stepdel_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="step5" class="stepmydiv" style="display: none;margin-bottom : 10px">
+                                            <div class="form-horizontal"
+                                                 style="display: flex; justify-content: flex-start;">
+                                                <div style="width: 50%;">
+                                                    <input type="hidden" class="form-control" id="stepimg5"
+                                                           name="stepimg5">
+                                                    <label for="stepimg5">이미지 5 : </label>
+                                                    <input type="file" class="form-control" id="simg5"
+                                                           placeholder="Input Image"
+                                                           name="simg5">
+                                                </div>
+                                                <div style="width: 50%;">
+                                                    <label for="stepdesc2">STEP 5 : </label>
+                                                    <div style="display: flex">
+                                                        <input type="text" class="form-control" id="stepdesc5"
+                                                               placeholder="조리방법을 적어주세요." name="stepdesc5">
+                                                        <img id="stepdel_btn5" class="stepdel_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/1828/1828843.png"
+                                                             style="margin:auto; width: 28px;">
+                                                        <img id="stepadd_btn5" class="stepadd_btn"
+                                                             src="https://cdn-icons-png.flaticon.com/128/6318/6318058.png"
+                                                             style="margin:auto; width: 28px; opacity: 0">
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -89,54 +89,49 @@ public class RecipeController {
 
     @RequestMapping("/addImpl")
     public String addImpl(Model model, RecipeBasic recipeBasic, MultipartFile img,
-                          RecipeIngredient recipeIngredient,
-                          Integer ingredientnumber1, String name1, String quantity1,
-                          Integer ingredientnumber2, String name2, String quantity2,
-                          Integer ingredientnumber3, String name3, String quantity3) throws Exception {
+                          int ingredientnumber,
+                          String name1, String quantity1,
+                          String name2, String quantity2,
+                          String name3, String quantity3,
+                          String name4, String quantity4,
+                          String name5, String quantity5,
+
+                          int stepnumber,
+                          String stepdesc1, MultipartFile simg1,
+                          String stepdesc2, MultipartFile simg2,
+                          String stepdesc3, MultipartFile simg3,
+                          String stepdesc4, MultipartFile simg4,
+                          String stepdesc5, MultipartFile simg5) throws Exception {
 
         recipeService.register(recipeBasic);
         FileUploadUtil.saveFile(img, imgdir, recipeService.pingetter() + "_thumb.jpg");
         FileUploadUtil.saveFile(img, imgdir, recipeService.pingetter() + "_fin.jpg");
 
-        recipeIngredient.setIngredientnumber(ingredientnumber1);
-        recipeIngredient.setIngredientnumber(ingredientnumber2);
-        recipeIngredient.setIngredientnumber(ingredientnumber3);
+        String name[] = {name1, name2, name3, name4, name5};
+        String quantity[] = {quantity1, quantity2, quantity3, quantity4, quantity5};
 
-        recipeIngredient.setName(name1);
-        recipeIngredient.setName(name2);
-        recipeIngredient.setName(name3);
+        String stpedesc[] = {stepdesc1, stepdesc2, stepdesc3, stepdesc4, stepdesc5};
+        MultipartFile stepimg[] = {simg1, simg2, simg3, simg4, simg5};
 
-        recipeIngredient.setQuantity(quantity1);
-        recipeIngredient.setQuantity(quantity2);
-        recipeIngredient.setQuantity(quantity3);
+        RecipeIngredient ri = new RecipeIngredient();
+        for (int i = 1; i <= ingredientnumber; i++) {
+            ri.setIngredientnumber(i);
+            ri.setName(name[i - 1]);
+            ri.setQuantity(quantity[i - 1]);
+            ingredientService.register(ri);
+        }
 
-        ingredientService.register(recipeIngredient);
+        RecipeStep rs = new RecipeStep();
+        for (int i = 1; i <= stepnumber; i++) {
+            rs.setStep(i);
+            rs.setStepdesc(stpedesc[i - 1]);
+            rs.setStepimg(recipeService.pingetter() + "_step" + i + ".jpg");
+            recipeStepService.register(rs);
+            FileUploadUtil.saveFile(stepimg[i - 1], imgdir, recipeService.pingetter() + "_step" + i + ".jpg");
+        }
 
-        return "redirect:/recipe/all";
+        return "redirect:/recipe/all?type=&ingredients1=&recipetitle=";
     }
-
-//    @RequestMapping("/ingredientImpl")
-//    public String addIngredientImpl(RecipeIngredient recipeIngredient,
-//                                    Integer ingredientnumber1, String name1, String quantity1,
-//                                    Integer ingredientnumber2, String name2, String quantity2,
-//                                    Integer ingredientnumber3, String name3, String quantity3) throws Exception {
-//
-//        recipeIngredient.setIngredientnumber(ingredientnumber1);
-//        recipeIngredient.setIngredientnumber(ingredientnumber2);
-//        recipeIngredient.setIngredientnumber(ingredientnumber3);
-//
-//        recipeIngredient.setName(name1);
-//        recipeIngredient.setName(name2);
-//        recipeIngredient.setName(name3);
-//
-//        recipeIngredient.setQuantity(quantity1);
-//        recipeIngredient.setQuantity(quantity2);
-//        recipeIngredient.setQuantity(quantity3);
-//
-//        ingredientService.register(recipeIngredient);
-//
-//        return "redirect:/recipe/all";
-//    }
 
     @RequestMapping("/deleteImpl")
     public String deleteImpl(Integer recipepinDel) throws Exception {
