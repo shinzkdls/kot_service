@@ -22,7 +22,7 @@ public class RecipeStepService implements KBService<Integer, RecipeStep> {
      */
     @Override
     public void register(RecipeStep recipeStep) throws Exception {
-
+        mapper.insert(recipeStep);
     }
 
     @Override

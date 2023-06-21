@@ -14,7 +14,6 @@
         });
     });
 
-
     function setThumbnail(event) {
         var reader = new FileReader();
 
@@ -131,10 +130,12 @@
                                 <h5>STEP 01. 호스트 인증</h5>
                             </div>
                             <form action="/ocrimpl" method="post" enctype="multipart/form-data" id="ocr_form"
-                                  class="well"
+<%--                                  class="well"--%>
                                   style="margin-top: 30px">
+<%--                            <form id="ocr_form" class="ocr_form">--%>
                                 <p><span class="highlight">사업자 등록증으로 호스트님을 인증해주세요</span></p>
                                 <div class="filebox" style="align-items: center;">
+
                                     <input class="upload-name" aria-label="Search"
                                            value="사업자등록증을 등록해주세요"
                                            placeholder="사업자등록증을 등록해주세요">
@@ -142,9 +143,26 @@
                                     <input type="file" name="bizimg"
                                            id="bizimg" onchange="setThumbnail(event);">
                                 </div>
-                                <div id="image_container" class="image_container"></div>
-                                <div id="result_container"></div>
-                                <button id="ocr_btn" class="btn" type="submit"
+                                <div style="display: flex;">
+
+                                    <div style="width: 40%;">
+                                        <div id="image_container" class="image_container set-bg"
+                                             data-setbg="/uimg/${ncp.getBizimg().getOriginalFilename()}"
+                                             style="max-width: 100%; max-height: 100%;">
+                                        </div>
+                                    </div>
+
+                                    <div id="result_container" style="width: 60%; align-content:center;">
+                                        <div style="margin-left: 30px;">
+                                            <h4 style="margin: 15px;">사업자번호 : ${result.biznum}</h4>
+                                            <h4 style="margin: 15px;">사업자이름 : ${result.bizname}</h4>
+                                            <h4 style="margin: 15px;">대표자이름: ${result.bizowner}</h4>
+                                            <h4 style="margin: 15px;">개업년월일: ${result.bizdate}</h4>
+                                            <h4 style="margin: 15px;">사업자주소: ${result.bizadd}</h4>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button id="ocr_btn" class="ocr_btn" type="submit"
                                         style="background-color: #F28123; color: #fff; ">인증
                                 </button>
                             </form>
@@ -154,7 +172,7 @@
                             <input type="hidden" name="custid" id="custid" value="${logincust.custid}">
                             <input type="hidden" name="nickname" id="nickname" value="${logincust.nickname}">
 
-                            <div class="class-step">
+                            <div class="class-step" >
                                 <div class="section-title">
                                     <h5>STEP 02. 클래스 유형</h5>
                                     <div class="form-group" style="margin-top: 30px;">
