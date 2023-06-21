@@ -11202,3 +11202,44 @@ a.text-dark:hover, a.text-dark:focus {
 }
 
 /*# sourceMappingURL=bootstrap.css.map */
+
+/* main weather start */
+.temp {
+    display: flex;
+ }
+.lowest {
+    display: inline-block;
+    font-size: 1.5rem;
+    line-height: 1.8rem;
+    letter-spacing: -0.25px;
+    color: #2a74f8;
+    vertical-align: top;
+}
+
+.highest {
+    display: inline-block;
+    font-size: 1.8rem;
+    font-weight: bold;
+    line-height: 2.1rem;
+    letter-spacing: -0.3px;
+    color: #dc0100;
+    vertical-align: top;
+}
+
+.rain {
+    display: flex;
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 2.4rem;
+    letter-spacing: -0.7px;
+    color: var(--G-color-text2);
+}
+
+.rain .rain_text {
+    display: inline-block;
+    font-size: 2.1rem;
+    letter-spacing: -0.74px;
+    vertical-align: top;
+}
+
+/* main weather end */

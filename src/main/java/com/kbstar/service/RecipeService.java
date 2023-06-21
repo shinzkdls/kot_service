@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RecipeService implements KBService<Integer, RecipeBasic> {
@@ -69,8 +70,6 @@ public class RecipeService implements KBService<Integer, RecipeBasic> {
         return mapper.pingetter();
     }
 
-    ;
-
     public List<RecipeBasic> getMyRecipe(String custid) throws Exception {
         return mapper.getMyRecipe(custid);
     }
@@ -84,7 +83,6 @@ public class RecipeService implements KBService<Integer, RecipeBasic> {
         }
         return recipeRanking;
     }
-
     public List<RecipeBasic> latestRecipe() throws Exception {
         List<RecipeBasic> recipeList = mapper.latestRecipe();
         return recipeList;

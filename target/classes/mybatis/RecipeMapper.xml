@@ -97,6 +97,16 @@
         GROUP BY RECIPEPIN
         ORDER BY COUNT(RECIPEPIN) DESC
     </select>
+    <!-- 0620 jeong : ranking modify -->
+<!--    <select id="ranking" parameterType="String" resultType="RecipeBasic">-->
+<!--        SELECT goodlist.RECIPEPIN, recipe_basic.custid-->
+<!--        FROM goodlist-->
+<!--                 JOIN recipe_basic ON goodlist.RECIPEPIN = recipe_basic.recipepin-->
+<!--        GROUP BY goodlist.RECIPEPIN, recipe_basic.custid-->
+<!--        ORDER BY COUNT(goodlist.RECIPEPIN) DESC-->
+<!--    </select>-->
+
+
     <select id="latestRecipe" resultType="RecipeBasic">
         select *
         from recipe_basic
