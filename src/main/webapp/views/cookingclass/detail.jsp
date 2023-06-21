@@ -2,6 +2,43 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+
+<script>
+    function joinInsert() {
+        $('#join_form').attr({
+            "action": "/cookingclass/joinImpl",
+            "method": "post"
+        });
+        $('#join_form').submit();
+    };
+
+    function requestPay() {
+        var IMP = window.IMP; // 생략 가능
+        IMP.init("imp63768343"); // 예: imp00000000
+        IMP.request_pay({
+                pg: 'html5_inicis',
+                pay_method: "card",
+                merchant_uid: 'merchant_'+new Date().getTime(),
+                name: "${classdetail.cooking}",
+                amount: parseInt(${classdetail.amount}),
+                buyer_email: "${logincust.email}",
+                buyer_name: "${logincust.custname}",
+                buyer_tel: "${logincust.phone}",
+                buyer_addr: "${logincust.location}",
+            },
+            rsp => {
+                if (rsp.success) {
+                    alert(`결제가 완료되었습니다.`);
+                    joinInsert();
+                    paymentInsert();
+                } else {
+                    alert(`결제가 취소되었습니다.`);
+                }
+            });
+    };
+</script>
 
 <script>
     let class_map = {
@@ -82,7 +119,6 @@
         comment_form.init();
     });
 </script>
-
 <head>
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -258,10 +294,18 @@
                         </a>
                         <h5 style="margin-top: 5px; color: black">${classcust.introduction}</h5>
                     </div>
-                    <div class="single-product-form" style="margin-bottom: 30px">
-                        <a role="button" class="btn cart-btn" id="class-btn" style="width: 80%;">클래스
-                            신청</a>
-                    </div>
+                    <form id="join_form" class="join_form">
+                        <div class="single-product-form" style="margin-bottom: 30px">
+                            <input type="hidden" id="classpinJoin" name="classpinJoin" value="${classdetail.classpin}">
+                            <input type="hidden" id="custpinJoin" name="custpinJoin" value="${logincust.custpin}">
+                            <input type="hidden" id="amount" name="amount" value="${classdetail.amount}">
+                            <input type="hidden" id="joinstatus" name="joinstatus" value="1">
+                            <input type="hidden" id="paymentstatus" name="paymentstatus" value="1">
+                            <a role="button" class="btn cart-btn" id="class-btn" onclick="requestPay()" style="width: 80%;">
+                                클래스 신청
+                            </a>
+                        </div>
+                    </form>
                     <h4>공유하기</h4>
                     <ul class="product-share">
                         <li><a href="#" style="font-size: 30px"><span class="social_facebook_circle"></span></a></li>

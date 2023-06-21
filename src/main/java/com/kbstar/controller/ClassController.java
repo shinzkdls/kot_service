@@ -1,12 +1,8 @@
 package com.kbstar.controller;
 
 import com.github.pagehelper.PageInfo;
-import com.kbstar.dto.ClassBasic;
-import com.kbstar.dto.ClassComment;
-import com.kbstar.dto.Cust;
-import com.kbstar.service.ClassCommentService;
-import com.kbstar.service.ClassService;
-import com.kbstar.service.CustService;
+import com.kbstar.dto.*;
+import com.kbstar.service.*;
 import com.kbstar.util.FileUploadUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +31,10 @@ public class ClassController {
     ClassCommentService commentService;
     @Autowired
     CustService custService;
+    @Autowired
+    ClassJoinInfoService classJoinInfoService;
+    @Autowired
+    PaymentService paymentService;
 
 
     @RequestMapping("/class")
@@ -195,6 +195,27 @@ public class ClassController {
         return "redirect:/cookingclass/detail";
     }
 
+    @RequestMapping("/joinImpl")
+    public String joinImpl(HttpSession session, Integer classpinJoin, Integer custpinJoin, String joinstatus,
+                           Integer amount, String paymentstatus) throws Exception {
+        try {
+            ClassJoinInfo cji = new ClassJoinInfo();
+            cji.setClasspin(classpinJoin);
+            cji.setCustpin(custpinJoin);
+            cji.setJoinstatus(joinstatus);
+            classJoinInfoService.register(cji);
+
+            Payment payment = new Payment();
+            payment.setClasspin(classpinJoin);
+            payment.setCustpin(custpinJoin);
+            payment.setAmount(amount);
+            payment.setPaymentstatus(paymentstatus);
+            paymentService.register(payment);
+        } catch (Exception e) {
+            throw new Exception("클래스 신청에 실패하였습니다.");
+        }
+        return "index";
+    }
 
 //    @RequestMapping("/ocrimpl")
 //    public String ocrimpl(Model model, Ncp ncp) throws ParseException {
