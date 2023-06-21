@@ -82,7 +82,7 @@
     <a href="/magic"><img id="magicIcon" src="/img/conch.png" alt="Conch Shell"></a>
 </div>
 <div class="gptIcon">
-    <img id="gptIcon" src="/img/gpt.png" alt="gpt" onclick="openPopup()">
+    <a href=""><img id="gptIcon" src="/img/gpt.png" alt="gpt" onclick="openPopup()"></a>
 </div>
 <!-- Page Preloder -->
 <div id="preloder">
