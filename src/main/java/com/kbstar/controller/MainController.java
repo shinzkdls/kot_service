@@ -4,7 +4,10 @@ import com.kbstar.dto.ClassBasic;
 import com.kbstar.dto.RecipeBasic;
 import com.kbstar.service.ClassService;
 import com.kbstar.service.RecipeService;
+import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
@@ -12,7 +15,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,6 +33,8 @@ public class MainController {
     RecipeService recipeService;
     @Autowired
     ClassService classService;
+    @Autowired
+    ChatgptService chatgptService;
 
     @RequestMapping("/")
     public String main(Model model) throws Exception {
@@ -95,6 +102,37 @@ public class MainController {
         model.addAttribute("recipeRanking", recipeRanking);
         model.addAttribute("weather", weather);
         return "index";
+    }
+
+    @RequestMapping("/gptchatbot")
+    public String gptchatbot(Model model) throws Exception {
+        model.addAttribute("center", "gptchatbot");
+        return "index";
+    }
+
+    @RequestMapping("/gptchatting")
+    @ResponseBody
+    public Object gptchatting(String question) throws Exception {
+        log.info("챗지티피 시작하자!!");
+        String answer ="";
+        try {
+            answer = chatgptService.sendMessage(question + "20자 이내로 답변줘");
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        log.info("============= 대답 출력: ");
+        log.info(answer);
+        String imageUrl = chatgptService.imageGenerate("boy");
+        log.info(imageUrl);  // image url
+
+        JSONArray ja = new JSONArray();
+        JSONObject jo = new JSONObject();
+
+        jo.put("question", question);
+        jo.put("answer", answer);
+        ja.add(jo);
+
+        return ja;
     }
 }
 
