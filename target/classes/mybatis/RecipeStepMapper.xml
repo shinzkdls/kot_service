@@ -11,4 +11,12 @@
         ORDER BY step ASC
     </select>
 
+    <insert id="insert" parameterType="recipestep">
+        INSERT INTO recipe_step
+        VALUES (#{step},
+                recipe_basic_seq.CURRVAL,
+                #{stepdesc},
+                #{stepimg})
+    </insert>
+
 </mapper>
