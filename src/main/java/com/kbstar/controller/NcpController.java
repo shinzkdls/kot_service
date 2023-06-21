@@ -32,7 +32,8 @@ public class NcpController {
         Map map = OCRUtil.getData(result);
         //log.info(map.values().toString());
         model.addAttribute("result", map);
-        return "/cookingclass/add";
+        model.addAttribute("center", "cookingclass/add");
+        return "index";
     }
 }
 

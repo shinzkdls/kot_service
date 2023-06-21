@@ -7,6 +7,7 @@
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/cookingclass/detail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/cookingclass" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/index.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/magicConchShell.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views" />
+        <entry key="file://$PROJECT_DIR$/src/main/webapp/views/mypage/gptchatbot.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/mypage" />
         <entry key="file://$PROJECT_DIR$/src/main/webapp/views/recipe/detail.jsp" value="file://$PROJECT_DIR$/src/main/webapp/views/recipe" />
       </map>
     </option>

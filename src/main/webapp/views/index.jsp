@@ -2,12 +2,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<script>
-    function openPopup() {
-        // 팝업창 열기
-        window.open('/gpt', 'popup', 'width=500,height=300');
-    }
-</script>
+<%--<script>--%>
+<%--    function openPopup() {--%>
+<%--        // 팝업창 열기--%>
+<%--        window.open('/gptchatbot', 'popup', 'width=700,height=1500');--%>
+<%--    }--%>
+<%--</script>--%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -54,8 +54,8 @@
 
         .gptIcon {
             position: fixed;
-            right: 20px;
-            bottom: 200px;
+            right: 45px;
+            bottom: 130px;
             z-index: 11;
             animation: action 1s infinite alternate
         }
@@ -69,9 +69,14 @@
             }
         }
 
-        #magicIcon, #gptIcon {
+        #magicIcon {
             width: 100px;
             height: 100px
+        }
+
+        #gptIcon {
+            width: 60px;
+            height: 60px
         }
     </style>
 </head>
@@ -82,7 +87,7 @@
     <a href="/magic"><img id="magicIcon" src="/img/conch.png" alt="Conch Shell"></a>
 </div>
 <div class="gptIcon">
-    <img id="gptIcon" src="/img/gpt.png" alt="gpt" onclick="openPopup()">
+    <a href="/gptchatbot"><img id="gptIcon" src="/img/kollyJump.png" alt="KollyGPT"></a>
 </div>
 <!-- Page Preloder -->
 <div id="preloder">
