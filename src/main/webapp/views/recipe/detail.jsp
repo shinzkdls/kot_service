@@ -244,21 +244,20 @@
                             <c:when test="${logincust != null}">
                                 <c:choose>
                                     <c:when test="${recipedetail.logincustlike == '0'}">
-                                        <a class="cart-btn"
-                                           href="/recipe/likeImpl?custpinlike=${logincust.custpin}&recipepinlike=${recipedetail.recipepin}"
-                                           style="background-color: #b7b7b7">
-                                            <span class="icon_heart_alt"></span> 좋아요</a>
+                                        <a class="btn cart-btn" style="background-color: #b7b7b7; width: 80%;"
+                                           href="/recipe/likeImpl?custpinlike=${logincust.custpin}&recipepinlike=${recipedetail.recipepin}">
+                                            <span class="icon_heart_alt"></span> 레시피 찜</a>
                                     </c:when>
                                     <c:otherwise>
-                                        <a class="cart-btn"
-                                           href="/recipe/likeImpl?custpinlike=${logincust.custpin}&recipepinlike=${recipedetail.recipepin}">
-                                            <span class="icon_heart_alt"></span> 좋아요</a>
+                                        <a class="btn cart-btn" style="width: 80%;"
+                                           href="/recipe/likeDel?custpinlike=${logincust.custpin}&recipepinlike=${recipedetail.recipepin}">
+                                            <span class="icon_heart_alt"></span> 레시피 찜</a>
                                     </c:otherwise>
                                 </c:choose>
                             </c:when>
                             <c:otherwise>
-                                <a href="/login" class="btn cart-btn" id="recipe-btn" style="width: 80%;">레시피 좋아요
-                                    신청</a>
+                                <a href="/login" class="btn cart-btn" id="recipe-btn" style="width: 80%;"><span
+                                        class="icon_heart_alt"></span> 레시피 찜</a>
                             </c:otherwise>
                         </c:choose>
                     </div>

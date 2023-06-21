@@ -44,4 +44,13 @@ public class GoodlistService implements KBService<Integer, Goodlist> {
     public List<Goodlist> get() throws Exception {
         return null;
     }
+
+    public void removegood(Goodlist goodlist) {
+        mapper.removegood(goodlist);
+    }
+
+    public String searchgood(Integer recipepin, Integer custpin) {
+        return mapper.searchgood(recipepin, custpin);
+    }
+
 }

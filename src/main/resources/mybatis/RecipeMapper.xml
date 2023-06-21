@@ -63,10 +63,14 @@
         ORDER BY recipepin DESC
     </select>
 
-    <select id="select" parameterType="Integer" resultType="recipebasic">
-        SELECT *
-        FROM recipe_basic
-        WHERE recipepin = #{recipepin}
+    <select id="select" parameterType="RecipeBasic" resultType="recipebasic">
+        SELECT R.*,
+               NVL2(G.custpin, '1', '0') as logincustlike
+        FROM recipe_basic R
+                 LEFT OUTER JOIN goodlist G
+                                 ON R.recipepin = G.recipepin
+                                     AND G.custpin = #{logincustpin}
+        WHERE R.recipepin = #{recipepin}
     </select>
 
     <select id="selectall" resultType="recipebasic">

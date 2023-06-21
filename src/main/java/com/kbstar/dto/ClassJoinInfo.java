@@ -13,6 +13,6 @@ import java.util.Date;
 public class ClassJoinInfo {
     private int classpin;
     private int custpin;
-    private int joinstatus;
+    private String joinstatus;
     private Date joindate;
 }
