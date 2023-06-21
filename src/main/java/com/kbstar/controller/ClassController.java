@@ -214,7 +214,7 @@ public class ClassController {
         } catch (Exception e) {
             throw new Exception("클래스 신청에 실패하였습니다.");
         }
-        return "index";
+        return "redirect:/";
     }
 
 //    @RequestMapping("/ocrimpl")
