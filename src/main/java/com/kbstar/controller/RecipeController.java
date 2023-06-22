@@ -4,20 +4,22 @@ import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.*;
 import com.kbstar.service.*;
 import com.kbstar.util.FileUploadUtil;
+import com.kbstar.util.PushNotificationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Slf4j
 @Controller
+@SpringBootTest
 @RequestMapping("/recipe")
 public class RecipeController {
 
@@ -35,6 +37,8 @@ public class RecipeController {
     SubscribeService subscribeService;
     @Autowired
     CustService custService;
+    @Autowired
+    PushNotificationUtil pushNotificationUtil;
     String dir = "recipe/";
     @Value("${uploadimgdir}")
     String imgdir;
@@ -181,9 +185,11 @@ public class RecipeController {
 
     @RequestMapping("/commentImpl")
     public String commentImpl(RecipeComment recipeComment, HttpSession session) throws Exception {
+        String userToken = "eJqBEpgeRYey1KxcQ5d88W:APA91bFb566XCq2SThdatny14tx4iyJfbsjxE5dBjR1cQJ8we0H2lvzYWWFAW2d2WL98A_ycCiFIjVV94Dkdr1_GrqvLxvV1Hpi0jgSHoPcjrToJPhd1zX-l48QJIMBVu1sEOWN3d_Yg";
+        String imgUrl = "https://www.w3schools.com/css/img_5terre.jpg";
         try {
             commentService.register(recipeComment);
-//            session.setAttribute("logincust", cust);
+            pushNotificationUtil.sendTargetMessage("A comment is registered on your recipe.", recipeComment.getContent(), "/register", userToken);
         } catch (Exception e) {
             throw new Exception("등록 오류");
         }
