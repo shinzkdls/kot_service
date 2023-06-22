@@ -61,20 +61,20 @@ public class MainController {
         weather.put("lowest",(d.get(0).toString().replaceAll("<[^>]+>", "").substring(4, 7)));
         weather.put("highest",(dd.get(0).toString().replaceAll("<[^>]+>", "").substring(4, 7)));
 
-        // 강수량 60 이상시, 파전 recipe 출력. 그 외에는 파전 제외한 레시피 랜덤 출력
+        // 강수확률 70 이상시, 파전 recipe 출력. 그 외에는 파전 제외한 레시피 랜덤 출력
         String rainValue = (String) weather.get("rain");
         rainValue = rainValue.replaceAll("%", "");
 
         try {
             int rain = Integer.parseInt(rainValue);
-            if (rain >= 60) {
+            if (rain >= 70) {
                 RecipeBasic recipeBasic = null;
-                recipeBasic = recipeService.get(20204);
+                recipeBasic = recipeService.get(20229);
                 model.addAttribute("recipeBasic", recipeBasic);
             } else {
                 List<RecipeBasic> allRecipes = recipeService.get();
                 List<RecipeBasic> filteredRecipes = allRecipes.stream()
-                        .filter(recipe -> recipe.getRecipepin() != 20204)
+                        .filter(recipe -> recipe.getRecipepin() != 20229)
                         .collect(Collectors.toList());
                 Random random = new Random();
                 int randomIndex = random.nextInt(filteredRecipes.size());

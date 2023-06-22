@@ -13,20 +13,14 @@
     <div class="container">
         <div class="hero__slider owl-carousel">
             <div class="hero__items set-bg" data-setbg="/uimg/${recipeBasic.thumbnailimg}">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <div class="temp">
-                            <p><span class="lowest">${weather.lowest}</span></p>
-                            <span class="bar">/</span>
-                            <p><span class="highest">${weather.highest}</span></p>
-                        </div>
-                        <div class="rain">
-                            <p><span>강수량</span></p>
-                            <div class="rain_text">${weather.rain}</div>
-                            <span>/</span>
-                            <p>${weather.desc}</p>
-                        </div>
-                    </div>
+                <div class="weatherbox">
+                    <img style="width: 25px; margin: 0px 5px;" src="/uimg/temp.png" alt="weather"/>&nbsp;
+                    <p style="color: #2a74f8;">${weather.lowest}</p>
+                    <p> / </p>
+                    <p style="color: #dc0100;">${weather.highest}</p>&nbsp;&nbsp;
+                    <img style="width: 25px; margin: 0px 5px;" src="/uimg/humidity.png" alt="weather"/>&nbsp;
+                    <p>${weather.rain}</p>
+<%--                    <p>${weather.desc}</p>--%>
                 </div>
                 <div class="row">
                     <div class="col-lg-6" style="background-color: rgba(128, 128, 128, 0.5);">
@@ -75,15 +69,13 @@
                                             <div class="product__item__pic set-bg"
                                                  data-setbg="/uimg/${obj.thumbnailimg}">
                                                 <div class="comment">
-                                                    <i class="fa fa-comments"></i> 11
+                                                    <i class="fa-regular fa-comment" style="color: #ffffff;"> </i>
                                                 </div>
-                                                <div class="view"><i class="fa fa-eye"></i> 9141</div>
+                                                <div class="view">
+                                                    <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
+                                                </div>
                                             </div>
                                             <div class="product__item__text">
-                                                <ul>
-                                                    <li>Active</li>
-                                                    <li>Movie</li>
-                                                </ul>
                                                 <h5>
                                                     <a href="/recipe/detail?recipepin=${obj.recipepin}">${obj.recipetitle}</a>
                                                 </h5>
@@ -174,14 +166,16 @@
                 <div class="product__sidebar">
                     <div class="product__sidebar__view">
                         <div class="section-title">
-                            <h5>콜리의 BEST 요리 모음</h5>
+                            <h5>콜리의 <span style="color: #dc3545;">BEST</span> 요리 모음</h5>
                         </div>
+
                         <div class="filter__gallery">
                             <c:forEach var="recipeRanking" items="${recipeRanking}">
                                 <div class="product__sidebar__view__item set-bg mix day years"
                                      data-setbg="/uimg/${recipeRanking.thumbnailimg}">
-                                    <div class="ep">
-                                        <i class="fa-solid fa-pen-to-square" style="color: #ffffff;"></i>
+                                    <div>
+                                        <img style="width: 60px; margin: 10px" src="/uimg/reciperank.png"
+                                             alt="reciperank"/>
                                     </div>
                                     <div>
                                         <h5>

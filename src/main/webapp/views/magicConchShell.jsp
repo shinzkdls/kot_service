@@ -36,7 +36,7 @@
                 ssmlGender: 'FEMALE'
             },
             "input": {
-                "text": text
+                "text":text
             },
             "audioConfig": {
                 "audioEncoding": "mp3"
@@ -54,7 +54,7 @@
                 audioFile.src = window.URL.createObjectURL(audioBlob);
                 audioFile.playbackRate = 0.8; //재생속도
                 audioFile.addEventListener('loadedmetadata', function () {
-                    let duration = (audioFile.duration) * 1000; // 재생 시간(초 단위)
+                    let duration = (audioFile.duration)*1000; // 재생 시간(초 단위)
                     audioFile.play();
                     setTimeout(function () {
                         changeImage('/img/conch.png');
@@ -155,7 +155,6 @@
         align-items: center;
         position: relative;
     }
-
     #detail_url {
         position: absolute;
         bottom: 25px;
@@ -175,11 +174,9 @@
     <div class="set-bg" data-setbg="/img/bg.jpg" id="bg">
         <h1><br>Ask the Magic Conch Shell</h1>
         <h4><br>마법의 소라고둥님, 무엇을 먹을까요?</h4>
-        <div id="conchShell">
+        <div id="conchShell" >
             <a id="conchShellImg" type="button" onclick="playAnswer();">
-                <img id="img" src="/img/conch_glow.png" alt="Conch Shell"
-                     onmouseover="changeImage('/img/conch_glow.png')"
-                     onmouseout=" if (!clickEvent){changeImage('/img/conch.png');}">
+                <img id="img" src="/img/conch_glow.png" alt="Conch Shell" onmouseover="changeImage('/img/conch_glow.png')" onmouseout=" if (!clickEvent){changeImage('/img/conch.png');}">
             </a>
             <a id="detail_url" href="">
                 <h1 id="answerText"></h1>

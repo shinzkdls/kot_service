@@ -105,16 +105,16 @@
 </head>
 <body>
 <!-- Normal Breadcrumb Begin -->
-<section class="normal-breadcrumb set-bg" data-setbg="/uimg/classmain.jpg">
+<section class="normal-breadcrumb set-bg" data-setbg="/uimg/classmain.gif">
     <div class="container">
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="normal__breadcrumb__text">
-                    <h2>COOKING CLASS</h2>
-                    <p>Welcome to the cookingclass</p>
-                </div>
-            </div>
-        </div>
+<%--        <div class="row">--%>
+<%--            <div class="col-lg-12 text-center">--%>
+<%--                <div class="normal__breadcrumb__text">--%>
+<%--                    <h2>COOKING CLASS</h2>--%>
+<%--                    <p>Welcome to the cookingclass</p>--%>
+<%--                </div>--%>
+<%--            </div>--%>
+<%--        </div>--%>
     </div>
 </section>
 <!-- Normal Breadcrumb End -->
