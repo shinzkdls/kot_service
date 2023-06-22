@@ -107,16 +107,8 @@
                     <h5 style="color: black;">Already have an account? <a href="/login">Log In!</a></h5>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="login__social__links">
-                    <h3 style="color: black;">Login With:</h3>
-                    <ul>
-                        <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
-                        </li>
-                        <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
-                        <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a></li>
-                    </ul>
-                </div>
+            <div class="col-lg-6" style="display: flex; justify-content: center; align-content: center">
+                <img src="/img/apply.gif">
             </div>
         </div>
     </div>

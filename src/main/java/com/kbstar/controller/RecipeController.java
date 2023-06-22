@@ -64,6 +64,7 @@ public class RecipeController {
         List<RecipeStep> step = null;
         List<RecipeComment> comment = null;
         Cust sessioncust = (Cust) session.getAttribute("logincust");
+        recipeService.viewup(recipepin);
         recipe = recipeService.get(recipepin);
         if (sessioncust != null)
             recipe.setLogincustlike(goodlistService.searchgood(recipepin, sessioncust.getCustpin()));

@@ -109,7 +109,7 @@
                 <div class="header__nav">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="/recipe/all?type=&ingredients1=&recipetitle=">Recipe</a></li>
+                            <li><a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=">Recipe</a></li>
                             <li><a href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
                             <li><a href="/contacts">Contacts</a></li>
                             <c:choose>

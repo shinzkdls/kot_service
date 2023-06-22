@@ -31,6 +31,15 @@
                 });
                 $('#category_form').submit();
             });
+
+            $('#recipelevel_li li').click(function () {
+                $('#recipelevel').val($(this).data('filter'));
+                $('#category_form').attr({
+                    method: 'get',
+                    action: '/recipe/all'
+                });
+                $('#category_form').submit();
+            });
         }
     };
     // $(document).ready(function () {
@@ -127,6 +136,18 @@
                             <li class="${recipesortinfo.type eq '디저트' ? 'active' : ''}" data-filter="디저트">디저트</li>
                             <li class="${recipesortinfo.type eq '기타' ? 'active' : ''}" data-filter="기타">기타</li>
                         </ul>
+                        <ul id="recipelevel_li" name="recipelevel_li">
+                            <li class="${recipesortinfo.recipelevel == null || recipesortinfo.recipelevel eq ''? 'active' : ''}"
+                                data-filter="">난이도별
+                            </li>
+                            <li class="${recipesortinfo.recipelevel eq '1' ? 'active' : ''}" data-filter="1">눈감고도</li>
+                            <li class="${recipesortinfo.recipelevel eq '2' ? 'active' : ''}" data-filter="2">쉬움</li>
+                            <li class="${recipesortinfo.recipelevel eq '3' ? 'active' : ''}" data-filter="3">할만함</li>
+                            <li class="${recipesortinfo.recipelevel eq '4' ? 'active' : ''}" data-filter="4">조금어려움</li>
+                            <li class="${recipesortinfo.recipelevel eq '5' ? 'active' : ''}" data-filter="5">어려움</li>
+                            <li class="${recipesortinfo.recipelevel eq '6' ? 'active' : ''}" data-filter="6">엄청어려움</li>
+                            <li class="${recipesortinfo.recipelevel eq '7' ? 'active' : ''}" data-filter="7">장금이만</li>
+                        </ul>
                     </div>
                     <div style="display: flex; margin-bottom: 28px">
                         <input class="form-control me-2" type="text" placeholder="Search by recipe name"
@@ -139,6 +160,7 @@
                     </div>
                     <input type="hidden" id="ingredients1" name="ingredients1" value="${recipesortinfo.ingredients1}">
                     <input type="hidden" id="type" name="type" value="${recipesortinfo.type}">
+                    <input type="hidden" id="recipelevel" name="recipelevel" value="${recipesortinfo.recipelevel}">
                 </form>
             </div>
         </div>
@@ -196,7 +218,7 @@
                             <c:when test="${rlist.getPrePage() != 0}">
                                 <li class="pagination-wrap">
                                     <a class="pagination-wrap"
-                                       href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}"
+                                       href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}"
                                        aria-label="Previous">
                                         <span>Prev</span>
                                     </a>
@@ -216,13 +238,13 @@
                                 <c:when test="${rlist.getPageNum() == page}">
                                     <li class="pagination-wrap active">
                                         <a class="pagination-wrap active" style="color:#FFFFFF;"
-                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}">${page }</a>
+                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}">${page }</a>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
                                     <li>
                                         <a class="pagination-wrap"
-                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}">${page }</a>
+                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}">${page }</a>
                                     </li>
                                 </c:otherwise>
                             </c:choose>
@@ -231,7 +253,7 @@
                             <c:when test="${rlist.getNextPage() != 0}">
                                 <li class="pagination-wrap">
                                     <a class="pagination-wrap"
-                                       href="/recipe/all?pageNo=${rlist.getNextPage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}"
+                                       href="/recipe/all?pageNo=${rlist.getNextPage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}"
                                        aria-label="Next">
                                         <span>Next</span>
                                     </a>
