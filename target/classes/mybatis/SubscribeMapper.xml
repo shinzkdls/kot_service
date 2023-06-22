@@ -25,5 +25,12 @@
         WHERE C.custid = #{custid}
     </select>
 
+    <select id="getsubscribestatus" parameterType="Integer" resultType="Integer">
+        select count(*)
+        from subscribe
+        where custpin = #{custpin}
+          and subcustpin = #{subcustpin}
+    </select>
+
 </mapper>
 
