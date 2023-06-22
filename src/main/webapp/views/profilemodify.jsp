@@ -281,6 +281,8 @@
                 <div class="login__form">
                     <h3 style="color: #b7b7b7">My Profile</h3>
                     <form id="profilemodify_form">
+                        <input type="hidden" id="custpin" name="custpin"
+                               value="${logincust.custpin}">
                         <input type="hidden" id="profileimgname" name="profileimgname"
                                value="${logincust.profileimgname}">
                         <div style="justify-content: flex-start;">

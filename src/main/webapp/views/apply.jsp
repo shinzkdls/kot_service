@@ -85,7 +85,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="login__form">
-                    <h3 style="color: #b7b7b7">Sign Up</h3>
+                    <h3 style="color: black;">Sign Up</h3>
                     <form id="register_form">
                         <div class="input__item" style="margin-bottom: 0">
                             <input type="text" placeholder="Your ID" name="custid" id="custid">
@@ -104,12 +104,12 @@
                         </div>
                         <button type="button" class="site-btn" id="register_btn">Signup Now</button>
                     </form>
-                    <h5 style="color: #b7b7b7">Already have an account? <a href="/login">Log In!</a></h5>
+                    <h5 style="color: black;">Already have an account? <a href="/login">Log In!</a></h5>
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="login__social__links">
-                    <h3 style="color: #b7b7b7">Login With:</h3>
+                    <h3 style="color: black;">Login With:</h3>
                     <ul>
                         <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With Facebook</a>
                         </li>

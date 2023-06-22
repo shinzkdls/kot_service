@@ -70,7 +70,6 @@ public class ClassController {
         return "index";
     }
 
-
     @RequestMapping("/search")
     public String search(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, String classtitle) throws Exception {
         PageInfo<ClassBasic> c;
@@ -88,52 +87,6 @@ public class ClassController {
         model.addAttribute("center", dir + "class");
         return "index";
     }
-
-//    @RequestMapping("/searchlocation")
-//    public String searchlocation(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, String location) throws Exception {
-//        PageInfo<ClassBasic> c;
-//        List<ClassBasic> clist;
-//        try {
-//            if (location != null && location.equals("*")) {
-//                clist = classService.get();
-//                c = new PageInfo<>(clist, 5);
-//            } else {
-//                c = new PageInfo<>(classService.getLocation(pageNo, location), 5);
-//                clist = c.getList();
-//            }
-//        } catch (Exception e) {
-//            throw new Exception(e.getMessage());
-//        }
-//        model.addAttribute("target", "class");
-//        model.addAttribute("clist", clist);
-//        model.addAttribute("cpage", c);
-//        model.addAttribute("location", location);
-//        model.addAttribute("center", dir + "class");
-//        return "index";
-//    }
-//
-//    @RequestMapping("/searchtype")
-//    public String searchtype(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, String type) throws Exception {
-//        PageInfo<ClassBasic> c;
-//        List<ClassBasic> clist;
-//        try {
-//            if (type != null && type.equals("*")) {
-//                clist = classService.get();
-//                c = new PageInfo<>(clist, 5);
-//            } else {
-//                c = new PageInfo<>(classService.getLocation(pageNo, type), 5);
-//                clist = c.getList();
-//            }
-//        } catch (Exception e) {
-//            throw new Exception(e.getMessage());
-//        }
-//        model.addAttribute("target", "class");
-//        model.addAttribute("clist", clist);
-//        model.addAttribute("cpage", c);
-//        model.addAttribute("type", type);
-//        model.addAttribute("center", dir + "class");
-//        return "index";
-//    }
 
     @RequestMapping("/searchlocationtype")
     public String searchlocationtype(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, String location, String type, String sort) throws Exception {
@@ -216,21 +169,6 @@ public class ClassController {
         }
         return "redirect:/";
     }
-
-//    @RequestMapping("/ocrimpl")
-//    public String ocrimpl(Model model, Ncp ncp) throws ParseException {
 //
-//        // img 저장
-//        FileUploadUtil.saveOcrFile(ncp.getImg(), imgpath);
-//        // NCP 에 요청
-//        String imgname = ncp.getImg().getOriginalFilename();
-//        JSONObject result = (JSONObject) OCRUtil.getResult(imgpath, imgname);
-//        Map map = OCRUtil.getData(result);
-//        log.info(map.values().toString());
-//
-//        model.addAttribute("result", map);
-//        model.addAttribute("center", "/cookingclass/detail");
-//        return "index";
-//    }
 }
 
