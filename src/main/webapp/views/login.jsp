@@ -55,7 +55,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="login__form">
-                    <h3 style="color: #b7b7b7">Login</h3>
+                    <h3 style="color: black">Login</h3>
                     <form id="login_form">
                         <div class="input__item">
                             <input type="text" placeholder="Your ID" name="custid" id="custid" value="id001">
@@ -72,7 +72,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="login__register">
-                    <h3 style="color: #b7b7b7">Dont’t Have An Account?</h3>
+                    <h3 style="color: black">Dont’t Have An Account?</h3>
                     <a href="/apply" class="primary-btn" style="color: #FFFFFF">Register Now</a>
                 </div>
             </div>
@@ -81,7 +81,7 @@
             <div class="row d-flex justify-content-center">
                 <div class="col-lg-6">
                     <div class="login__social__links">
-                        <span style="color: #b7b7b7">or</span>
+                        <span style="color: black;">or</span>
                         <ul>
                             <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With
                                 Facebook</a></li>

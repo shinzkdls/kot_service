@@ -66,7 +66,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="login__form">
-                    <h3 style="color: #b7b7b7">Contact</h3>
+                    <h3 style="color: black">Contact</h3>
                     <form id="contact_form">
                         <div class="input__item">
                             <input type="text" placeholder="Your ID" name="custid" id="custid"
@@ -84,7 +84,7 @@
                         </div>
                         <div class="input__item" id="textareazone">
                             <textarea placeholder="Input content" name="contactcontent" id="contactcontent"
-                                      style="width: 100%; border: none; color: #b7b7b7; padding: 10px;"
+                                      style="width: 100%; border: none; padding: 10px;"
                                       rows="5"></textarea>
                         </div>
                         <input type="hidden" name="custname" value="${logincust.custname}">
@@ -96,9 +96,9 @@
             </div>
             <div class="col-lg-6">
                 <div class="login__form">
-                    <h3 style="color: #b7b7b7">Notice</h3>
+                    <h3 style="color: black">Notice</h3>
                     <table class="table table-bordered" id="dataTable"
-                           style="color: #b7b7b7;background-color: #FFFFFF; border: none">
+                           style="background-color: #FFFFFF; border: none">
                         <thead>
                         <tr>
                             <th style="padding-left: 50px">Title</th>
@@ -114,7 +114,7 @@
                             <tr>
                                 <td class="input__item"><span class="arrow_carrot-2down"></span><a
                                         href="/contacts/notice_detail?noticepin=${obj.noticepin}"
-                                        style="color: #b7b7b7; padding-left: 30px">${obj.noticetitle}</a>
+                                        style="color: black; padding-left: 30px">${obj.noticetitle}</a>
                                 </td>
                                 <td><fmt:formatDate value="${obj.noticedate}" pattern="yyyy-MM-dd"/></td>
                             </tr>
