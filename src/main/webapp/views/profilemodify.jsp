@@ -285,8 +285,8 @@
                                value="${logincust.custpin}">
                         <input type="hidden" id="profileimgname" name="profileimgname"
                                value="${logincust.profileimgname}">
-                        <div style="justify-content: flex-start;">
-                            <div class="input__item" style="width: 45%">
+                        <div style="display: flex;">
+                            <div class="input__item" style="width: 44%">
                                 <input type="file" placeholder="Your ProfileImage" name="img"
                                        id="img" style="display: none" onchange="displayImage(event)"/>
                                 <input type="button" value="Select Profile Image"
@@ -294,9 +294,11 @@
                                        style="text-align: left"/>
                                 <span class="icon_image"></span>
                             </div>
-                            <div class="input__item" style="width: 45%">
+                            <div style="width: 2%"></div>
+                            <div class="input__item" style="width: 44%">
                                 <input type="button" onclick="toggleCamera()" value="Take Profile Picture"
                                        style="text-align: left"/>
+                                <span class="icon_camera_alt"></span>
                             </div>
                         </div>
                         <div class="input__item" style="width: 90%">
