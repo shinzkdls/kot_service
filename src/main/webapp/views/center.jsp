@@ -1,9 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <head>
-
-    <!-- Font Awesome CSS -->
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css"
           integrity="sha512-..." crossorigin="anonymous"/>
@@ -20,7 +19,7 @@
                     <p style="color: #dc0100;">${weather.highest}</p>&nbsp;&nbsp;
                     <img style="width: 25px; margin: 0px 5px;" src="/uimg/humidity.png" alt="weather"/>&nbsp;
                     <p>${weather.rain}</p>
-<%--                    <p>${weather.desc}</p>--%>
+                    <%--<p>${weather.desc}</p>--%>
                 </div>
                 <div class="row">
                     <div class="col-lg-6" style="background-color: rgba(128, 128, 128, 0.5);">
@@ -96,7 +95,8 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="btn__all">
-                                <a href="/cookingclass/class" class="primary-btn">View All
+                                <a href="/cookingclass/class?location=&type=&classtitle=&sort=1" class="primary-btn">View
+                                    All
                                     <span class="arrow_right"></span>
                                 </a>
                             </div>
@@ -134,7 +134,8 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="btn__all">
-                                <a href="/recipe/all" class="primary-btn">View All <span class="arrow_right"></span></a>
+                                <a href="/recipe/all?type=&ingredients1=&recipetitle=" class="primary-btn">View All
+                                    <span class="arrow_right"></span></a>
                             </div>
                         </div>
                     </div>
@@ -189,9 +190,44 @@
                             </c:forEach>
                         </div>
                     </div>
+
+                    <div class="product__sidebar">
+                        <div class="product__sidebar__view">
+                            <div class="section-title">
+                                <h5>콜리의 <span style="color: #dc3545;">NOTICE</span></h5>
+                            </div>
+                            <table class="table table-bordered" id="dataTable"
+                                   style="background-color: #FFFFFF; border: none">
+                                <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Date</th>
+                                </tr>
+                                <colgroup>
+                                    <col style="width: 70%;">
+                                    <col style="width: 30%;">
+                                </colgroup>
+                                </thead>
+                                <tbody>
+                                <c:forEach var="nobj" items="${nlist.getList()}">
+                                    <tr>
+                                        <td class="input__item"><span class="arrow_carrot-2down"></span><a
+                                                href="/contacts/notice_detail?noticepin=${nobj.noticepin}"
+                                                style="color: black;">${nobj.noticetitle}</a>
+                                        </td>
+                                        <td><fmt:formatDate value="${nobj.noticedate}" pattern="yyyy-MM-dd"/></td>
+                                    </tr>
+                                </c:forEach>
+                                </tbody>
+                            </table>
+                            <jsp:include page="page.jsp"/>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
+    </div>
     </div>
 </section>
 <!-- Product Section End -->
