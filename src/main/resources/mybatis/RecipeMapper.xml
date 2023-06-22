@@ -99,25 +99,28 @@
 
     <!--            이나은-->
     <select id="ranking" resultType="int">
-        SELECT RECIPEPIN
-        FROM goodlist
-        GROUP BY RECIPEPIN
-        ORDER BY COUNT(RECIPEPIN) DESC
+        <![CDATA[
+        SELECT *
+        FROM (
+                 SELECT RECIPEPIN
+                 FROM goodlist
+                 GROUP BY RECIPEPIN
+                 ORDER BY COUNT(RECIPEPIN) DESC
+             )
+        WHERE ROWNUM < 6
+        ]]>
     </select>
-    <!-- 0620 jeong : ranking modify -->
-    <!--    <select id="ranking" parameterType="String" resultType="RecipeBasic">-->
-    <!--        SELECT goodlist.RECIPEPIN, recipe_basic.custid-->
-    <!--        FROM goodlist-->
-    <!--                 JOIN recipe_basic ON goodlist.RECIPEPIN = recipe_basic.recipepin-->
-    <!--        GROUP BY goodlist.RECIPEPIN, recipe_basic.custid-->
-    <!--        ORDER BY COUNT(goodlist.RECIPEPIN) DESC-->
-    <!--    </select>-->
-
 
     <select id="latestRecipe" resultType="RecipeBasic">
-        select *
-        from recipe_basic
-        order by RECIPEDATE
+        <![CDATA[
+        SELECT *
+        FROM (
+                 SELECT *
+                 FROM recipe_basic
+                 ORDER BY RECIPEDATE
+             )
+        WHERE ROWNUM < 7
+        ]]>
     </select>
 
     <select id="subscribeRecipe" resultType="RecipeBasic">
