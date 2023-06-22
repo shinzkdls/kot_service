@@ -14,13 +14,13 @@
         <div class="hero__slider owl-carousel">
             <div class="hero__items set-bg" data-setbg="/uimg/${recipeBasic.thumbnailimg}">
                 <div class="weatherbox">
-
+                    <img style="width: 25px; margin: 0px 5px;" src="/uimg/temp.png" alt="weather"/>&nbsp;
                     <p style="color: #2a74f8;">${weather.lowest}</p>
                     <p> / </p>
                     <p style="color: #dc0100;">${weather.highest}</p>&nbsp;&nbsp;
-                    <img style="width: 25px; margin: 0px 5px;" src="/uimg/rainy.png" alt="weather"/>&nbsp;
-                    <%--<p>강수확률 ${weather.rain}--%>
-                    <p>${weather.desc}</p>
+                    <img style="width: 25px; margin: 0px 5px;" src="/uimg/humidity.png" alt="weather"/>&nbsp;
+                    <p>${weather.rain}</p>
+<%--                    <p>${weather.desc}</p>--%>
                 </div>
                 <div class="row">
                     <div class="col-lg-6" style="background-color: rgba(128, 128, 128, 0.5);">
