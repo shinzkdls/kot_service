@@ -78,6 +78,24 @@
                 </div>
             </div>
         </section>
+
+    </div>
+
+    <div class="d-flex justify-content-end mb-4">
+        <div class="msg_cotainer_send">
+            <span class="msg_time_send">8:55 AM, Today</span>
+        </div>
+        <div class="img_cont_msg">
+            <img style="width: 100px; height: 100px;" src="">
+        </div>
+    </div>
+    <div class="d-flex justify-content-start mb-4">
+        <div class="img_cont_msg">
+            <img style="width: 100px; height: 100px;" src="">
+        </div>
+        <div class="msg_cotainer">
+            <span class="msg_time">8:40 AM, Today</span>
+        </div>
     </div>
 
 
@@ -268,12 +286,77 @@
 
         // SEND 버튼을 누르면 대답 가져오기
         $("#sendBtn").click(function () {
-            console.log("질문하기 버튼 눌림");
-            let question = $("#questionInput").val();
-            console.log("질문하기: "+ question);
-            $("#questionInput").val(""); // 질문 초기화
-            getAnswer(question);
+            var question = $('#questionInput').val(); // 질문 내용 가져오기
+
+            // 질문을 채팅창에 추가
+            var senderName = "You"; // 사용자 이름
+            var senderMessage = question; // 질문 내용
+            var senderTime = new Date().toLocaleTimeString(); // 현재 시간
+            var isSender = true; // 사용자가 보낸 메시지 여부
+
+            var chatMessageHtml = createChatMessage(senderName, senderMessage, senderTime, isSender);
+            $('.emPage__conversation').append(chatMessageHtml);
+
+            // 스크롤 맨 아래로 이동
+            var conversationSection = $('.emPage__conversation');
+            conversationSection.scrollTop(conversationSection.prop("scrollHeight"));
+
+            // 답변 요청을 서버에 보내고 처리
+            $.ajax({
+                type: "GET",
+                url: '/gptchatting?question=' + question,
+                dataType: 'json',
+                success: function(data) {
+                    var answer = data[0].answer; // 첫 번째 대답 가져오기
+                    var time2 = new Date().toLocaleTimeString(); // 현재 시간
+
+                    // 답변을 채팅창에 추가
+                    var receiverName = "Chatbot"; // 챗봇 이름
+                    var receiverMessage = answer; // 답변 내용
+                    var receiverTime = time2; // 답변 시간
+                    var isSender = false; // 사용자가 보낸 메시지 여부
+
+                    var chatMessageHtml = createChatMessage(receiverName, receiverMessage, receiverTime, isSender);
+                    $('.emPage__conversation').append(chatMessageHtml);
+
+                    // 스크롤 맨 아래로 이동
+                    conversationSection.scrollTop(conversationSection.prop("scrollHeight"));
+
+                    // 답변 내용이 화면에 다 나오지 않을 경우 스크롤을 아래로 이동
+                    var itemMsgHeight = $('.item_msg').last().outerHeight();
+                    var contentSmsHeight = $('.content_sms').last().outerHeight();
+                    if (itemMsgHeight > contentSmsHeight) {
+                        conversationSection.scrollTop(conversationSection.scrollTop() + itemMsgHeight - contentSmsHeight);
+                    }
+                },
+                error: function() {
+                    console.log('error');
+                    hideLoading();
+                }
+            });
+
+            // 질문 입력 필드 비우기
+            $('#questionInput').val('');
         });
+
+        // 채팅 메시지 생성 함수
+        function createChatMessage(senderName, message, time, isSender) {
+            var containerClass = isSender ? "msg_cotainer_send" : "msg_cotainer";
+            var alignClass = isSender ? "justify-content-end" : "justify-content-start";
+
+            var messageHtml = `
+                <div class="d-flex ${alignClass} mb-4">
+                    <div class="img_cont_msg">
+                        <img style="width: 100px; height: 100px;" src="">
+                    </div>
+                    <div class="${containerClass}">
+                        ${message}
+                        <span class="msg_time">${time}</span>
+                    </div>
+                </div>`;
+
+            return messageHtml;
+        }
 
 
         // 스피너 숨기기 함수
@@ -296,22 +379,9 @@
             let time1 = new Date().toLocaleTimeString(); // 현재 시간 가져오기
 
             // 내 질문 먼저 표출
-            var conversationItemUserMe = $('<div class="item_user __me">').appendTo('.emPage__conversation');
-            var mediaMe = $('<div class="media">').appendTo(conversationItemUserMe);
-            // 질문과 시간을 세로로 정렬
-            var mediaBodyMe = $('<div class="media-body flex-column">').appendTo(mediaMe);
-            var contentSmsMe = $('<div class="content_sms">').appendTo(mediaBodyMe);
-            $('<p class="item_msg">').text(question).appendTo(contentSmsMe);
-            var timeMe = $('<div class="time">').appendTo(contentSmsMe);
-            $('<span>').text(time1).appendTo(timeMe);
-            $('<div class="icon ml-1">').append('<i class="ri-check-double-line color-primary size-18"></i>').appendTo(timeMe);
 
-            // 스피너 추가
-            $('<div class="spinner-container">').appendTo(mediaMe);
-            $('<div class="spinner-border color-primary" role="status">').appendTo(mediaMe.find('.spinner-container'));
-            $('<span class="sr-only spinner">').appendTo(mediaMe.find('.spinner-container'));
 
-            showLoading(); // 로딩바 표시
+            // showLoading(); // 로딩바 표시
 
             // gpt에게 물어보기
             $.ajax({
