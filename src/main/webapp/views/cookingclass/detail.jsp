@@ -161,7 +161,7 @@
                             <h5>클래스 소개</h5>
                         </div>
                         <h5>${classdetail.classdesc}</h5>
-                        <p></p>
+                        <br><br>
                         <p><span class="icon_clock" style="font-size: 20px;"> </span> 수업소요시간 : ${classdetail.classtime}
                             분
                         </p>
@@ -271,13 +271,15 @@
                                 <c:choose>
                                     <c:when test="${classcust.profileimgname != null &&  classcust.profileimgname !=''}">
                                         <div style="width: 60px; height: 60px; background-image: url('/uimg/${classcust.profileimgname}');
-                                                background-size: cover; background-position: center; background-repeat: no-repeat; margin-right: 20px;
+                                                background-size: cover; background-position: center; background-repeat: no-repeat;
+                                                margin-right: 20px; margin-bottom: 20px;
                                                 border-radius: 50%">
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <div style="width: 60px; height: 60px; background-image: url('static/img/basic_profile.png');
-                                                background-size: cover; background-position: center; background-repeat: no-repeat; margin-right: 20px;
+                                                background-size: cover; background-position: center; background-repeat: no-repeat;
+                                                margin-right: 20px; margin-bottom: 20px;
                                                 border-radius: 50%">
                                         </div>
                                     </c:otherwise>

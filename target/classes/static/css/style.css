@@ -410,7 +410,7 @@ ol {
 
 .header__menu ul li a {
     font-size: 15px;
-    color: #b7b7b7;
+    color: black;
     display: block;
     font-weight: 700;
     -webkit-transition: all, 0.5s;
@@ -440,7 +440,7 @@ ol {
 .header__right > ul > li > a {
     font-family: 'Cafe24SsurroundAir', sans-serif;
     font-size: 15px;
-    color: #b7b7b7;
+    color: black;
     display: inline-block;
 }
 
@@ -768,7 +768,7 @@ ol {
 .product__sidebar__view .filter__controls li {
     list-style: none;
     font-size: 13px;
-    color: #b7b7b7;
+    color: black;
     display: inline-block;
     margin-right: 7px;
     cursor: pointer;
@@ -873,7 +873,7 @@ ol {
 .product__sidebar__comment__item__text span {
     display: block;
     font-size: 13px;
-    color: #b7b7b7;
+    color: black;
 }
 
 .product__page__title {
@@ -974,7 +974,7 @@ ol {
 }
 
 .anime__details__text p {
-    color: #b7b7b7;
+    color: black;
     font-size: 18px;
     line-height: 30px;
 }
@@ -1014,14 +1014,14 @@ ol {
 }
 
 .anime__details__title h3 {
-    color: #b7b7b7;
+    color: black;
     font-weight: 700;
     margin-bottom: 13px;
 }
 
 .anime__details__title span {
     font-size: 15px;
-    color: #b7b7b7;
+    color: black;
     display: block;
 }
 
@@ -1041,7 +1041,7 @@ ol {
 .anime__details__rating span {
     display: block;
     font-size: 18px;
-    color: #b7b7b7;
+    color: black;
 }
 
 .anime__details__widget {
@@ -1055,7 +1055,7 @@ ol {
 .anime__details__widget ul li {
     list-style: none;
     font-size: 15px;
-    color: #b7b7b7;
+    color: black;
     line-height: 30px;
     position: relative;
     padding-left: 18px;
@@ -1067,12 +1067,12 @@ ol {
     top: 12px;
     height: 6px;
     width: 6px;
-    background: #b7b7b7;
+    background: black;
     content: "";
 }
 
 .anime__details__widget ul li span {
-    color: #b7b7b7;
+    color: black;
     width: 115px;
     display: inline-block;
 }
@@ -1160,12 +1160,12 @@ ol {
 }
 
 .anime__review__item__text h6 span {
-    color: #b7b7b7;
+    color: black;
     font-weight: 400;
 }
 
 .anime__review__item__text p {
-    color: #b7b7b7;
+    color: black;
     line-height: 23px;
     margin-bottom: 0;
 }
@@ -1174,7 +1174,7 @@ ol {
 .anime__details__form form textarea {
     width: 100%;
     font-size: 15px;
-    color: #b7b7b7;
+    color: black;
     padding-left: 20px;
     padding-top: 12px;
     height: 110px;
@@ -1337,7 +1337,7 @@ ol {
 
 .breadcrumb__links span {
     font-size: 15px;
-    color: #b7b7b7;
+    color: black;
     display: inline-block;
 }
 
@@ -1453,7 +1453,7 @@ ol {
 }
 
 .blog__details__title h6 span {
-    color: #b7b7b7;
+    color: black;
     font-weight: 400;
     text-transform: none;
 }
@@ -1545,7 +1545,7 @@ ol {
 
 .blog__details__tags a {
     display: inline-block;
-    color: #b7b7b7;
+    color: black;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 2px;
@@ -1584,7 +1584,7 @@ ol {
 
 .blog__details__btns__item h5 a span {
     font-size: 30px;
-    color: #b7b7b7;
+    color: black;
     position: relative;
     top: 8px;
 }
@@ -1620,7 +1620,7 @@ ol {
 
 .blog__details__comment__item__text span {
     font-size: 14px;
-    color: #b7b7b7;
+    color: black;
     display: block;
     margin-bottom: 10px;
 }
@@ -1632,7 +1632,7 @@ ol {
 }
 
 .blog__details__comment__item__text p {
-    color: #b7b7b7;
+    color: black;
     font-size: 14px;
     line-height: 22px;
     margin-bottom: 25px;
@@ -1774,7 +1774,7 @@ ol {
     top: 10px;
     height: 30px;
     width: 1px;
-    background: #b7b7b7;
+    background: black;
     content: "";
 }
 
@@ -1782,34 +1782,34 @@ ol {
     height: 50px;
     width: 100%;
     font-size: 15px;
-    color: #b7b7b7;
+    color:black;
     background: #ffffff;
     border: none;
     padding-left: 76px;
 }
 
 .login__form form .input__item input::-webkit-input-placeholder {
-    color: #b7b7b7;
+    color: black;
 }
 
 .login__form form .input__item input::-moz-placeholder {
-    color: #b7b7b7;
+    color: black;
 }
 
 .login__form form .input__item input:-ms-input-placeholder {
-    color: #b7b7b7;
+    color: black;
 }
 
 .login__form form .input__item input::-ms-input-placeholder {
-    color: #b7b7b7;
+    color: black;
 }
 
 .login__form form .input__item input::placeholder {
-    color: #b7b7b7;
+    color: black;
 }
 
 .login__form form .input__item span {
-    color: #b7b7b7;
+    color: black;
     font-size: 20px;
     position: absolute;
     left: 15px;
@@ -1951,7 +1951,7 @@ ol {
 -----------------------*/
 
 .footer {
-    background: #fbf5e3;;
+    background: #fbf5e3;
     padding-top: 60px;
     padding-bottom: 40px;
     position: relative;

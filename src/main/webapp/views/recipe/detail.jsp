@@ -216,13 +216,15 @@
                                 <c:choose>
                                     <c:when test="${recipecust.profileimgname != null &&  recipecust.profileimgname !=''}">
                                         <div style="width: 60px; height: 60px; background-image: url('/uimg/${recipecust.profileimgname}');
-                                                background-size: cover; background-position: center; background-repeat: no-repeat; margin-right: 20px;
+                                                background-size: cover; background-position: center; background-repeat: no-repeat;
+                                                margin-right: 20px; margin-bottom: 20px;
                                                 border-radius: 50%">
                                         </div>
                                     </c:when>
                                     <c:otherwise>
                                         <div style="width: 60px; height: 60px; background-image: url('static/img/basic_profile.png');
-                                                background-size: cover; background-position: center; background-repeat: no-repeat; margin-right: 20px;
+                                                background-size: cover; background-position: center; background-repeat: no-repeat;
+                                                margin-right: 20px; margin-bottom: 20px;
                                                 border-radius: 50%">
                                         </div>
                                     </c:otherwise>
