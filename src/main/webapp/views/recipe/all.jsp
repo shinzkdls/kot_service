@@ -68,14 +68,14 @@
 <!-- Normal Breadcrumb Begin -->
 <section class="normal-breadcrumb set-bg" data-setbg="/uimg/recipemain.gif">
     <div class="container">
-<%--        <div class="row">--%>
-<%--            <div class="col-lg-12 text-center">--%>
-<%--                <div class="normal__breadcrumb__text">--%>
-<%--                    <h2>RECIPES ALL OVER THE WORLD</h2>--%>
-<%--                    <p>Welcome to KOLLY'S RECIPES</p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
+        <%--        <div class="row">--%>
+        <%--            <div class="col-lg-12 text-center">--%>
+        <%--                <div class="normal__breadcrumb__text">--%>
+        <%--                    <h2>RECIPES ALL OVER THE WORLD</h2>--%>
+        <%--                    <p>Welcome to KOLLY'S RECIPES</p>--%>
+        <%--                </div>--%>
+        <%--            </div>--%>
+        <%--        </div>--%>
     </div>
 </section>
 <!-- Normal Breadcrumb End -->
@@ -216,13 +216,13 @@
                                 <c:when test="${rlist.getPageNum() == page}">
                                     <li class="pagination-wrap active">
                                         <a class="pagination-wrap active" style="color:#FFFFFF;"
-                                           href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}">${page }</a>
+                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}">${page }</a>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
                                     <li>
                                         <a class="pagination-wrap"
-                                           href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}">${page }</a>
+                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}">${page }</a>
                                     </li>
                                 </c:otherwise>
                             </c:choose>
@@ -231,7 +231,7 @@
                             <c:when test="${rlist.getNextPage() != 0}">
                                 <li class="pagination-wrap">
                                     <a class="pagination-wrap"
-                                       href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}"
+                                       href="/recipe/all?pageNo=${rlist.getNextPage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}"
                                        aria-label="Next">
                                         <span>Next</span>
                                     </a>

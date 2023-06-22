@@ -48,4 +48,8 @@ public class SubscribeService implements KBService<Integer, Subscribe> {
     public List<Subscribe> getMySubscribe(String custid) throws Exception {
         return mapper.getMySubscribe(custid);
     }
+
+    public Integer getsubscribestatus(Integer custpin, Integer subcustpin) throws Exception {
+        return mapper.getsubscribestatus(custpin, subcustpin);
+    }
 }

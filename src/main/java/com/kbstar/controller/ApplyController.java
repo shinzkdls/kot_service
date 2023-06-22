@@ -46,11 +46,17 @@ public class ApplyController {
     }
 
     @RequestMapping("/mypage")
-    public String mypage(Model model, Cust cust) throws Exception {
+    public String mypage(Model model, Cust cust, HttpSession session) throws Exception {
         Cust c = custService.get(cust.getCustid());
+        Cust sessioncust = (Cust) session.getAttribute("logincust");
+        int subscribe = 0;
+        if (sessioncust != null) {
+            subscribe = subscribeService.getsubscribestatus(sessioncust.getCustpin(), c.getCustpin());
+        }
         List<RecipeBasic> rlist = recipeService.getMyRecipe(cust.getCustid());
         List<RecipeBasic> likelist = recipeService.getMyLikeRecipe(c.getCustpin());
         List<Subscribe> slist = subscribeService.getMySubscribe(cust.getCustid());
+        model.addAttribute("substatus", subscribe);
         model.addAttribute("mypagecust", c);
         model.addAttribute("myrecipelist", rlist);
         model.addAttribute("mylikerecipelist", likelist);

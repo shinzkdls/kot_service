@@ -11,4 +11,6 @@ import java.util.List;
 @Repository
 public interface SubscribeMapper extends KBMapper<Integer, Subscribe> {
     public List<Subscribe> getMySubscribe(String custid) throws Exception;
+
+    public Integer getsubscribestatus(Integer custpin, Integer subcustpin) throws Exception;
 }
