@@ -1,8 +1,10 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.ClassBasic;
+import com.kbstar.dto.Notice;
 import com.kbstar.dto.RecipeBasic;
 import com.kbstar.service.ClassService;
+import com.kbstar.service.NoticeService;
 import com.kbstar.service.RecipeService;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.extern.slf4j.Slf4j;
@@ -35,9 +37,11 @@ public class MainController {
     ClassService classService;
     @Autowired
     ChatgptService chatgptService;
+    @Autowired
+    NoticeService noticeService;
 
     @RequestMapping("/")
-    public String main(Model model) throws Exception {
+    public String main(Model model, Notice notice) throws Exception {
         // 네이버 날씨 크롤링
         String url = "https://m.search.naver.com/search.naver?sm=mtp_hty.top&where=m&query=서울날씨";
         Document doc = null;
@@ -92,14 +96,20 @@ public class MainController {
         List<RecipeBasic> recipeList = recipeService.latestRecipe();
         List<RecipeBasic> subscribeList = recipeService.subscribeRecipe();
         // 레시피 랭킹 end
-        log.info("------------------------------");
-        log.info("Weather date: {}", weather.get("date"));
-        log.info("Weather desc: {}", weather.get("desc"));
+
+        //notice
+        Notice n;
+        n = noticeService.get(notice.getNoticepin());
+
+        //log.info("------------------------------");
+        //log.info("Weather date: {}", weather.get("date"));
+        //log.info("Weather desc: {}", weather.get("desc"));
         model.addAttribute("center", "center");
         model.addAttribute("classList", classList);
         model.addAttribute("recipeList", recipeList);
         model.addAttribute("subscribeList", subscribeList);
         model.addAttribute("recipeRanking", recipeRanking);
+        model.addAttribute("noticedetail", n);
         model.addAttribute("weather", weather);
         return "index";
     }

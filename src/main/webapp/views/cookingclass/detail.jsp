@@ -316,6 +316,7 @@
                         <li><a href="#" style="font-size: 30px"><span class="social_instagram_circle"></span></a></li>
                     </ul>
                 </div>
+
             </div>
         </div>
     </div>

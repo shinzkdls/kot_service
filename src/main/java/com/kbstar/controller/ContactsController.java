@@ -47,7 +47,7 @@ public class ContactsController {
             throw new Exception("등록 오류");
         }
         model.addAttribute("center", "contacts");
-        return "index";
+        return "redirect:/contacts";
     }
 
     @RequestMapping("/notice_detail")
