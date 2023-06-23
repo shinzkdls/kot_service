@@ -2582,6 +2582,7 @@ textarea.form-control {
 .mydiv {
     margin-bottom: 20px;
 }
+
 /*recipe 등록 화면 end*/
 
 
@@ -11219,6 +11220,7 @@ a.text-dark:hover, a.text-dark:focus {
     background-color: rgba(255, 255, 255, 0.5);
     padding: 1em;
 }
+
 .weatherbox > p {
     margin-bottom: 0px;
     font-size: 20px;

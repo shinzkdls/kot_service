@@ -50,10 +50,27 @@
         <if test="type != ''">
             AND R.type LIKE '%' || #{type} || '%'
         </if>
+        <if test="recipelevel != ''">
+            AND R.recipelevel LIKE '%' || #{recipelevel} || '%'
+        </if>
         <if test="recipetitle != ''">
             AND R.recipetitle LIKE '%' || #{recipetitle} || '%'
         </if>
-        ORDER BY R.recipepin DESC
+        <if test="sort == 0">
+            ORDER BY R.recipepin DESC
+        </if>
+        <if test="sort == 1">
+            ORDER BY R.time DESC
+        </if>
+        <if test="sort == 2">
+            ORDER BY R.time ASC
+        </if>
+        <if test="sort == 3">
+            ORDER BY R.views DESC
+        </if>
+        <if test="sort == 4">
+            ORDER BY R.views ASC
+        </if>
     </select>
 
     <select id="getsearch" parameterType="String" resultType="recipebasic">
@@ -96,25 +113,24 @@
 
     <!--            이나은-->
     <select id="ranking" resultType="int">
-        SELECT RECIPEPIN
-        FROM goodlist
-        GROUP BY RECIPEPIN
-        ORDER BY COUNT(RECIPEPIN) DESC
+        <![CDATA[
+        SELECT *
+        FROM (SELECT RECIPEPIN
+              FROM goodlist
+              GROUP BY RECIPEPIN
+              ORDER BY COUNT(RECIPEPIN) DESC)
+        WHERE ROWNUM < 6
+        ]]>
     </select>
-    <!-- 0620 jeong : ranking modify -->
-<!--    <select id="ranking" parameterType="String" resultType="RecipeBasic">-->
-<!--        SELECT goodlist.RECIPEPIN, recipe_basic.custid-->
-<!--        FROM goodlist-->
-<!--                 JOIN recipe_basic ON goodlist.RECIPEPIN = recipe_basic.recipepin-->
-<!--        GROUP BY goodlist.RECIPEPIN, recipe_basic.custid-->
-<!--        ORDER BY COUNT(goodlist.RECIPEPIN) DESC-->
-<!--    </select>-->
-
 
     <select id="latestRecipe" resultType="RecipeBasic">
-        select *
-        from recipe_basic
-        order by RECIPEDATE
+        <![CDATA[
+        SELECT *
+        FROM (SELECT *
+              FROM recipe_basic
+              ORDER BY RECIPEDATE)
+        WHERE ROWNUM < 7
+        ]]>
     </select>
 
     <select id="subscribeRecipe" resultType="RecipeBasic">
@@ -137,5 +153,11 @@
                             ON R.recipepin = G.recipepin
         WHERE G.custpin = #{custpin}
     </select>
+
+    <update id="viewup" parameterType="Integer">
+        UPDATE RECIPE_BASIC
+        SET views = views + 1
+        WHERE recipepin = #{recipepin}
+    </update>
 
 </mapper>

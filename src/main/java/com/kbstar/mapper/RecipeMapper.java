@@ -39,4 +39,6 @@ public interface RecipeMapper extends KBMapper<Integer, RecipeBasic> {
     public List<RecipeBasic> getMyRecipe(String custid) throws Exception;
 
     public List<RecipeBasic> getMyLikeRecipe(Integer custpin);
+
+    public void viewup(Integer recipepin) throws Exception;
 }

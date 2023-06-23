@@ -30,4 +30,6 @@ public class RecipeBasic {
     private Date recipedate;
     private int logincustpin;
     private String logincustlike;
+    private int views;
+    private int sort;
 }

@@ -28,25 +28,16 @@
         <if test="sort == 1">
             ORDER BY classdate DESC
         </if>
-        <if test="sort == 0">
+        <if test="sort == 2">
+            ORDER BY classdate ASC
+        </if>
+        <if test="sort == 3">
             ORDER BY amount ASC
         </if>
+        <if test="sort == 4">
+            ORDER BY amount DESC
+        </if>
     </select>
-    <!--    <select id="getpage_category" parameterType="String" resultType="ClassBasic">-->
-    <!--        SELECT *-->
-    <!--        FROM Class_Basic-->
-    <!--        <where>-->
-    <!--            <if test="type != null and !type.equals('')">-->
-    <!--                type LIKE '%'||#{type}||'%'-->
-    <!--            </if>-->
-    <!--            <if test="location != null and !location.equals('')">-->
-    <!--                AND location LIKE '%'||#{location}||'%'-->
-    <!--            </if>-->
-    <!--        </where>-->
-    <!--        <if test="sort != null and !sort.equals('1')">-->
-    <!--            ORDER BY amount DESC-->
-    <!--        </if>-->
-    <!--    </select>-->
     <select id="search" parameterType="String" resultType="ClassBasic">
         SELECT * FROM Class_Basic
         <where>
@@ -61,40 +52,6 @@
         WHERE classtitle LIKE '%' || #{classtitle} || '%'
         ORDER BY classpin DESC
     </select>
-    <!--    <select id="getlocation" parameterType="String" resultType="ClassBasic">-->
-    <!--        SELECT *-->
-    <!--        FROM Class_Basic-->
-    <!--        WHERE-->
-    <!--        <if test="location != null and !location.equals('*')">-->
-    <!--            location = #{location}-->
-    <!--        </if>-->
-    <!--        ORDER BY classpin DESC-->
-    <!--    </select>-->
-    <!--    <select id="gettype" parameterType="String" resultType="ClassBasic">-->
-    <!--        SELECT *-->
-    <!--        FROM Class_Basic-->
-    <!--        WHERE-->
-    <!--        <if test="type != null and !type.equals('*')">-->
-    <!--            type = #{type}-->
-    <!--        </if>-->
-    <!--        ORDER BY classpin DESC-->
-    <!--    </select>-->
-    <!--    <select id="getlocationtype" parameterType="Map" resultType="ClassBasic">-->
-    <!--        SELECT *-->
-    <!--        FROM Class_Basic-->
-    <!--        <where>-->
-    <!--            <if test="location != null and !location.equals('*')">-->
-    <!--                location = #{location}-->
-    <!--            </if>-->
-
-    <!--            <if test="type != null and !type.equals('*')">-->
-    <!--                AND type = #{type}-->
-    <!--            </if>-->
-    <!--        </where>-->
-    <!--        ORDER BY classpin DESC-->
-    <!--    </select>-->
-
-
     <insert id="insert" parameterType="ClassBasic">
         INSERT INTO Class_Basic (classpin, custpin, custid, nickname, type, classtitle, cooking, thumbnailimg, personal,
                                  classtime, location, address, classdesc, amount, classdate)
@@ -118,25 +75,14 @@
         SELECT class_basic_seq.CURRVAL
         FROM dual
     </select>
-    <!--    <update id="update" parameterType="ClassBasic">-->
-    <!--        UPDATE adm-->
-    <!--        SET pwd=#{pwd},-->
-    <!--            lev=#{lev}-->
-    <!--        WHERE id = #{id}-->
-    <!--    </update>-->
-    <!--    <delete id="delete" parameterType="String">-->
-    <!--        DELETE-->
-    <!--        FROM adm-->
-    <!--        WHERE id = #{id}-->
-    <!--    </delete>-->
-
-
     <!--            이나은-->
     <select id="latestClass" resultType="ClassBasic">
-        select *
-        from class_basic
-        order by CLASSDATE
+        <![CDATA[
+        SELECT *
+        FROM (SELECT *
+              FROM class_basic
+              ORDER BY CLASSDATE)
+        WHERE ROWNUM < 7
+        ]]>
     </select>
-
-
 </mapper>

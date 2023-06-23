@@ -1,8 +1,11 @@
 package com.kbstar.controller;
 
+import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.ClassBasic;
+import com.kbstar.dto.Notice;
 import com.kbstar.dto.RecipeBasic;
 import com.kbstar.service.ClassService;
+import com.kbstar.service.NoticeService;
 import com.kbstar.service.RecipeService;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
@@ -35,9 +39,11 @@ public class MainController {
     ClassService classService;
     @Autowired
     ChatgptService chatgptService;
+    @Autowired
+    NoticeService noticeService;
 
     @RequestMapping("/")
-    public String main(Model model) throws Exception {
+    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, Notice notice) throws Exception {
         // 네이버 날씨 크롤링
         String url = "https://m.search.naver.com/search.naver?sm=mtp_hty.top&where=m&query=서울날씨";
         Document doc = null;
@@ -63,11 +69,18 @@ public class MainController {
 
         // 강수확률 70 이상시, 파전 recipe 출력. 그 외에는 파전 제외한 레시피 랜덤 출력
         String rainValue = (String) weather.get("rain");
+        String highestValue = (String) weather.get("highest");
         rainValue = rainValue.replaceAll("%", "");
+        highestValue = highestValue.replaceAll("°", "");
 
         try {
             int rain = Integer.parseInt(rainValue);
+            int highest = Integer.parseInt(highestValue);
             if (rain >= 70) {
+                RecipeBasic recipeBasic = null;
+                recipeBasic = recipeService.get(20229);
+                model.addAttribute("recipeBasic", recipeBasic);
+            } if (highest > 28) {
                 RecipeBasic recipeBasic = null;
                 recipeBasic = recipeService.get(20229);
                 model.addAttribute("recipeBasic", recipeBasic);
@@ -92,14 +105,28 @@ public class MainController {
         List<RecipeBasic> recipeList = recipeService.latestRecipe();
         List<RecipeBasic> subscribeList = recipeService.subscribeRecipe();
         // 레시피 랭킹 end
-        log.info("------------------------------");
-        log.info("Weather date: {}", weather.get("date"));
-        log.info("Weather desc: {}", weather.get("desc"));
+
+        //notice
+        PageInfo<Notice> p;
+        try {
+            p = new PageInfo<>(noticeService.getPage(pageNo), 5);
+        } catch (Exception e) {
+            throw new Exception("시스템 장애: ER0001");
+        }
+        Notice n;
+        n = noticeService.get(notice.getNoticepin());
+
+        //log.info("------------------------------");
+        //log.info("Weather date: {}", weather.get("date"));
+        //log.info("Weather desc: {}", weather.get("desc"));
+        //log.info("Weather desc: {}", weather.get("highest"));
         model.addAttribute("center", "center");
         model.addAttribute("classList", classList);
         model.addAttribute("recipeList", recipeList);
         model.addAttribute("subscribeList", subscribeList);
         model.addAttribute("recipeRanking", recipeRanking);
+        model.addAttribute("nlist", p);
+        model.addAttribute("noticedetail", n);
         model.addAttribute("weather", weather);
         return "index";
     }

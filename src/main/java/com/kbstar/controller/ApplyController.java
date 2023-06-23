@@ -46,11 +46,17 @@ public class ApplyController {
     }
 
     @RequestMapping("/mypage")
-    public String mypage(Model model, Cust cust) throws Exception {
+    public String mypage(Model model, Cust cust, HttpSession session) throws Exception {
         Cust c = custService.get(cust.getCustid());
+        Cust sessioncust = (Cust) session.getAttribute("logincust");
+        int subscribe = 0;
+        if (sessioncust != null) {
+            subscribe = subscribeService.getsubscribestatus(sessioncust.getCustpin(), c.getCustpin());
+        }
         List<RecipeBasic> rlist = recipeService.getMyRecipe(cust.getCustid());
         List<RecipeBasic> likelist = recipeService.getMyLikeRecipe(c.getCustpin());
         List<Subscribe> slist = subscribeService.getMySubscribe(cust.getCustid());
+        model.addAttribute("substatus", subscribe);
         model.addAttribute("mypagecust", c);
         model.addAttribute("myrecipelist", rlist);
         model.addAttribute("mylikerecipelist", likelist);
@@ -97,5 +103,33 @@ public class ApplyController {
 
         model.addAttribute("center", "profilemodify");
         return "index";
+    }
+
+    @RequestMapping("/addsubscribe")
+    public String addsubscribe(Model model, Integer custpin, String subcustid, HttpSession session) throws Exception {
+        try {
+            Cust c = custService.get(subcustid);
+            Subscribe subscribe = new Subscribe();
+            subscribe.setCustpin(custpin);
+            subscribe.setSubcustpin(c.getCustpin());
+            subscribeService.register(subscribe);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "redirect:/apply/mypage?custid=" + subcustid;
+    }
+
+    @RequestMapping("/delsubscribe")
+    public String delsubscribe(Model model, Integer custpin, String subcustid, HttpSession session) throws Exception {
+        try {
+            Cust c = custService.get(subcustid);
+            Subscribe subscribe = new Subscribe();
+            subscribe.setCustpin(custpin);
+            subscribe.setSubcustpin(c.getCustpin());
+            subscribeService.delsub(subscribe);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "redirect:/apply/mypage?custid=" + subcustid;
     }
 }

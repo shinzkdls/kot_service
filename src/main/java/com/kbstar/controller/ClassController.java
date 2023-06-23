@@ -4,6 +4,7 @@ import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.*;
 import com.kbstar.service.*;
 import com.kbstar.util.FileUploadUtil;
+import com.kbstar.util.PushNotificationUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -35,6 +36,8 @@ public class ClassController {
     ClassJoinInfoService classJoinInfoService;
     @Autowired
     PaymentService paymentService;
+    @Autowired
+    PushNotificationUtil pushNotificationUtil;
 
 
     @RequestMapping("/class")
@@ -127,8 +130,11 @@ public class ClassController {
 
     @RequestMapping("/commentImpl")
     public String commentImpl(Model model, ClassComment classComment, HttpSession session) throws Exception {
+        String userToken = "eJqBEpgeRYey1KxcQ5d88W:APA91bFb566XCq2SThdatny14tx4iyJfbsjxE5dBjR1cQJ8we0H2lvzYWWFAW2d2WL98A_ycCiFIjVV94Dkdr1_GrqvLxvV1Hpi0jgSHoPcjrToJPhd1zX-l48QJIMBVu1sEOWN3d_Yg";
+        String imgUrl = "https://www.w3schools.com/css/img_5terre.jpg";
         try {
             commentService.register(classComment);
+            pushNotificationUtil.sendTargetMessage("A comment is registered on your class.", classComment.getContent(), "/register", userToken);
         } catch (Exception e) {
             throw new Exception("등록 오류");
         }

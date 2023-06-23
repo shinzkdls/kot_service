@@ -108,14 +108,6 @@
 <!-- Normal Breadcrumb Begin -->
 <section class="normal-breadcrumb set-bg" data-setbg="/uimg/classmain.gif">
     <div class="container">
-<%--        <div class="row">--%>
-<%--            <div class="col-lg-12 text-center">--%>
-<%--                <div class="normal__breadcrumb__text">--%>
-<%--                    <h2>COOKING CLASS</h2>--%>
-<%--                    <p>Welcome to the cookingclass</p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
-<%--        </div>--%>
     </div>
 </section>
 <!-- Normal Breadcrumb End -->
@@ -152,14 +144,13 @@
                                              style="max-width: 100%; max-height: 100%;">
                                         </div>
                                     </div>
-
-                                    <div id="result_container" style="width: 60%; align-content:center;">
+                                    <div id="result_container" style="margin-top:20px; width: 60%; align-content:center;">
                                         <div style="margin-left: 30px;">
-                                            <h4 style="margin: 15px;">사업자번호 : ${result.biznum}</h4>
-                                            <h4 style="margin: 15px;">사업자이름 : ${result.bizname}</h4>
-                                            <h4 style="margin: 15px;">대표자이름: ${result.bizowner}</h4>
-                                            <h4 style="margin: 15px;">개업년월일: ${result.bizdate}</h4>
-                                            <h4 style="margin: 15px;">사업자주소: ${result.bizadd}</h4>
+                                            <p>사업자번호 : ${result.biznum}</p>
+                                            <p>사업자이름 : ${result.bizname}</p>
+                                            <p>대표자이름: ${result.bizowner}</p>
+                                            <p>개업년월일: ${result.bizdate}</p>
+                                            <p>사업자주소: ${result.bizadd}</p>
                                         </div>
                                     </div>
                                 </div>
