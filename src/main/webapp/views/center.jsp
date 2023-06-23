@@ -46,18 +46,35 @@
                 <div class="subscribeList">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8">
-                            <div class="section-title">
-                                <h4>Recent Recipe by Subscribed Users</h4>
-                            </div>
+                        <c:choose>
+                            <c:when test="${logincust == null}">
+                                <div class="section-title">
+                                    <h4>구독 LIST</h4>
+                                </div>
+                            </c:when>
+                            <c:otherwise>
+                                <div class="section-title">
+                                    <h4>${logincust.nickname}님의 구독 LIST</h4>
+                                </div>
+                            </c:otherwise>
+                        </c:choose>
                         </div>
                     </div>
                     <div class="row">
                         <c:choose>
                             <c:when test="${logincust == null}">
                                 <div class="col-lg-8 col-md-8 col-sm-8">
-                                    <div style="margin-bottom: 50px;">
+                                    <div style="margin-left: 20px; margin-bottom: 50px;">
                                         <p>로그인해서 구독한 스푸너의 최신 레시피를 확인하세요!
                                             <a href="/login" class="btn-outline-primary">Login</a></p>
+                                    </div>
+                                </div>
+                            </c:when>
+                            <c:when test="${empty subscribeList}">
+                                <div class="col-lg-8 col-md-8 col-sm-8">
+                                    <div style="margin-left: 20px; margin-bottom: 50px;">
+                                        <p>스푸너를 구독하여 최신 레시피를 확인할 수 있어요!
+                                            <a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=" class="btn-outline-primary">레시피 보러 가기</a></p>
                                     </div>
                                 </div>
                             </c:when>
@@ -86,7 +103,7 @@
                         </c:choose>
                     </div>
                 </div>
-                <div class="Latest_class">
+                <div class="Latest_class" style="margin-top: 50px">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             <div class="section-title">
@@ -109,7 +126,7 @@
                                     <div class="product__item__pic set-bg"
                                          data-setbg="/uimg/${obj.thumbnailimg}">
                                         <div class="comment">
-                                            <i class="fa-regular fa-comment" style="color: #ffffff;"> </i>
+                                            <i class="fa-regular fa-comment" style="color: #ffffff;"></i>
                                         </div>
                                         <div class="view">
                                             <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
@@ -125,7 +142,7 @@
                         </c:forEach>
                     </div>
                 </div>
-                <div class="Latest_recipe">
+                <div class="Latest_recipe" style="margin-top: 50px">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             <div class="section-title">
@@ -196,26 +213,19 @@
                             <div class="section-title">
                                 <h5>콜리의 <span style="color: #dc3545;">NOTICE</span></h5>
                             </div>
-                            <table class="table table-bordered" id="dataTable"
-                                   style="background-color: #FFFFFF; border: none">
-                                <thead>
+                            <table class="rwd-table" id="dataTable">
+                                <tbody>
                                 <tr>
-                                    <th>Title</th>
+                                    <th style="width: 65%;">Title</th>
                                     <th>Date</th>
                                 </tr>
-                                <colgroup>
-                                    <col style="width: 70%;">
-                                    <col style="width: 30%;">
-                                </colgroup>
-                                </thead>
-                                <tbody>
                                 <c:forEach var="nobj" items="${nlist.getList()}">
                                     <tr>
-                                        <td class="input__item"><span class="arrow_carrot-2down"></span><a
+                                        <td class="input__item" data-th="Title"><a
                                                 href="/contacts/notice_detail?noticepin=${nobj.noticepin}"
                                                 style="color: black;">${nobj.noticetitle}</a>
                                         </td>
-                                        <td><fmt:formatDate value="${nobj.noticedate}" pattern="yyyy-MM-dd"/></td>
+                                        <td data-th="Date"><fmt:formatDate value="${nobj.noticedate}" pattern="yyyy-MM-dd"/></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
@@ -224,7 +234,6 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
     </div>
