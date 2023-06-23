@@ -136,7 +136,7 @@ public class RecipeController {
             FileUploadUtil.saveFile(stepimg[i - 1], imgdir, recipeService.pingetter() + "_step" + i + ".jpg");
         }
 
-        return "redirect:/recipe/all?type=&ingredients1=&recipetitle=";
+        return "redirect:/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=&sort=0";
     }
 
     @RequestMapping("/deleteImpl")

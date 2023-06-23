@@ -146,10 +146,9 @@
                 $('#phone').val(phoneNumber);
                 console.log(phoneNumber);
             });
-            $('.locationzone select').on('change', function () {
-                var loca = $('.selected:eq(1)').text();
-                var location = loca;
-                $('#location').val(location);
+            $('#location_prefix').on('change', function () {
+                var location3 = $(this).find('option:selected').text();
+                $('#location').val(location3);
             });
         },
         checkExtension: function (fileName, fileSize) {

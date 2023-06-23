@@ -22,7 +22,8 @@
                 #{recipelevel},
                 #{recipetitle},
                 #{recipedesc},
-                SYSDATE)
+                SYSDATE,
+                0)
     </insert>
 
     <select id="pingetter" resultType="Integer">
