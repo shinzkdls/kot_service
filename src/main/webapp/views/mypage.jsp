@@ -40,14 +40,14 @@
                         <c:otherwise>
                             <c:choose>
                                 <c:when test="${substatus == 1}">
-                                    <a href="/login">
+                                    <a href="/apply/delsubscribe?custpin=${logincust.custpin}&subcustid=${mypagecust.custid}">
                                         <input type=button class="btn" value="Subscribe"
                                                style="background-color: #f28123; font-weight: bold; color: #FFFFFF;
                            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
                                     </a>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="/login">
+                                    <a href="/apply/addsubscribe?custpin=${logincust.custpin}&subcustid=${mypagecust.custid}">
                                         <input type=button class="btn" value="Subscribe"
                                                style="background-color: #b7b7b7; font-weight: bold; color: #FFFFFF;
                            position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
@@ -61,34 +61,34 @@
             <c:otherwise>
                 <section class="normal-breadcrumb set-bg" data-setbg="/uimg/${mypagecust.profileimgname}"
                          style="width: 300px; margin: auto; border-radius: 50%; border: 5px solid #f28123; background-size: cover;  position: relative;">
+                    <c:choose>
+                        <c:when test="${logincust == null}">
+                            <a href="/login">
+                                <input type=button class="btn" value="Subscribe"
+                                       style="background-color: #f28123; font-weight: bold; color: #FFFFFF;
+                           position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
+                            </a>
+                        </c:when>
+                        <c:otherwise>
+                            <c:choose>
+                                <c:when test="${substatus == 1}">
+                                    <a href="/apply/delsubscribe?custpin=${logincust.custpin}&subcustid=${mypagecust.custid}">
+                                        <input type=button class="btn" value="Subscribe"
+                                               style="background-color: #f28123; font-weight: bold; color: #FFFFFF;
+                           position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/apply/addsubscribe?custpin=${logincust.custpin}&subcustid=${mypagecust.custid}">
+                                        <input type=button class="btn" value="Subscribe"
+                                               style="background-color: #b7b7b7; font-weight: bold; color: #FFFFFF;
+                           position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
+                        </c:otherwise>
+                    </c:choose>
                 </section>
-                <c:choose>
-                    <c:when test="${logincust == null}">
-                        <a href="/login">
-                            <input type=button class="btn" value="Subscribe"
-                                   style="background-color: #f28123; font-weight: bold; color: #FFFFFF;
-                           position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
-                        </a>
-                    </c:when>
-                    <c:otherwise>
-                        <c:choose>
-                            <c:when test="${substatus == 1}">
-                                <a href="/login">
-                                    <input type=button class="btn" value="Subscribe"
-                                           style="background-color: #f28123; font-weight: bold; color: #FFFFFF;
-                           position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
-                                </a>
-                            </c:when>
-                            <c:otherwise>
-                                <a href="/login">
-                                    <input type=button class="btn" value="Subscribe"
-                                           style="background-color: #b7b7b7; font-weight: bold; color: #FFFFFF;
-                           position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); margin-bottom: 10px;">
-                                </a>
-                            </c:otherwise>
-                        </c:choose>
-                    </c:otherwise>
-                </c:choose>
             </c:otherwise>
         </c:choose>
     </c:otherwise>

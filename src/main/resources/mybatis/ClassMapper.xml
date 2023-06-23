@@ -28,8 +28,14 @@
         <if test="sort == 1">
             ORDER BY classdate DESC
         </if>
-        <if test="sort == 0">
+        <if test="sort == 2">
+            ORDER BY classdate ASC
+        </if>
+        <if test="sort == 3">
             ORDER BY amount ASC
+        </if>
+        <if test="sort == 4">
+            ORDER BY amount DESC
         </if>
     </select>
     <select id="search" parameterType="String" resultType="ClassBasic">
@@ -73,11 +79,9 @@
     <select id="latestClass" resultType="ClassBasic">
         <![CDATA[
         SELECT *
-        FROM (
-                 SELECT *
-                 FROM class_basic
-                 ORDER BY CLASSDATE
-             )
+        FROM (SELECT *
+              FROM class_basic
+              ORDER BY CLASSDATE)
         WHERE ROWNUM < 7
         ]]>
     </select>

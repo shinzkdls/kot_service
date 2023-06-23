@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -230,17 +231,5 @@ public class RecipeController {
         return "redirect:/recipe/detail?recipepin=" + recipepinlike;
     }
 
-    @RequestMapping("/subImpl")
-    public String subImpl(Model model, Integer custpinmy, Integer subcustpin, HttpSession session) throws Exception {
-        try {
-            Subscribe subscribe = new Subscribe();
-            subscribe.setCustpin(custpinmy);
-            subscribe.setSubcustpin(subcustpin);
-            subscribeService.register(subscribe);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-            // e.printStackTrace();
-        }
-        return "redirect:/apply/mypage";
-    }
+
 }

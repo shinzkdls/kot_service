@@ -31,4 +31,5 @@ public class RecipeBasic {
     private int logincustpin;
     private String logincustlike;
     private int views;
+    private int sort;
 }

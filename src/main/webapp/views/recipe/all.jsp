@@ -40,6 +40,38 @@
                 });
                 $('#category_form').submit();
             });
+
+            $('#time_btn').click(function () {
+                $('.btn-group .btn').removeClass('active');
+                $(this).addClass('active');
+                if (${recipesortinfo.sort != 1}) {
+                    $('#sort').val(1);
+                }
+                if (${recipesortinfo.sort == 1}) {
+                    $('#sort').val(2);
+                }
+                $('#category_form').attr({
+                    method: 'get',
+                    action: '/recipe/all'
+                });
+                $('#category_form').submit();
+            });
+
+            $('#views_btn').click(function () {
+                $('.btn-group .btn').removeClass('active');
+                $(this).addClass('active');
+                if (${recipesortinfo.sort != 3}) {
+                    $('#sort').val(3);
+                }
+                if (${recipesortinfo.sort == 3}) {
+                    $('#sort').val(4);
+                }
+                $('#category_form').attr({
+                    method: 'get',
+                    action: '/recipe/all'
+                });
+                $('#category_form').submit();
+            });
         }
     };
     // $(document).ready(function () {
@@ -149,18 +181,30 @@
                             <li class="${recipesortinfo.recipelevel eq '7' ? 'active' : ''}" data-filter="7">장금이만</li>
                         </ul>
                     </div>
-                    <div style="display: flex; margin-bottom: 28px">
-                        <input class="form-control me-2" type="text" placeholder="Search by recipe name"
-                               aria-label="Search"
-                               name="recipetitle" id="recipetitle" value="${recipesortinfo.recipetitle}"
-                               style="width: 200px; border: none;">&nbsp;
-                        <button id="search_btn" class="btn" type="button"
-                                style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">Search
-                        </button>
+                    <div style="display: flex; justify-content: space-between">
+                        <div style="display: flex;">
+                            <input class="form-control me-2" type="text" placeholder="Search by recipe name"
+                                   aria-label="Search"
+                                   name="recipetitle" id="recipetitle" value="${recipesortinfo.recipetitle}"
+                                   style="width: 200px; border: none;">&nbsp;
+                            <button id="search_btn" class="btn" type="button"
+                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">Search
+                            </button>
+                        </div>
+
+                        <div class="btn-group" style="float: right; margin-bottom: 30px">
+                            <button id="time_btn" type="button" class="btn"
+                                    style="background-color: #F28123; color: #fff; border: none; border-radius: 10%">시간순
+                            </button>&nbsp;
+                            <button id="views_btn" type="button" class="btn"
+                                    style="background-color: #F28123; color: #fff; border: none; border-radius: 10%">조회순
+                            </button>
+                        </div>
                     </div>
                     <input type="hidden" id="ingredients1" name="ingredients1" value="${recipesortinfo.ingredients1}">
                     <input type="hidden" id="type" name="type" value="${recipesortinfo.type}">
                     <input type="hidden" id="recipelevel" name="recipelevel" value="${recipesortinfo.recipelevel}">
+                    <input type="hidden" id="sort" name="sort" value="${recipesortinfo.sort}">
                 </form>
             </div>
         </div>
@@ -218,7 +262,7 @@
                             <c:when test="${rlist.getPrePage() != 0}">
                                 <li class="pagination-wrap">
                                     <a class="pagination-wrap"
-                                       href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}"
+                                       href="/recipe/all?pageNo=${rlist.getPrePage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}&sort=${recipesortinfo.sort}"
                                        aria-label="Previous">
                                         <span>Prev</span>
                                     </a>
@@ -238,13 +282,13 @@
                                 <c:when test="${rlist.getPageNum() == page}">
                                     <li class="pagination-wrap active">
                                         <a class="pagination-wrap active" style="color:#FFFFFF;"
-                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}">${page }</a>
+                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}&sort=${recipesortinfo.sort}">${page }</a>
                                     </li>
                                 </c:when>
                                 <c:otherwise>
                                     <li>
                                         <a class="pagination-wrap"
-                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}">${page }</a>
+                                           href="/recipe/all?pageNo=${page}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}&sort=${recipesortinfo.sort}">${page }</a>
                                     </li>
                                 </c:otherwise>
                             </c:choose>
@@ -253,7 +297,7 @@
                             <c:when test="${rlist.getNextPage() != 0}">
                                 <li class="pagination-wrap">
                                     <a class="pagination-wrap"
-                                       href="/recipe/all?pageNo=${rlist.getNextPage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}"
+                                       href="/recipe/all?pageNo=${rlist.getNextPage()}&recipetitle=${recipesortinfo.recipetitle}&type=${recipesortinfo.type}&ingredients1=${recipesortinfo.ingredients1}&recipelevel=${recipesortinfo.recipelevel}&sort=${recipesortinfo.sort}"
                                        aria-label="Next">
                                         <span>Next</span>
                                     </a>
