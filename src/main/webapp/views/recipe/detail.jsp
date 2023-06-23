@@ -35,6 +35,7 @@
         }
     }
     $(function () {
+        $("#recipe").addClass("navActive");
         comment_form.init();
     });
 </script>

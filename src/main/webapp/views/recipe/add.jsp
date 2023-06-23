@@ -81,6 +81,7 @@
         }
     };
     $(function () {
+        $("#register").addClass("navActive");
         reciperegister_form.init();
     });
 </script>

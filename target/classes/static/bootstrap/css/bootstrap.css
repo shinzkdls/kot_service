@@ -2436,6 +2436,10 @@ textarea.form-control {
     margin-bottom: 50px;
 }
 
+.class-step > h5 {
+    line-height: 2;
+}
+
 /*class 등록 화면 - biz img */
 .filebox .upload-name {
     display: inline-block;

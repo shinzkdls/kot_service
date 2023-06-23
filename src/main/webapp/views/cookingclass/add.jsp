@@ -78,6 +78,7 @@
 
 
     $(function () {
+        $("#register").addClass("navActive");
         classregister_form.init();
     });
 </script>

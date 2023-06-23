@@ -37,7 +37,9 @@
     //     recipe_search.init();
     // });
     $(function () {
+        $("#recipe").addClass("navActive");
         recipe_search.init();
+
     });
 </script>
 

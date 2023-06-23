@@ -59,6 +59,7 @@
             }
         };
         $(function () {
+            $("#class").addClass("navActive");
             class_search.init();
         })
     </script>

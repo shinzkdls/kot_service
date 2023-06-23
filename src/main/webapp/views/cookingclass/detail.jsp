@@ -115,6 +115,7 @@
         }
     }
     $(function () {
+        $("#class").addClass("navActive");
         class_map.init();
         comment_form.init();
     });

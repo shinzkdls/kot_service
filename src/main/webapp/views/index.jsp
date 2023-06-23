@@ -78,6 +78,11 @@
             width: 60px;
             height: 60px
         }
+
+        .navActive {
+            background-color: #F28123;
+            color: white;
+        }
     </style>
 </head>
 
@@ -109,12 +114,12 @@
                 <div class="header__nav">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="/recipe/all?type=&ingredients1=&recipetitle=">Recipe</a></li>
-                            <li><a href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
-                            <li><a href="/contacts">Contacts</a></li>
+                            <li id="recipe"><a href="/recipe/all?type=&ingredients1=&recipetitle=">Recipe</a></li>
+                            <li id="class"><a href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
+                            <li id="contact"><a href="/contacts">Contact</a></li>
                             <c:choose>
                                 <c:when test="${logincust != null}">
-                                    <li><a>Register</a>
+                                    <li id="register"><a>Register</a>
                                         <ul class="dropdown">
                                             <li><a href="/recipe/add">Recipe</a></li>
                                             <li><a href="/cookingclass/add">Class</a></li>
