@@ -100,4 +100,8 @@ public class RecipeService implements KBService<Integer, RecipeBasic> {
     public void viewup(Integer recipepin) throws Exception {
         mapper.viewup(recipepin);
     }
+
+    public List<RecipeBasic> recommendlist(RecipeBasic recipeBasic) {
+        return mapper.recommendlist(recipeBasic);
+    }
 }

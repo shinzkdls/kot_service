@@ -22,7 +22,8 @@
                 #{recipelevel},
                 #{recipetitle},
                 #{recipedesc},
-                SYSDATE)
+                SYSDATE,
+                0)
     </insert>
 
     <select id="pingetter" resultType="Integer">
@@ -159,5 +160,24 @@
         SET views = views + 1
         WHERE recipepin = #{recipepin}
     </update>
+
+    <select id="recommendlist" parameterType="RecipeBasic" resultType="RecipeBasic">
+        <![CDATA[
+        SELECT *
+        FROM (SELECT A.*
+              FROM RECIPE_BASIC A
+                       LEFT OUTER JOIN (SELECT RECIPEPIN,
+                                               COUNT(*) AS GOODCOUNT
+                                        FROM GOODLIST
+                                        WHERE CUSTPIN IN (SELECT CUSTPIN
+                                                          FROM GOODLIST
+                                                          WHERE RECIPEPIN = #{recipepin})
+                                          AND RECIPEPIN != #{recipepin}
+                                        GROUP BY RECIPEPIN) B
+                                       ON A.RECIPEPIN = B.RECIPEPIN
+              WHERE ROWNUM < 6
+              ORDER BY NVL(B.GOODCOUNT, 0) DESC, RECIPEDATE DESC)
+        ]]>
+    </select>
 
 </mapper>

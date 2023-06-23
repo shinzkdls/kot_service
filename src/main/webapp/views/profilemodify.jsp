@@ -98,7 +98,6 @@
     let profilemodify_form = {
         maxSize: 52428800, //50M
         init: function () {
-            console.log("${logincust.gender}")
             if ("${logincust.gender}" == 'M') {
                 $("#Malebtn").css('background', '#f28123');
             }
@@ -137,7 +136,7 @@
                 $("#Malebtn").css('background', '#b7b7b7');
                 $("#Femalebtn").css('background', '#f28123');
             });
-            $('.phonezone select, .phonezone input[type="text"]').on('change', function () {
+            $('.phonezone div, #phone_prefix, .phonezone input[type="text"]').on('change', function () {
                 var prefix = $('#phone_prefix').val();
                 console.log(prefix);
                 var middle = $('#phone_middle').val();
@@ -146,10 +145,24 @@
                 $('#phone').val(phoneNumber);
                 console.log(phoneNumber);
             });
-            $('.locationzone select').on('change', function () {
+            $('.locationzone div, .locationzone .selected').on('change', function () {
                 var loca = $('.selected:eq(1)').text();
                 var location = loca;
                 $('#location').val(location);
+            });
+            $('.phonezone div li').on('click', function () {
+                var prefix = $(this).text().trim();
+                console.log(prefix);
+                var middle = $('#phone_middle').val();
+                var end = $('#phone_end').val();
+                var phoneNumber = prefix + middle + end;
+                $('#phone').val(phoneNumber);
+                console.log(phoneNumber);
+            });
+            $('.locationzone div li').on('click', function () {
+                var loca = $(this).text().trim();
+                console.log(loca);
+                $('#location').val(loca);
             });
         },
         checkExtension: function (fileName, fileSize) {

@@ -78,7 +78,8 @@ public class ApplyController {
         try {
             cust.setPassword(encoder.encode(cust.getPassword()));
             custService.register(cust);
-            session.setAttribute("logincust", cust);
+            Cust newcust = custService.get(cust.getCustid());
+            session.setAttribute("logincust", newcust);
             String email = cust.getEmail();
             sendMailUtil.sendSimpleMessage(email, "123");
         } catch (Exception e) {
