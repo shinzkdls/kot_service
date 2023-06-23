@@ -98,6 +98,9 @@
 <!-- Page Preloder -->
 <div id="preloder">
     <div class="loader"></div>
+<%--    <div class="search-model-form">--%>
+<%--        <iframe src="https://giphy.com/embed/ZYXG9ww5BwNP1mNcAT" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>--%>
+<%--    </div>--%>
 </div>
 
 <!-- Header Section Begin -->

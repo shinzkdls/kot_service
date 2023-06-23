@@ -82,15 +82,17 @@
                                 <c:forEach var="obj" items="${subscribeList}">
                                     <div class="col-lg-4 col-md-6 col-sm-6">
                                         <div class="product__item">
-                                            <div class="product__item__pic set-bg"
-                                                 data-setbg="/uimg/${obj.thumbnailimg}">
-                                                <div class="comment">
-                                                    <i class="fa-regular fa-comment" style="color: #ffffff;"> </i>
+                                            <a href="/recipe/detail?recipepin=${obj.recipepin}">
+                                                <div class="product__item__pic set-bg"
+                                                     data-setbg="/uimg/${obj.thumbnailimg}">
+                                                    <div class="comment">
+                                                        <i class="fa-regular fa-comment" style="color: #ffffff;"> </i>
+                                                    </div>
+                                                    <div class="view">
+                                                        <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
+                                                    </div>
                                                 </div>
-                                                <div class="view">
-                                                    <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
-                                                </div>
-                                            </div>
+                                            </a>
                                             <div class="product__item__text">
                                                 <h5>
                                                     <a href="/recipe/detail?recipepin=${obj.recipepin}">${obj.recipetitle}</a>
@@ -123,15 +125,17 @@
                         <c:forEach var="obj" items="${classList}">
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg"
-                                         data-setbg="/uimg/${obj.thumbnailimg}">
-                                        <div class="comment">
-                                            <i class="fa-regular fa-comment" style="color: #ffffff;"></i>
+                                    <a href="/cookingclass/detail?classpin=${obj.classpin}">
+                                        <div class="product__item__pic set-bg"
+                                             data-setbg="/uimg/${obj.thumbnailimg}">
+                                            <div class="comment">
+                                                <i class="fa-regular fa-comment" style="color: #ffffff;"></i>
+                                            </div>
+                                            <div class="view">
+                                                <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
+                                            </div>
                                         </div>
-                                        <div class="view">
-                                            <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
-                                        </div>
-                                    </div>
+                                    </a>
                                     <div class="product__item__text">
                                         <h5>
                                             <a href="/cookingclass/detail?classpin=${obj.classpin}">${obj.classtitle}</a>
@@ -160,15 +164,17 @@
                         <c:forEach var="obj" items="${recipeList}">
                             <div class="col-lg-4 col-md-6 col-sm-6">
                                 <div class="product__item">
-                                    <div class="product__item__pic set-bg"
-                                         data-setbg="/uimg/${obj.thumbnailimg}">
-                                        <div class="comment">
-                                            <i class="fa-regular fa-comment" style="color: #ffffff;"> </i>
+                                    <a href="/recipe/detail?recipepin=${obj.recipepin}">
+                                        <div class="product__item__pic set-bg"
+                                             data-setbg="/uimg/${obj.thumbnailimg}">
+                                            <div class="comment">
+                                                <i class="fa-regular fa-comment" style="color: #ffffff;"> </i>
+                                            </div>
+                                            <div class="view">
+                                                <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
+                                            </div>
                                         </div>
-                                        <div class="view">
-                                            <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
-                                        </div>
-                                    </div>
+                                    </a>
                                     <div class="product__item__text">
                                         <h5>
                                             <a href="/recipe/detail?recipepin=${obj.recipepin}">${obj.recipetitle}</a>

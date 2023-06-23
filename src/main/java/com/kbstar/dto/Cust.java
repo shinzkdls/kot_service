@@ -18,7 +18,7 @@ public class Cust {
     private String nickname;
     private String introduction;
     private String password;
-    private char gender;
+    private String gender;
     private String phone;
     private String email;
     private String location;
