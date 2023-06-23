@@ -22,7 +22,8 @@
                 #{recipelevel},
                 #{recipetitle},
                 #{recipedesc},
-                SYSDATE)
+                SYSDATE,
+                0)
     </insert>
 
     <select id="pingetter" resultType="Integer">
@@ -133,12 +134,24 @@
         ]]>
     </select>
 
-    <select id="subscribeRecipe" resultType="RecipeBasic">
-        select *
-        from recipe_basic
-        where CUSTPIN = (select SUBCUSTPIN from SUBSCRIBE where CUSTPIN = 10022)
+
+    <select id="subscribeRecipe" parameterType="Integer" resultType="RecipeBasic">
+    <![CDATA[
+        SELECT *
+        FROM recipe_basic
+        WHERE custpin IN (SELECT subcustpin FROM subscribe WHERE custpin = #{custpin})
+        AND ROWNUM <= 3
         ORDER BY RECIPEDATE DESC
+        ]]>
     </select>
+
+<!--    <select id="subscribeRecipe" parameterType="Integer" resultType="RecipeBasic">-->
+<!--    <![CDATA[-->
+<!--    SELECT *-->
+<!--    FROM recipe_basic-->
+<!--    WHERE custpin = (SELECT subcustpin FROM subscribe WHERE custpin=#{custpin})-->
+<!--    ]]>-->
+<!--</select>-->
 
     <select id="getMyRecipe" parameterType="String" resultType="recipebasic">
         SELECT *

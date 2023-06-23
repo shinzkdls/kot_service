@@ -88,8 +88,8 @@ public class RecipeService implements KBService<Integer, RecipeBasic> {
         return recipeList;
     }
 
-    public List<RecipeBasic> subscribeRecipe() throws Exception {
-        List<RecipeBasic> subscribeList = mapper.subscribeRecipe();
+    public List<RecipeBasic> subscribeRecipe(Integer custpin) throws Exception {
+        List<RecipeBasic> subscribeList = mapper.subscribeRecipe(custpin);
         return subscribeList;
     }
 

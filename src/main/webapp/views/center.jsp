@@ -211,7 +211,7 @@
                     <div class="product__sidebar">
                         <div class="product__sidebar__view">
                             <div class="section-title">
-                                <h5>콜리의 <span style="color: #dc3545;">NOTICE</span></h5>
+                                <h5>콜리의 <span style="color: #1c7430; font-weight: bold;">NOTICE</span></h5>
                             </div>
                             <table class="rwd-table" id="dataTable">
                                 <tbody>

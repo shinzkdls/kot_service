@@ -2,6 +2,7 @@ package com.kbstar.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.ClassBasic;
+import com.kbstar.dto.Cust;
 import com.kbstar.dto.Notice;
 import com.kbstar.dto.RecipeBasic;
 import com.kbstar.service.ClassService;
@@ -43,7 +44,8 @@ public class MainController {
     NoticeService noticeService;
 
     @RequestMapping("/")
-    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, Notice notice) throws Exception {
+    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpSession session, Notice notice) throws Exception {
+
         // 네이버 날씨 크롤링
         String url = "https://m.search.naver.com/search.naver?sm=mtp_hty.top&where=m&query=서울날씨";
         Document doc = null;
@@ -82,7 +84,7 @@ public class MainController {
                 model.addAttribute("recipeBasic", recipeBasic);
             } if (highest > 28) {
                 RecipeBasic recipeBasic = null;
-                recipeBasic = recipeService.get(20229);
+                recipeBasic = recipeService.get(20244);
                 model.addAttribute("recipeBasic", recipeBasic);
             } else {
                 List<RecipeBasic> allRecipes = recipeService.get();
@@ -103,7 +105,11 @@ public class MainController {
         List<RecipeBasic> recipeRanking = recipeService.ranking();
         List<ClassBasic> classList = classService.latestClass();
         List<RecipeBasic> recipeList = recipeService.latestRecipe();
-        List<RecipeBasic> subscribeList = recipeService.subscribeRecipe();
+        List<RecipeBasic> subscribeList = null;
+        Cust logincust = (Cust) session.getAttribute("logincust");
+
+        if (logincust != null) {
+        subscribeList = recipeService.subscribeRecipe(logincust.getCustpin());}
         // 레시피 랭킹 end
 
         //notice

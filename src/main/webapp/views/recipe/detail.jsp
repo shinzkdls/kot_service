@@ -87,21 +87,14 @@
                             <h5>레시피 재료</h5>
                         </div>
                         <c:forEach var="obj" items="${ingredientList}">
-                            <p><span class="icon_clock" style="font-size: 20px;"> </span> ${obj.name} / ${obj.quantity}
+                            <p><img src="https://cdn-icons-png.flaticon.com/128/2713/2713579.png"
+                                    style="width: 25px"> ${obj.name} / ${obj.quantity}
                             </p>
                         </c:forEach>
                         <br><br>
                         <div class="section-title">
                             <h5>조리 순서</h5>
                         </div>
-                        <%--                        <c:forEach var="obj" items="${recipeStep}">--%>
-                        <%--                            <p><span class="icon_clock" style="font-size: 20px;"> </span> ${obj.step} : ${obj.stepdesc}--%>
-                        <%--                            </p>--%>
-                        <%--                            <div class="class-bg"--%>
-                        <%--                                 style="margin-bottom: 30px; background-image: url('/uimg/${obj.stepimg}');background-size: cover; background-position: center; background-repeat: no-repeat;">--%>
-                        <%--                            </div>--%>
-                        <%--                        </c:forEach>--%>
-
                         <c:forEach var="obj" items="${recipeStep}">
                             <div class="card shadow border-0 rounded-4 mb-5">
                                 <div class="card-body p-2">
@@ -242,7 +235,7 @@
                         </a>
                         <h5 style="margin-top: 5px; color: black">${recipecust.introduction}</h5>
                     </div>
-                    <div class="single-product-form" style="margin-bottom: 30px">
+                    <div class="single-product-form" style="margin-bottom: 30px; text-align: center;">
                         <c:choose>
                             <c:when test="${logincust != null}">
                                 <c:choose>
