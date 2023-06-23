@@ -2626,8 +2626,7 @@ td {
     background:#eee;
 }
 
-.futureDay.choiceDay,
-.today.choiceDay {
+.choiceDay {
     background: #f28123;
     color: #fff;
     font-weight: 600;

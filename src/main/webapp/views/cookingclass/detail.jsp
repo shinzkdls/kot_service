@@ -166,23 +166,14 @@
             ) {
                 // 오늘인 경우
                 newDIV.className = "today";
-                newDIV.onclick = function () {
-                    choiceDate(this);
-                };
-            } else if (nowDay.getFullYear() == classdate.getFullYear() &&
+
+            } else if (
+                nowDay.getFullYear() == classdate.getFullYear() &&
                 nowDay.getMonth() == classdate.getMonth() &&
-                nowDay.getDate() == classdate.getDate()) {
+                nowDay.getDate() == classdate.getDate()
+            ) {
                 // db 데이터의 날짜인 경우
                 newDIV.className = "choiceDay";
-                newDIV.onclick = function () {
-                    choiceDate(this);
-                };
-            } else {
-                // 미래인 경우
-                newDIV.className = "futureDay";
-                newDIV.onclick = function () {
-                    choiceDate(this);
-                };
             }
         }
     }
