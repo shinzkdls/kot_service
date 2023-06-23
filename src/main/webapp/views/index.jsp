@@ -206,7 +206,8 @@
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch"><i class="icon_close"></i></div>
         <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here....."/>
+            <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"
+                    class="giphy-embed" allowFullScreen></iframe>
         </form>
     </div>
 </div>
