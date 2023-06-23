@@ -9,6 +9,13 @@
         VALUES (#{custpin}, #{subcustpin}, SYSDATE)
     </insert>
 
+    <delete id="delsub" parameterType="subscribe">
+        DELETE
+        FROM subscribe
+        WHERE CUSTPIN = #{custpin}
+          AND SUBCUSTPIN = #{subcustpin}
+    </delete>
+
     <select id="getMySubscribe" parameterType="String" resultType="subscribe">
         SELECT A.custpin        as custpin,
                A.subcustpin     as subcustpin,

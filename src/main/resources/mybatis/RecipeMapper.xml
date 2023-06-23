@@ -56,7 +56,21 @@
         <if test="recipetitle != ''">
             AND R.recipetitle LIKE '%' || #{recipetitle} || '%'
         </if>
-        ORDER BY R.recipepin DESC
+        <if test="sort == 0">
+            ORDER BY R.recipepin DESC
+        </if>
+        <if test="sort == 1">
+            ORDER BY R.time DESC
+        </if>
+        <if test="sort == 2">
+            ORDER BY R.time ASC
+        </if>
+        <if test="sort == 3">
+            ORDER BY R.views DESC
+        </if>
+        <if test="sort == 4">
+            ORDER BY R.views ASC
+        </if>
     </select>
 
     <select id="getsearch" parameterType="String" resultType="recipebasic">
@@ -101,12 +115,10 @@
     <select id="ranking" resultType="int">
         <![CDATA[
         SELECT *
-        FROM (
-                 SELECT RECIPEPIN
-                 FROM goodlist
-                 GROUP BY RECIPEPIN
-                 ORDER BY COUNT(RECIPEPIN) DESC
-             )
+        FROM (SELECT RECIPEPIN
+              FROM goodlist
+              GROUP BY RECIPEPIN
+              ORDER BY COUNT(RECIPEPIN) DESC)
         WHERE ROWNUM < 6
         ]]>
     </select>
@@ -114,11 +126,9 @@
     <select id="latestRecipe" resultType="RecipeBasic">
         <![CDATA[
         SELECT *
-        FROM (
-                 SELECT *
-                 FROM recipe_basic
-                 ORDER BY RECIPEDATE
-             )
+        FROM (SELECT *
+              FROM recipe_basic
+              ORDER BY RECIPEDATE)
         WHERE ROWNUM < 7
         ]]>
     </select>

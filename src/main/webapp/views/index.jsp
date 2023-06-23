@@ -79,6 +79,11 @@
             width: 60px;
             height: 60px
         }
+
+        .navActive {
+            background-color: #F28123;
+            color: white;
+        }
     </style>
 </head>
 
@@ -110,12 +115,13 @@
                 <div class="header__nav">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li><a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=">Recipe</a></li>
-                            <li><a href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
-                            <li><a href="/contacts">Contacts</a></li>
+                            <li id="recipe"><a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=&sort=0">Recipe</a>
+                            </li>
+                            <li id="class"><a href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
+                            <li id="contact"><a href="/contacts">Contacts</a></li>
                             <c:choose>
                                 <c:when test="${logincust != null}">
-                                    <li><a>Register</a>
+                                    <li id="register"><a>Register</a>
                                         <ul class="dropdown">
                                             <li><a href="/recipe/add">Recipe</a></li>
                                             <li><a href="/cookingclass/add">Class</a></li>
@@ -205,7 +211,8 @@
     <div class="h-100 d-flex align-items-center justify-content-center">
         <div class="search-close-switch"><i class="icon_close"></i></div>
         <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here....."/>
+            <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"
+                    class="giphy-embed" allowFullScreen></iframe>
         </form>
     </div>
 </div>

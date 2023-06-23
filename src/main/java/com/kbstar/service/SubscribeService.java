@@ -52,4 +52,10 @@ public class SubscribeService implements KBService<Integer, Subscribe> {
     public Integer getsubscribestatus(Integer custpin, Integer subcustpin) throws Exception {
         return mapper.getsubscribestatus(custpin, subcustpin);
     }
+
+    public void delsub(Subscribe subscribe) throws Exception {
+        mapper.delsub(subscribe);
+    }
+
+    ;
 }

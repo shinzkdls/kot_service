@@ -104,4 +104,32 @@ public class ApplyController {
         model.addAttribute("center", "profilemodify");
         return "index";
     }
+
+    @RequestMapping("/addsubscribe")
+    public String addsubscribe(Model model, Integer custpin, String subcustid, HttpSession session) throws Exception {
+        try {
+            Cust c = custService.get(subcustid);
+            Subscribe subscribe = new Subscribe();
+            subscribe.setCustpin(custpin);
+            subscribe.setSubcustpin(c.getCustpin());
+            subscribeService.register(subscribe);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "redirect:/apply/mypage?custid=" + subcustid;
+    }
+
+    @RequestMapping("/delsubscribe")
+    public String delsubscribe(Model model, Integer custpin, String subcustid, HttpSession session) throws Exception {
+        try {
+            Cust c = custService.get(subcustid);
+            Subscribe subscribe = new Subscribe();
+            subscribe.setCustpin(custpin);
+            subscribe.setSubcustpin(c.getCustpin());
+            subscribeService.delsub(subscribe);
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return "redirect:/apply/mypage?custid=" + subcustid;
+    }
 }

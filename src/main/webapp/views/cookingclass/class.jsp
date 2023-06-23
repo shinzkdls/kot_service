@@ -38,7 +38,12 @@
                 $('#datepin_btn').click(function () {
                     $('.btn-group .btn').removeClass('active');
                     $(this).addClass('active');
-                    $('#sort').val(1);
+                    if (${sortinfo.sort != 1}) {
+                        $('#sort').val(1);
+                    }
+                    if (${sortinfo.sort == 1}) {
+                        $('#sort').val(2);
+                    }
                     $('#category_form').attr({
                         method: 'get',
                         action: '/cookingclass/class'
@@ -49,7 +54,12 @@
                 $('#amount_btn').click(function () {
                     $('.btn-group .btn').removeClass('active');
                     $(this).addClass('active');
-                    $('#sort').val(0);
+                    if (${sortinfo.sort != 3}) {
+                        $('#sort').val(3);
+                    }
+                    if (${sortinfo.sort == 3}) {
+                        $('#sort').val(4);
+                    }
                     $('#category_form').attr({
                         method: 'get',
                         action: '/cookingclass/class'
@@ -59,6 +69,7 @@
             }
         };
         $(function () {
+            $("#class").addClass("navActive");
             class_search.init();
         })
     </script>
@@ -89,12 +100,12 @@
 <section class="normal-breadcrumb set-bg" data-setbg="/uimg/classmain.gif">
     <div class="container">
         <div class="row">
-<%--            <div class="col-lg-12 text-center">--%>
-<%--                <div class="normal__breadcrumb__text">--%>
-<%--                    <h2>COOKING CLASS</h2>--%>
-<%--                    <p>Welcome to the cookingclass</p>--%>
-<%--                </div>--%>
-<%--            </div>--%>
+            <%--            <div class="col-lg-12 text-center">--%>
+            <%--                <div class="normal__breadcrumb__text">--%>
+            <%--                    <h2>COOKING CLASS</h2>--%>
+            <%--                    <p>Welcome to the cookingclass</p>--%>
+            <%--                </div>--%>
+            <%--            </div>--%>
         </div>
     </div>
 </section>

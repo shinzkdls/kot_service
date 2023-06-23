@@ -55,6 +55,7 @@
     }
 
     $(function () {
+        $("#contact").addClass("navActive");
         contact_form.init();
     });
 </script>
