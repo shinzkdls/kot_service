@@ -75,7 +75,7 @@
             height: 100px
         }
 
-        .chatLink:hover{
+        .chatLink:hover {
             cursor: pointer;
         }
 
@@ -95,8 +95,9 @@
 <!-- Page Preloder -->
 <div id="preloder" class="search-model-form">
     <form class="search-model-form">
-        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"
-                class="giphy-embed" allowFullScreen></iframe>
+        <%--        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"--%>
+        <%--                class="giphy-embed" allowFullScreen></iframe>--%>
+        <img src="/img/loading.gif">
     </form>
 </div>
 
@@ -139,11 +140,11 @@
                     <ul style="display: flex; flex-direction: row">
                         <c:choose>
                             <c:when test="${logincust == null}">
-                                <li><a href="/login" class="search-switch">Login</a></li>
+                                <li><a href="/login">Login</a></li>
                                 <li><a href="/apply">Apply</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="/login/logout" class="search-switch">Logout
+                                <li><a href="/login/logout">Logout
                                 </a></li>
                                 <li style="margin: 0">
                                     <c:choose>
@@ -161,8 +162,7 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </li>
-                                <li style="margin-left: 3px"><a href="/apply/mypage?custid=${logincust.custid}"
-                                                                class="search-switch">
+                                <li style="margin-left: 3px"><a href="/apply/mypage?custid=${logincust.custid}">
                                         ${logincust.custid}
                                 </a></li>
                             </c:otherwise>
