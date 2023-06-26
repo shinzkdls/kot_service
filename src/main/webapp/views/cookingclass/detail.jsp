@@ -203,7 +203,7 @@
         return value;
     }
 
-
+    // dday
     function calculateDday(classdate) {
         var currentDate = new Date();
 
@@ -280,7 +280,7 @@
                         <h2 style="color:#F28123; font-weight: bolder">
                             [${classdetail.location}] ${classdetail.classtitle}</h2>
                     </div>
-                    <div class="class-step">
+                    <div class="class-step" >
                         <div class="section-title">
                             <h5>클래스 소개</h5>
                         </div>
@@ -392,7 +392,9 @@
             <div class="col-lg-4">
                 <div class="sidebar-section">
                     <div class="archive-posts">
+                        <div class="section-title">
                         <h4>호스트 소개</h4>
+                        </div>
                         <a href="/apply/mypage?custid=${classcust.custid}">
                             <div style="display: flex; flex-direction: row; align-items: center">
                                 <c:choose>
@@ -463,10 +465,11 @@
                     </div>
                     <div class="ddaysection">
                         <p id="dday"></p>
-                        <p id="message" style="font-size: 15px;"></p>
+                        <p id="message" style="font-size: 15px; font-weight: bold;"></p>
                     </div>
-
+                    <div class="section-title" style="margin-bottom: 10px">
                     <h4>공유하기</h4>
+                    </div>
                     <ul class="product-share">
                         <li><a href="#" style="font-size: 30px"><span class="social_facebook_circle"></span></a></li>
                         <li><a href="#" style="font-size: 30px"><span class="social_twitter_circle"></span></a></li>

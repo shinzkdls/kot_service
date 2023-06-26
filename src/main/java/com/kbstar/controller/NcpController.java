@@ -20,21 +20,22 @@ public class NcpController {
     @Value("${uploadimgdir}")
     String imgpath;
 
-    @RequestMapping("/ocrimpl")
-    public String ocrimpl(Model model, HttpSession session, Ncp ncp) throws ParseException {
-        System.out.println("getimg-------------------------------");
-        System.out.println(ncp.getBizimg());
-        // img 저장
-        FileUploadUtil.saveOcrFile(ncp.getBizimg(), imgpath);
-        // NCP 에 요청
-        String imgname = ncp.getBizimg().getOriginalFilename();
-        JSONObject result = (JSONObject) OCRUtil.getResult(imgpath, imgname);
-        Map map = OCRUtil.getData(result);
-        //log.info(map.values().toString());
-        model.addAttribute("result", map);
-        model.addAttribute("center", "cookingclass/add");
-        return "index";
-    }
+//    @RequestMapping("/ocrimpl")
+//    public String ocrimpl(Model model, HttpSession session, Ncp ncp) throws ParseException {
+//        //System.out.println("getimg-------------------------------");
+//        //System.out.println(ncp.getBizimg());
+//        // img 저장
+//        FileUploadUtil.saveOcrFile(ncp.getBizimg(), imgpath);
+//        // NCP 에 요청
+//        String imgname = ncp.getBizimg().getOriginalFilename();
+//        JSONObject result = (JSONObject) OCRUtil.getResult(imgpath, imgname);
+//        Map map = OCRUtil.getData(result);
+//        //log.info(map.values().toString());
+//        model.addAttribute("result", map);
+//        model.addAttribute("center", "cookingclass/add");
+//        model.addAttribute("imagePath", imgpath + imgname);
+//        return "index";
+//    }
 }
 
 
