@@ -211,19 +211,7 @@
                     <hr>
                 </div>
                 <div class="row">
-                    <a class="chatLink" href="/chat/chatWithAdmin ">
-                        <i class="fas fa-comments"></i> 관리자와 대화
-                    </a>
-                    <hr>
-                </div>
-                <div class="row">
                     <a class="chatLink" onclick="openPopup('howToUse')">
-                        <i class="fas fa-headset"></i> 사용법 챗봇으로 확인
-                    </a>
-                    <hr>
-                </div>
-                <div class="row">
-                    <a class="chatLink" href="/chat/howToUse ">
                         <i class="fas fa-headset"></i> 사용법 챗봇으로 확인
                     </a>
                     <hr>
@@ -234,12 +222,6 @@
                     </a>
                     <hr>
                 </div>
-                <div class="row">
-                    <a class="chatLink" href="/chat/chatGPT ">gpt
-                    </a>
-                    <hr>
-                </div>
-
 
                 <script>
                     function openPopup(code) {
