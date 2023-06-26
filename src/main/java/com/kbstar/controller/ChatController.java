@@ -37,8 +37,7 @@ public class ChatController {
     }
     @RequestMapping("/chatGPT")
     public String chatGPT(Model model) {
-        model.addAttribute("center", dir + "chatGPT");
-        return "chatGPT";
+        return "chat/chatGPT";
     }
 
 }
