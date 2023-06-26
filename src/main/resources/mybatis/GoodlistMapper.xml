@@ -22,7 +22,10 @@
         WHERE custpin = #{custpin}
           AND recipepin = #{recipepin}
     </select>
-
-
+    <select id="getLikeCount" parameterType="Integer" resultType="String">
+        SELECT COUNT(*)
+        FROM goodlist
+        WHERE recipepin = #{recipepin}
+    </select>
 </mapper>
 

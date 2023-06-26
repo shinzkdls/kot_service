@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.RecipeMapper">
-
     <insert id="insert" parameterType="recipebasic">
         INSERT INTO recipe_basic
         VALUES (recipe_basic_seq.NEXTVAL,
@@ -25,18 +24,15 @@
                 SYSDATE,
                 0)
     </insert>
-
     <select id="pingetter" resultType="Integer">
         SELECT recipe_basic_SEQ.CURRVAL
         FROM dual
     </select>
-
     <delete id="delete" parameterType="Integer">
         DELETE
         FROM recipe_basic
         WHERE recipepin = #{recipepin}
     </delete>
-
     <select id="getpage" parameterType="RecipeBasic" resultType="RecipeBasic">
         SELECT R.*,
         NVL2(G.custpin,'1','0') as logincustlike
@@ -73,14 +69,12 @@
             ORDER BY R.views ASC
         </if>
     </select>
-
     <select id="getsearch" parameterType="String" resultType="recipebasic">
         SELECT *
         FROM recipe_basic
         where recipetitle LIKE '%' || #{recipetitle} || '%'
         ORDER BY recipepin DESC
     </select>
-
     <select id="select" parameterType="RecipeBasic" resultType="recipebasic">
         SELECT R.*,
                NVL2(G.custpin, '1', '0') as logincustlike
@@ -90,12 +84,10 @@
                                      AND G.custpin = #{logincustpin}
         WHERE R.recipepin = #{recipepin}
     </select>
-
     <select id="selectall" resultType="recipebasic">
         SELECT *
         FROM recipe_basic
     </select>
-
     <select id="gettype" parameterType="String" resultType="recipebasic">
         SELECT *
         FROM (SELECT *
@@ -104,7 +96,6 @@
         WHERE type = #{type}
         ORDER BY recipepin DESC
     </select>
-
     <select id="getsituation" parameterType="String" resultType="recipebasic">
         SELECT *
         FROM recipe_basic
@@ -123,42 +114,33 @@
         WHERE ROWNUM < 6
         ]]>
     </select>
-
     <select id="latestRecipe" resultType="RecipeBasic">
-        <![CDATA[
-        SELECT *
+    <![CDATA[
+        SELECT A.*, NVL(B.GOODCOUNT, 0) AS GOODCOUNT
         FROM (SELECT *
               FROM recipe_basic
-              ORDER BY RECIPEDATE)
-        WHERE ROWNUM < 7
+              ORDER BY RECIPEDATE DESC) A
+                 LEFT OUTER JOIN (SELECT RECIPEPIN, COUNT(*) AS GOODCOUNT
+                                  FROM GOODLIST
+                                  GROUP BY RECIPEPIN) B
+                                  ON A.RECIPEPIN = B.RECIPEPIN
+        WHERE ROWNUM <= 6
         ]]>
     </select>
-
-
     <select id="subscribeRecipe" parameterType="Integer" resultType="RecipeBasic">
     <![CDATA[
         SELECT *
         FROM recipe_basic
         WHERE custpin IN (SELECT subcustpin FROM subscribe WHERE custpin = #{custpin})
-        AND ROWNUM <= 3
+          AND ROWNUM <= 3
         ORDER BY RECIPEDATE DESC
         ]]>
     </select>
-
-<!--    <select id="subscribeRecipe" parameterType="Integer" resultType="RecipeBasic">-->
-<!--    <![CDATA[-->
-<!--    SELECT *-->
-<!--    FROM recipe_basic-->
-<!--    WHERE custpin = (SELECT subcustpin FROM subscribe WHERE custpin=#{custpin})-->
-<!--    ]]>-->
-<!--</select>-->
-
     <select id="getMyRecipe" parameterType="String" resultType="recipebasic">
         SELECT *
         FROM recipe_basic
         WHERE custid = #{custid}
     </select>
-
     <select id="getMyLikeRecipe" parameterType="Integer" resultType="recipebasic">
         SELECT R.*
         FROM recipe_basic R
@@ -166,13 +148,11 @@
                             ON R.recipepin = G.recipepin
         WHERE G.custpin = #{custpin}
     </select>
-
     <update id="viewup" parameterType="Integer">
         UPDATE RECIPE_BASIC
         SET views = views + 1
         WHERE recipepin = #{recipepin}
     </update>
-
     <select id="recommendlist" parameterType="RecipeBasic" resultType="RecipeBasic">
         <![CDATA[
         SELECT *
@@ -191,5 +171,4 @@
               ORDER BY NVL(B.GOODCOUNT, 0) DESC, RECIPEDATE DESC)
         ]]>
     </select>
-
 </mapper>
