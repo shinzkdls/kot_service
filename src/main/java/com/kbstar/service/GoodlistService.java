@@ -52,5 +52,4 @@ public class GoodlistService implements KBService<Integer, Goodlist> {
     public String searchgood(Integer recipepin, Integer custpin) {
         return mapper.searchgood(recipepin, custpin);
     }
-
 }

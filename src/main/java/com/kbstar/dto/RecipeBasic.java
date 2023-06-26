@@ -32,4 +32,5 @@ public class RecipeBasic {
     private String logincustlike;
     private int views;
     private int sort;
+    private Integer goodcount;
 }

@@ -2,6 +2,36 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<script>
+    // 최신 쿠킹 클래스 D-day
+    function calculateDday(classdate) {
+        var currentDate = new Date();
+
+        var year = parseInt(classdate.substring(0, 4));
+        var month = parseInt(classdate.substring(5, 7));
+        var day = parseInt(classdate.substring(8, 10));
+
+        var inputDate = new Date(year, month - 1, day);
+        var timeDiff = inputDate.getTime() - currentDate.getTime();
+        var daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+        if (daysRemaining > 0) {
+            return "D-" + daysRemaining;
+        } else if (daysRemaining === 0) {
+            return "D-Day";
+        } else {
+            return "종료";
+        }
+    };
+    window.onload = function () {
+        <c:forEach var="obj" items="${classList}">
+        var classdate = "${obj.classdate.substring(0, 10)}";
+        var dday = calculateDday(classdate);
+        var ddayElement = document.getElementById("ddayValue${obj.classpin}");
+        ddayElement.textContent = dday;
+        </c:forEach>
+    };
+</script>
 <head>
     <!-- Font Awesome CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css"
@@ -128,15 +158,13 @@
                                     <a href="/cookingclass/detail?classpin=${obj.classpin}">
                                         <div class="product__item__pic set-bg"
                                              data-setbg="/uimg/${obj.thumbnailimg}">
-                                            <div class="comment">
-                                                <i class="fa-regular fa-comment" style="color: #ffffff;"></i>
-                                            </div>
-                                            <div class="view">
-                                                <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
-                                            </div>
                                         </div>
                                     </a>
-                                    <div class="product__item__text">
+                                    <div style="display: flex; align-items: center; justify-items: center; margin-top: 10px;">
+                                        <img style="width: 25px; margin-right: 10px" src="/uimg/calendar.png"/>
+                                        <p id="ddayValue${obj.classpin}" style="margin:0px"></p>
+                                    </div>
+                                    <div class="product__item__text" style="padding-top: 10px">
                                         <h5>
                                             <a href="/cookingclass/detail?classpin=${obj.classpin}">${obj.classtitle}</a>
                                         </h5>
@@ -167,14 +195,12 @@
                                     <a href="/recipe/detail?recipepin=${obj.recipepin}">
                                         <div class="product__item__pic set-bg"
                                              data-setbg="/uimg/${obj.thumbnailimg}">
-                                            <div class="comment">
-                                                <i class="fa-regular fa-comment" style="color: #ffffff;"> </i>
-                                            </div>
-                                            <div class="view">
-                                                <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
-                                            </div>
                                         </div>
                                     </a>
+                                    <div style="display: flex; align-items: center; justify-items: center; margin-top: 10px;">
+                                        <img style="width: 25px; margin-right: 10px" src="/uimg/heart.png"/>
+                                        <p style="margin:0px">${obj.goodcount}</p>
+                                    </div>
                                     <div class="product__item__text">
                                         <h5>
                                             <a href="/recipe/detail?recipepin=${obj.recipepin}">${obj.recipetitle}</a>
