@@ -430,10 +430,20 @@
                             <input type="hidden" id="amount" name="amount" value="${classdetail.amount}">
                             <input type="hidden" id="joinstatus" name="joinstatus" value="1">
                             <input type="hidden" id="paymentstatus" name="paymentstatus" value="1">
+                            <c:choose>
+                                <c:when test="${payment.logincustlike == '0'}">
                             <a role="button" class="btn cart-btn" id="class-btn" onclick="requestPay()"
                                style="width: 80%;">
                                 클래스 신청
                             </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a role="button" class="btn cart-btn" id="class-btn" onclick="requestPay()"
+                                       style="width: 80%;">
+                                        클래스 취소
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </form>
                     <div class="Calendarsection">

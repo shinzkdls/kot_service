@@ -17,4 +17,5 @@ public class Payment {
     private Integer amount;
     private String paymentstatus;
     private Date paydate;
+    private Integer logincustpin;
 }
