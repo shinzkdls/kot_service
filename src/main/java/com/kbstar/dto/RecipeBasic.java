@@ -12,7 +12,7 @@ import java.util.Date;
 @ToString
 public class RecipeBasic {
     private Integer recipepin;
-    private int custpin;
+    private Integer custpin;
     private String custid;
     private String nickname;
     private String type;
@@ -32,4 +32,5 @@ public class RecipeBasic {
     private String logincustlike;
     private int views;
     private int sort;
+    private Integer goodcount;
 }

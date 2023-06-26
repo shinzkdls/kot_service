@@ -67,30 +67,12 @@
                         </div>
                         <button type="button" class="site-btn" id="login_btn">Login Now</button>
                     </form>
-                    <a href="#" class="forget_pass" style="color: #b7b7b7">Forgot Your Password?</a>
+                    <h5 style="color: black; font-size: 15px;margin-top: 36px">Dont’t Have An
+                        Account? <a href="/apply" style="color: #f28123; font-weight: bold">Sign Up!</a></h5>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="login__register">
-                    <h3 style="color: black">Dont’t Have An Account?</h3>
-                    <a href="/apply" class="primary-btn" style="color: #FFFFFF">Register Now</a>
-                </div>
-            </div>
-        </div>
-        <div class="login__social">
-            <div class="row d-flex justify-content-center">
-                <div class="col-lg-6">
-                    <div class="login__social__links">
-                        <span style="color: black;">or</span>
-                        <ul>
-                            <li><a href="#" class="facebook"><i class="fa fa-facebook"></i> Sign in With
-                                Facebook</a></li>
-                            <li><a href="#" class="google"><i class="fa fa-google"></i> Sign in With Google</a></li>
-                            <li><a href="#" class="twitter"><i class="fa fa-twitter"></i> Sign in With Twitter</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+            <div class="col-lg-6" style="display: flex; justify-content: center; align-content: center">
+                <img src="/img/login.gif">
             </div>
         </div>
     </div>

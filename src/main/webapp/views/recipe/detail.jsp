@@ -87,21 +87,14 @@
                             <h5>레시피 재료</h5>
                         </div>
                         <c:forEach var="obj" items="${ingredientList}">
-                            <p><span class="icon_clock" style="font-size: 20px;"> </span> ${obj.name} / ${obj.quantity}
+                            <p><img src="https://cdn-icons-png.flaticon.com/128/2713/2713579.png"
+                                    style="width: 25px"> ${obj.name} / ${obj.quantity}
                             </p>
                         </c:forEach>
                         <br><br>
                         <div class="section-title">
                             <h5>조리 순서</h5>
                         </div>
-                        <%--                        <c:forEach var="obj" items="${recipeStep}">--%>
-                        <%--                            <p><span class="icon_clock" style="font-size: 20px;"> </span> ${obj.step} : ${obj.stepdesc}--%>
-                        <%--                            </p>--%>
-                        <%--                            <div class="class-bg"--%>
-                        <%--                                 style="margin-bottom: 30px; background-image: url('/uimg/${obj.stepimg}');background-size: cover; background-position: center; background-repeat: no-repeat;">--%>
-                        <%--                            </div>--%>
-                        <%--                        </c:forEach>--%>
-
                         <c:forEach var="obj" items="${recipeStep}">
                             <div class="card shadow border-0 rounded-4 mb-5">
                                 <div class="card-body p-2">
@@ -137,14 +130,16 @@
                                     <c:forEach var="obj" items="${recipeComment}">
                                         <div class="anime__review__item">
                                             <div class="anime__review__item__pic">
-                                                <c:choose>
-                                                    <c:when test="${obj.profileimgname != null &&  obj.profileimgname !=''}">
-                                                        <img src="/uimg/${obj.custid}_profileimg.jpg">
-                                                    </c:when>
-                                                    <c:otherwise>
-                                                        <img src="/img/basic_profile.png">
-                                                    </c:otherwise>
-                                                </c:choose>
+                                                <a href="/apply/mypage?custid=${obj.custid}">
+                                                    <c:choose>
+                                                        <c:when test="${obj.profileimgname != null &&  obj.profileimgname !=''}">
+                                                            <img src="/uimg/${obj.custid}_profileimg.jpg">
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <img src="/img/basic_profile.png">
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </a>
                                             </div>
                                             <div class="anime__review__item__text">
                                                 <div class="form-horizontal"
@@ -211,7 +206,9 @@
             <div class="col-lg-4">
                 <div class="sidebar-section">
                     <div class="archive-posts">
-                        <h4>호스트 소개</h4>
+                        <div class="section-title">
+                            <h4 style="color: #008000">호스트 소개</h4>
+                        </div>
                         <a href="/apply/mypage?custid=${recipecust.custid}">
                             <div style="display: flex; flex-direction: row; align-items: center">
                                 <c:choose>
@@ -242,7 +239,7 @@
                         </a>
                         <h5 style="margin-top: 5px; color: black">${recipecust.introduction}</h5>
                     </div>
-                    <div class="single-product-form" style="margin-bottom: 30px">
+                    <div class="single-product-form" style="margin-bottom: 30px; text-align: center;">
                         <c:choose>
                             <c:when test="${logincust != null}">
                                 <c:choose>
@@ -264,13 +261,27 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <h4>공유하기</h4>
+                    <div class="section-title" style="margin-bottom: 10px">
+                        <h4 style="color: #008000">공유하기</h4>
+                    </div>
                     <ul class="product-share">
                         <li><a href="#" style="font-size: 30px"><span class="social_facebook_circle"></span></a></li>
                         <li><a href="#" style="font-size: 30px"><span class="social_twitter_circle"></span></a></li>
                         <li><a href="#" style="font-size: 30px"><span class="social_googleplus_circle"></span></a></li>
                         <li><a href="#" style="font-size: 30px"><span class="social_instagram_circle"></span></a></li>
                     </ul>
+                    <div class="section-title" style="margin-bottom: 10px; margin-top: 30px">
+                        <h4>이 레시피를 좋아하는 스푸너들이 좋아하는 다른 레시피</h4>
+                    </div>
+                    <c:forEach var="obj" items="${recommendlist}">
+                        <div class="product__sidebar__view__item set-bg"
+                             data-setbg="/uimg/${obj.thumbnailimg}" style="margin-bottom: 30px">
+                            <h5>
+                                <a href="/recipe/detail?recipepin=${obj.recipepin}"
+                                   style="padding: 5px; background-color: rgba(0,0,0, 0.5); border-radius: 5px; font-size: 15px">${obj.recipetitle}</a>
+                            </h5>
+                        </div>
+                    </c:forEach>
                 </div>
             </div>
         </div>

@@ -11,8 +11,8 @@ import java.util.Date;
 @Getter
 @ToString
 public class Subscribe {
-    private int custpin;
-    private int subcustpin;
+    private Integer custpin;
+    private Integer subcustpin;
     private String subcustprofileimgname;
     private String subcustintroduction;
     private String subcustid;

@@ -68,6 +68,7 @@ public class RecipeController {
         List<RecipeIngredient> ingredient = null;
         List<RecipeStep> step = null;
         List<RecipeComment> comment = null;
+        List<RecipeBasic> recommendlist = null;
         Cust sessioncust = (Cust) session.getAttribute("logincust");
         recipeService.viewup(recipepin);
         recipe = recipeService.get(recipepin);
@@ -77,9 +78,11 @@ public class RecipeController {
         ingredient = ingredientService.getRecipeAllIngredient(recipepin);
         step = recipeStepService.getRecipeAllStep(recipepin);
         comment = commentService.getRecipeAllComment(recipepin);
+        recommendlist = recipeService.recommendlist(recipe);
 
         model.addAttribute("recipecust", cust);
         model.addAttribute("recipedetail", recipe);
+        model.addAttribute("recommendlist", recommendlist);
         model.addAttribute("ingredientList", ingredient);
         model.addAttribute("recipeStep", step);
         model.addAttribute("recipeComment", comment);
@@ -136,7 +139,7 @@ public class RecipeController {
             FileUploadUtil.saveFile(stepimg[i - 1], imgdir, recipeService.pingetter() + "_step" + i + ".jpg");
         }
 
-        return "redirect:/recipe/all?type=&ingredients1=&recipetitle=";
+        return "redirect:/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=&sort=0";
     }
 
     @RequestMapping("/deleteImpl")

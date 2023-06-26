@@ -29,7 +29,7 @@ public interface RecipeMapper extends KBMapper<Integer, RecipeBasic> {
 
     List<RecipeBasic> latestRecipe() throws Exception;
 
-    List<RecipeBasic> subscribeRecipe() throws Exception;
+    List<RecipeBasic> subscribeRecipe(Integer custpin) throws Exception;
 
     @Transactional(readOnly = true)
     public List<RecipeBasic> getAllIngredient(Integer integer) throws Exception;
@@ -41,4 +41,8 @@ public interface RecipeMapper extends KBMapper<Integer, RecipeBasic> {
     public List<RecipeBasic> getMyLikeRecipe(Integer custpin);
 
     public void viewup(Integer recipepin) throws Exception;
+
+    public List<RecipeBasic> recommendlist(RecipeBasic recipeBasic);
+
+    public List<RecipeBasic> selectList() throws Exception;
 }

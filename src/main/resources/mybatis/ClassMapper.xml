@@ -81,7 +81,7 @@
         SELECT *
         FROM (SELECT *
               FROM class_basic
-              ORDER BY CLASSDATE)
+              ORDER BY CLASSDATE desc)
         WHERE ROWNUM < 7
         ]]>
     </select>
