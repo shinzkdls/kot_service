@@ -132,6 +132,10 @@ public class MainController {
         n = noticeService.get(notice.getNoticepin());
         // notice end
 
+        //log.info("------------------------------");
+        //log.info("Weather date: {}", weather.get("date"));
+        //log.info("Weather desc: {}", weather.get("desc"));
+        //log.info("Weather desc: {}", weather.get("highest"));
         model.addAttribute("center", "center");
         model.addAttribute("classList", classList);
         model.addAttribute("recipeList", recipeList);

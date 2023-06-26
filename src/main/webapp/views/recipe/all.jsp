@@ -219,7 +219,12 @@
                         <div class="product-image" style="margin-bottom: 10px">
                             <a href="/recipe/detail?recipepin=${obj.recipepin}">
                                 <div style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
-                                        background-size: cover; background-position: center; background-repeat: no-repeat;">
+                                        background-size: cover; background-position: center; background-repeat: no-repeat;
+                                        display: flex; flex-direction: row">
+                                    <div class="view"
+                                         style="margin: 5px; padding-right: 5px; padding-left: 5px; height: 22px; background-color: black; border-radius: 5px; opacity: 0.7; color: #FFFFFF">
+                                        <i class="fa fa-eye"></i> ${obj.views}
+                                    </div>
                                 </div>
                             </a>
                         </div>
