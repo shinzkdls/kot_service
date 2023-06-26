@@ -45,7 +45,6 @@ public class MainController {
     NoticeService noticeService;
     @Autowired
     GoodlistService goodlistService;
-    private List<ClassBasic> classList;
 
     @RequestMapping("/")
     public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpSession session, Notice notice) throws Exception {
@@ -117,20 +116,6 @@ public class MainController {
         List<RecipeBasic> recipeList = recipeService.latestRecipe();
         List<RecipeBasic> subscribeList = null;
         Cust logincust = (Cust) session.getAttribute("logincust");
-
-//        List<Integer> likeCounts = new ArrayList<>();
-//        for (RecipeBasic recipe : recipeList) {
-//            if (recipe != null) {
-//                Integer likeCount = recipe.getLikeCount();
-//                if (likeCount != null) {
-//                    likeCounts.add(likeCount);
-//                } else {
-//                    likeCounts.add(0); // 좋아요 수가 null인 경우 0으로 설정합니다.
-//                }
-//            } else {
-//                likeCounts.add(0); // recipe가 null인 경우 0으로 설정합니다.
-//            }
-//        }
 
         if (logincust != null) {
         subscribeList = recipeService.subscribeRecipe(logincust.getCustpin());}

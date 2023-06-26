@@ -2,7 +2,20 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<style>
+    #preloder {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
 
+    .search-model-form {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+</style>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -62,7 +75,7 @@
             height: 100px
         }
 
-        .chatLink:hover {
+        .chatLink:hover{
             cursor: pointer;
         }
 
@@ -78,12 +91,12 @@
 <div class="magicIcon">
     <a href="/magic"><img id="magicIcon" src="/img/conch.png" alt="Conch Shell"></a>
 </div>
+
 <!-- Page Preloder -->
-<div id="preloder">
-    <div class="loader"></div>
-    <%--    <div class="search-model-form">--%>
-    <%--        <iframe src="https://giphy.com/embed/ZYXG9ww5BwNP1mNcAT" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>--%>
-    <%--    </div>--%>
+<div id="preloder" class="search-model-form">
+    <div class="search-model-form">
+        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+    </div>
 </div>
 
 <!-- Header Section Begin -->
