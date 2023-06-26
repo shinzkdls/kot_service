@@ -1,3 +1,4 @@
+<%@ page import="java.net.URLEncoder" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -12,7 +13,6 @@
         });
         $('#join_form').submit();
     };
-
     function requestPay() {
         var IMP = window.IMP; // 생략 가능
         IMP.init("imp63768343"); // 예: imp00000000
@@ -42,39 +42,34 @@
         map: null,
         geocoder: null,
         init: function () {
-            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+            var mapContainer = document.getElementById('map'),
                 mapOption = {
-                    center: new kakao.maps.LatLng(37.47, 126.98), // 지도의 중심좌표
-                    level: 3 // 지도의 확대 레벨
+                    center: new kakao.maps.LatLng(37.47, 126.98),
+                    level: 3
                 };
 
-            // 지도를 생성합니다
             var map = new kakao.maps.Map(mapContainer, mapOption);
-
-            // 주소-좌표 변환 객체를 생성합니다
             var geocoder = new kakao.maps.services.Geocoder();
 
-            // 주소로 좌표를 검색합니다
+            // 주소로 좌표를 검색
             geocoder.addressSearch('${classdetail.address}', function (result, status) {
-                console.log("${classdetail.address}");
-                // 정상적으로 검색이 완료됐으면
-                if (status === kakao.maps.services.Status.OK) {
 
+                if (status === kakao.maps.services.Status.OK) {
                     var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    // 결과값으로 받은 위치를 마커로 표시
                     var marker = new kakao.maps.Marker({
                         map: map,
                         position: coords
                     });
 
-                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+                    // 인포윈도우로 장소에 대한 설명을 표시
                     var infowindow = new kakao.maps.InfoWindow({
                         content: '<div style="width:150px;text-align:center;padding:6px 0;">${classdetail.classtitle}</div>'
                     });
                     infowindow.open(map, marker);
 
-                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    // 지도의 중심을 결과값으로 받은 위치로 이동
                     map.setCenter(coords);
                 }
             });
@@ -116,12 +111,8 @@
         class_map.init();
         comment_form.init();
     });
-</script>
-<script>
-    window.onload = function () {
-        buildCalendar();
-    } // 웹 페이지가 로드되면 buildCalendar 실행
 
+    // calendar section.
     let nowMonth = new Date(); // 현재 달을 페이지를 로드한 날의 달로 초기화
     let today = new Date(); // 페이지를 로드한 날짜를 저장
     today.setHours(0, 0, 0, 0); // 비교 편의를 위해 today의 시간을 초기화
@@ -129,13 +120,10 @@
     var dateString = "${classdetail.classdate.substring(0,10)}";
     var classdate = new Date(dateString);
 
-    console.log("---------------------------------");
-    console.log("${classdetail.classdate.substring(0,10)}");
     // 달력 생성
     function buildCalendar() {
         let firstDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth(), 1); // 이번달 1일
         let lastDate = new Date(nowMonth.getFullYear(), nowMonth.getMonth() + 1, 0); // 이번달 마지막날
-
         let tbody_Calendar = document.querySelector(".Calendar > tbody");
         document.getElementById("calYear").innerText = nowMonth.getFullYear(); // 연도 숫자 갱신
         document.getElementById("calMonth").innerText = leftPad(nowMonth.getMonth() + 1); // 월 숫자 갱신
@@ -164,25 +152,14 @@
                 nowDay.getMonth() == today.getMonth() &&
                 nowDay.getDate() == today.getDate()
             ) {
-                // 오늘인 경우
-                newDIV.className = "today";
-                newDIV.onclick = function () {
-                    choiceDate(this);
-                };
-            } else if (nowDay.getFullYear() == classdate.getFullYear() &&
+                newDIV.className = "today"; // 오늘인 경우
+
+            } else if (
+                nowDay.getFullYear() == classdate.getFullYear() &&
                 nowDay.getMonth() == classdate.getMonth() &&
-                nowDay.getDate() == classdate.getDate()) {
-                // db 데이터의 날짜인 경우
-                newDIV.className = "choiceDay";
-                newDIV.onclick = function () {
-                    choiceDate(this);
-                };
-            } else {
-                // 미래인 경우
-                newDIV.className = "futureDay";
-                newDIV.onclick = function () {
-                    choiceDate(this);
-                };
+                nowDay.getDate() == classdate.getDate()
+            ) {
+                newDIV.className = "choiceDay"; // db 데이터의 날짜인 경우
             }
         }
     }
@@ -190,7 +167,6 @@
     // 날짜 선택
     function choiceDate(newDIV) {
         if (document.getElementsByClassName("choiceDay")[0]) {
-            // 기존에 선택한 날짜가 있으면
             document
                 .getElementsByClassName("choiceDay")[0]
                 .classList.remove("choiceDay"); // 해당 날짜의 "choiceDay" class 제거
@@ -227,7 +203,47 @@
         return value;
     }
 
+
+    function calculateDday(classdate) {
+        var currentDate = new Date();
+
+        var year = parseInt(classdate.substring(0, 4));
+        var month = parseInt(classdate.substring(5, 7));
+        var day = parseInt(classdate.substring(8, 10));
+
+        var inputDate = new Date(year, month - 1, day);
+        var timeDiff = inputDate.getTime() - currentDate.getTime();
+        var daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+        if (daysRemaining > 0) {
+            return "D-" + daysRemaining;
+        } else if (daysRemaining === 0) {
+            return "D-Day";
+        } else {
+            return "종료";
+        }
+    }
+
+    window.onload = function() {
+        buildCalendar(); // 페이지 로드되면 buildCalendar 실행
+        var classdate = "${classdetail.classdate.substring(0,10)}";
+        var dday = calculateDday(classdate);
+        var ddayElement = document.getElementById("dday");
+        ddayElement.textContent = dday;
+
+        if (dday === "D-Day") {
+            document.getElementById("message").textContent = "클래스 당일이에요! 호스트에게 문의하세요";
+        } else if (dday === "D-1" || dday === "D-2" || dday === "D-3") {
+            document.getElementById("message").textContent = "아직 늦지 않았어요. 서두르세요!";
+        } else if (dday.startsWith("D-")) {
+            document.getElementById("message").textContent = "우리 함께 해요!";
+        } else {
+            document.getElementById("message").textContent = "아쉽지만 이미 종료된 클래스에요.";
+            ddayElement.style.backgroundColor = "#818181";
+        }
+    };
 </script>
+
 <head>
     <!-- google font -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">
@@ -250,7 +266,6 @@
     <link rel="stylesheet" href="/css/responsive.css">
     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
 </head>
-
 <body>
 <!-- single article section -->
 <div class="mt-50 mb-150">
@@ -292,7 +307,6 @@
                         <p>${classdetail.address}</p>
                         <div id="map" style="width:100%; height:500px; margin-top: 20px;"></div>
                     </div>
-
                     <div class="comments-list-wrap">
                         <div class="comment-list">
                             <div class="single-comment-body">
@@ -300,7 +314,6 @@
                                     <div class="section-title">
                                         <h5>댓글</h5>
                                     </div>
-
                                     <c:forEach var="obj" items="${classComment}">
                                         <div class="anime__review__item">
                                             <div class="anime__review__item__pic">
@@ -354,7 +367,6 @@
                                             </div>
                                         </div>
                                     </c:forEach>
-
                                     <div class="anime__details__form">
                                         <div class="section-title">
                                             <h5>댓글달기</h5>
@@ -424,7 +436,6 @@
                             </a>
                         </div>
                     </form>
-
                     <div class="Calendarsection">
                         <table class="Calendar">
                             <thead>
@@ -450,6 +461,11 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="ddaysection">
+                        <p id="dday"></p>
+                        <p id="message" style="font-size: 15px;"></p>
+                    </div>
+
                     <h4>공유하기</h4>
                     <ul class="product-share">
                         <li><a href="#" style="font-size: 30px"><span class="social_facebook_circle"></span></a></li>
@@ -458,7 +474,6 @@
                         <li><a href="#" style="font-size: 30px"><span class="social_instagram_circle"></span></a></li>
                     </ul>
                 </div>
-
             </div>
         </div>
     </div>

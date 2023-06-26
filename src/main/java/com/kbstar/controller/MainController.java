@@ -6,6 +6,7 @@ import com.kbstar.dto.Cust;
 import com.kbstar.dto.Notice;
 import com.kbstar.dto.RecipeBasic;
 import com.kbstar.service.ClassService;
+import com.kbstar.service.GoodlistService;
 import com.kbstar.service.NoticeService;
 import com.kbstar.service.RecipeService;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
@@ -42,6 +43,9 @@ public class MainController {
     ChatgptService chatgptService;
     @Autowired
     NoticeService noticeService;
+    @Autowired
+    GoodlistService goodlistService;
+    private List<ClassBasic> classList;
 
     @RequestMapping("/")
     public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpSession session, Notice notice) throws Exception {
@@ -69,7 +73,8 @@ public class MainController {
         weather.put("lowest",(d.get(0).toString().replaceAll("<[^>]+>", "").substring(4, 7)));
         weather.put("highest",(dd.get(0).toString().replaceAll("<[^>]+>", "").substring(4, 7)));
 
-        // 강수확률 70 이상시, 파전 recipe 출력. 그 외에는 파전 제외한 레시피 랜덤 출력
+        // 강수확률 70 이상시, 파전 recipe 출력 || 최고온도 28도 이상시, 빙수&아이스바 출력
+        // 그 외에는 파전, 빙수, 아이스바 제외한 레시피 랜덤 출력
         String rainValue = (String) weather.get("rain");
         String highestValue = (String) weather.get("highest");
         rainValue = rainValue.replaceAll("%", "");
@@ -82,14 +87,19 @@ public class MainController {
                 RecipeBasic recipeBasic = null;
                 recipeBasic = recipeService.get(20229);
                 model.addAttribute("recipeBasic", recipeBasic);
-            } if (highest > 28) {
-                RecipeBasic recipeBasic = null;
-                recipeBasic = recipeService.get(20244);
+            } else if (highest > 28) {
+                List<RecipeBasic> allRecipes = recipeService.get();
+                List<RecipeBasic> filteredRecipes = allRecipes.stream()
+                        .filter(recipe -> recipe.getRecipepin() == 20244 || recipe.getRecipepin() == 20261)
+                        .collect(Collectors.toList());
+                Random random = new Random();
+                int randomIndex = random.nextInt(filteredRecipes.size());
+                RecipeBasic recipeBasic = filteredRecipes.get(randomIndex);
                 model.addAttribute("recipeBasic", recipeBasic);
             } else {
                 List<RecipeBasic> allRecipes = recipeService.get();
                 List<RecipeBasic> filteredRecipes = allRecipes.stream()
-                        .filter(recipe -> recipe.getRecipepin() != 20229)
+                        .filter(recipe -> recipe.getRecipepin() != 20229 || recipe.getRecipepin() != 20244 || recipe.getRecipepin() != 20261)
                         .collect(Collectors.toList());
                 Random random = new Random();
                 int randomIndex = random.nextInt(filteredRecipes.size());
@@ -108,11 +118,25 @@ public class MainController {
         List<RecipeBasic> subscribeList = null;
         Cust logincust = (Cust) session.getAttribute("logincust");
 
+//        List<Integer> likeCounts = new ArrayList<>();
+//        for (RecipeBasic recipe : recipeList) {
+//            if (recipe != null) {
+//                Integer likeCount = recipe.getLikeCount();
+//                if (likeCount != null) {
+//                    likeCounts.add(likeCount);
+//                } else {
+//                    likeCounts.add(0); // 좋아요 수가 null인 경우 0으로 설정합니다.
+//                }
+//            } else {
+//                likeCounts.add(0); // recipe가 null인 경우 0으로 설정합니다.
+//            }
+//        }
+
         if (logincust != null) {
         subscribeList = recipeService.subscribeRecipe(logincust.getCustpin());}
         // 레시피 랭킹 end
 
-        //notice
+        // notice
         PageInfo<Notice> p;
         try {
             p = new PageInfo<>(noticeService.getPage(pageNo), 5);
@@ -121,11 +145,8 @@ public class MainController {
         }
         Notice n;
         n = noticeService.get(notice.getNoticepin());
+        // notice end
 
-        //log.info("------------------------------");
-        //log.info("Weather date: {}", weather.get("date"));
-        //log.info("Weather desc: {}", weather.get("desc"));
-        //log.info("Weather desc: {}", weather.get("highest"));
         model.addAttribute("center", "center");
         model.addAttribute("classList", classList);
         model.addAttribute("recipeList", recipeList);
@@ -134,8 +155,11 @@ public class MainController {
         model.addAttribute("nlist", p);
         model.addAttribute("noticedetail", n);
         model.addAttribute("weather", weather);
+        //model.addAttribute("likeCounts", likeCounts);
         return "index";
     }
+
+
 
     @RequestMapping("/gptchatbot")
     public String gptchatbot(Model model) throws Exception {

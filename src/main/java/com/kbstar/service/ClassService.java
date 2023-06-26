@@ -68,17 +68,6 @@ public class ClassService implements KBService<Integer, ClassBasic> {
         return mapper.pingetter();
     }
 
-
-//    public Page<ClassBasic> getLocation(int pageNo, String location) throws Exception {
-//        PageHelper.startPage(pageNo, 6);
-//        return mapper.getlocation(location);
-//    }
-//
-//    public Page<ClassBasic> getType(int pageNo, String type) throws Exception {
-//        PageHelper.startPage(pageNo, 6);
-//        return mapper.gettype(type);
-//    }
-
     public List<ClassBasic> latestClass() throws Exception {
         List<ClassBasic> classList = mapper.latestClass();
         return classList;
