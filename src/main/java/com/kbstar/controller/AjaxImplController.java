@@ -1,9 +1,7 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Cust;
-import com.kbstar.dto.Ncp;
 import com.kbstar.service.CustService;
-import com.kbstar.util.ChatbotUtil;
 import com.kbstar.util.FileUploadUtil;
 import com.kbstar.util.OCRUtil;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
@@ -29,14 +27,10 @@ public class AjaxImplController {
 
     @Autowired
     CustService custService;
-
-    @Autowired
-    private BCryptPasswordEncoder encoder;
-
     @Value("${uploadimgdir}")
     String imgdir;
-    @Value("${uploadimgdir}")
-    String imgpath;
+    @Autowired
+    private BCryptPasswordEncoder encoder;
 
     @RequestMapping("/checkid")
     public Object checkid(String id) throws Exception {
@@ -61,13 +55,14 @@ public class AjaxImplController {
     }
 
     @RequestMapping("/saveimg")
-    public String saveimg(MultipartFile file){
+    public String saveimg(MultipartFile file) {
         String filename = file.getOriginalFilename();
         FileUploadUtil.saveProfFile(file, imgdir);
         return filename;
     }
+
     @RequestMapping("/askToGPT")
-    public String askToGPT(String q){
+    public String askToGPT(String q) {
         log.info(q);
         String str = chatgptService.sendMessage(q);
         log.info("------------------------------------");
@@ -76,16 +71,15 @@ public class AjaxImplController {
     }
 
     @RequestMapping("/ocrimpl")
-    public Object ocrimpl(Model model, HttpSession session, Ncp ncp) throws ParseException {
-        //System.out.println("getimg-------------------------------");
-        //System.out.println(ncp.getBizimg());
+    public Object ocrimpl(Model model, HttpSession session, MultipartFile bizimg) throws ParseException {
         // img 저장
-        FileUploadUtil.saveOcrFile(ncp.getBizimg(), imgpath);
+        FileUploadUtil.saveOcrFile(bizimg, imgdir);
         // NCP 에 요청
-        String imgname = ncp.getBizimg().getOriginalFilename();
-        JSONObject result = (JSONObject) OCRUtil.getResult(imgpath, imgname);
+        String imgname = bizimg.getOriginalFilename();
+        JSONObject result = (JSONObject) OCRUtil.getResult(imgdir, imgname);
         Map map = OCRUtil.getData(result);
         return map;
     }
+
 
 }

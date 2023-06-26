@@ -6,16 +6,11 @@
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script src="jquery.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script>
     $(document).ready(function () {
-        $("#biz_image").on('change', function (event) {
+        $("#biz_image").on('change', function () {
             var fileName = $(this).val();
             $(".upload-name").val(fileName);
-            setThumbnail(event);
-        });
-        $("#ocr_btn").on('click', function () {
-            showResultContainer();
         });
     });
 
@@ -26,33 +21,11 @@
             var img = document.createElement("img");
             img.setAttribute("src", event.target.result);
             img.setAttribute("class", "image_container");
-            document.querySelector(".image_container").innerHTML = '';
-            document.querySelector(".image_container").appendChild(img);
+            document.querySelector("div#image_container").appendChild(img);
         };
         reader.readAsDataURL(event.target.files[0]);
     }
-    function showResultContainer() {
-        var resultContainer = $("#result_container");
 
-        $.ajax({
-            url: '/ocrimpl/',
-            type: 'GET',
-            dataType: 'json', // 데이터 타입을 명시적으로 지정
-            success: function (data) {
-                console.log("-------------------------------data");
-                console.log(data.result);
-                var resultHtml = '<p>사업자번호 : ' + data.result.biznum + '</p>' +
-                    '<p>사업자이름 : ' + data.result.bizname + '</p>' +
-                    '<p>대표자이름 : ' + data.result.bizowner + '</p>' +
-                    '<p>개업년월일 : ' + data.result.bizdate + '</p>' +
-                    '<p>사업자주소 : ' + data.result.bizadd + '</p>';
-                resultContainer.show().find('.result').html(resultHtml);
-            },
-            error: function () {
-                resultContainer.find('.result').text("결과값을 가져오지 못했습니다.");
-            }
-        });
-    }
 
     let classregister_form = {
         init: function () {
@@ -79,6 +52,38 @@
                     && amount != '') {
                     $('#register_btn').removeClass('disabled');
                 }
+            });
+            $('#ocr_btn').click(function () {
+                var fileInput = document.getElementById('bizimg');
+                var file = fileInput.files[0];
+                var formData = new FormData();
+
+                formData.append('bizimg', file);
+                $.ajax({
+                    type: 'post',
+                    url: '/ocrimpl/',
+                    enctype: 'multipart/form-data',
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        // 서버 응답에 대한 처리
+                        console.log(response);
+                        $('#result_biznum').text(response.biznum);
+                        $('#result_bizname').text(response.bizname);
+                        $('#result_bizowner').text(response.bizowner);
+                        $('#result_bizdate').text(response.bizdate);
+                        $('#result_bizadd').text(response.bizadd);
+                        $('#result_container').css('display', 'block');
+                        $('#classregister_form').css('display', 'block');
+                        $('#resultocr').text("인증 되었습니다.")
+                    },
+                    error: function (xhr, status, error) {
+                        // 에러 처리
+                        console.log(error);
+                        $('#resultocr').text("인증 실패입니다.")
+                    }
+                })
             });
         },
         send: function () {
@@ -149,9 +154,13 @@
                             <div class="section-title">
                                 <h5>STEP 01. 호스트 인증</h5>
                             </div>
-                            <form enctype="multipart/form-data" id="ocr_form" style="margin-top: 30px">
+                            <form enctype="multipart/form-data" id="ocr_form"
+                            <%--                                  class="well"--%>
+                                  style="margin-top: 30px">
+                                <%--                            <form id="ocr_form" class="ocr_form">--%>
                                 <p><span class="highlight">사업자 등록증으로 호스트님을 인증해주세요</span></p>
                                 <div class="filebox" style="align-items: center;">
+
                                     <input class="upload-name" aria-label="Search"
                                            value="사업자등록증을 등록해주세요"
                                            placeholder="사업자등록증을 등록해주세요">
@@ -160,19 +169,16 @@
                                            id="bizimg" onchange="setThumbnail(event);">
                                 </div>
                                 <div style="display: flex;">
+
                                     <div style="width: 40%;">
                                         <div id="image_container" class="image_container set-bg"
                                              data-setbg="/uimg/${ncp.getBizimg().getOriginalFilename()}"
                                              style="max-width: 100%; max-height: 100%;">
                                         </div>
                                     </div>
-                                    <div id="result_container" style="display: none; margin-top:20px; width: 60%; align-content:center;">
+                                    <div id="result_container"
+                                         style="margin-top:20px; width: 60%; align-content:center; display: none">
                                         <div style="margin-left: 30px;">
-                                            <p>사업자번호 : ${result.biznum}</p>
-                                            <p>사업자이름 : ${result.bizname}</p>
-                                            <p>대표자이름: ${result.bizowner}</p>
-                                            <p>개업년월일: ${result.bizdate}</p>
-                                            <p>사업자주소: ${result.bizadd}</p>
                                             <p>사업자번호 : <span id="result_biznum"></span></p>
                                             <p>사업자이름 : <span id="result_bizname"></span></p>
                                             <p>대표자이름: <span id="result_bizowner"></span></p>
@@ -181,17 +187,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <button id="ocr_btn" class="ocr_btn" type="button"
-                                        style="background-color: #F28123; color: #fff; ">인증
-                                </button>
+                                <button id="ocr_btn" class="btn cart-btn ocr_btn" type="button"
+                                        style="background-color: #F28123; color: #fff; border-radius: 5px">인증
+                                </button>&nbsp;&nbsp;
+                                <span id="resultocr"></span>
                             </form>
                         </div>
-                        <form id="classregister_form" style="display: none;">
+                        <form id="classregister_form" style="display: none">
                             <input type="hidden" name="custpin" id="custpin" value="${logincust.custpin}">
                             <input type="hidden" name="custid" id="custid" value="${logincust.custid}">
                             <input type="hidden" name="nickname" id="nickname" value="${logincust.nickname}">
 
-                            <div class="class-step" >
+                            <div class="class-step">
                                 <div class="section-title">
                                     <h5>STEP 02. 클래스 유형</h5>
                                     <div class="form-group" style="margin-top: 30px;">
