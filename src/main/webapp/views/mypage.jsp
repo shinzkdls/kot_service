@@ -199,6 +199,29 @@
                         </div>
                     </c:forEach>
                 </div>
+
+                <div class="anime__details__sidebar">
+                    <div class="section-title">
+                        <h5><c:choose>
+                            <c:when test="${mypagecust.nickname == null || mypagecust.nickname ==''}">
+                                ${mypagecust.custid}
+                            </c:when>
+                            <c:otherwise>
+                                ${mypagecust.nickname}
+                            </c:otherwise>
+                        </c:choose>
+                            's Join Class List</h5>
+                    </div>
+                    <c:forEach var="obj" items="${myclasslist}">
+                        <div class="product__sidebar__view__item set-bg" data-setbg="/uimg/${obj.thumbnailimg}">
+                            <h5>
+                                <a href="/class/detail?class=${obj.classpin}"
+                                   style="padding: 5px; background-color: rgba(0,0,0, 0.5); border-radius: 5px;"
+                                >${obj.classtitle}</a>
+                            </h5>
+                        </div>
+                    </c:forEach>
+                </div>
             </div>
         </div>
     </div>

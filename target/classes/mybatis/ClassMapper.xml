@@ -85,4 +85,15 @@
         WHERE ROWNUM < 7
         ]]>
     </select>
+
+    <select id="getmyclass" parameterType="Integer" resultType="ClassBasic">
+<![CDATA[
+        SELECT *
+        FROM class_basic
+        WHERE classpin in (SELECT classpin
+                           FROM CLASS_JOIN_INFO
+                           WHERE CUSTPIN = #{CUSTPIN})
+          AND ROWNUM < 4
+        ]]>
+    </select>
 </mapper>

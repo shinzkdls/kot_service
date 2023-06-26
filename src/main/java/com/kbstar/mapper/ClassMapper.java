@@ -30,4 +30,6 @@ public interface ClassMapper extends KBMapper<Integer, ClassBasic> {
 //
 //    Page<ClassBasic> gettype(String location) throws Exception;
 
+    public List<ClassBasic> getmyclass(Integer custpin) throws Exception;
+
 }

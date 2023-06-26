@@ -2,6 +2,7 @@ package com.kbstar.controller;
 
 import com.github.pagehelper.PageInfo;
 import com.kbstar.dto.Contact;
+import com.kbstar.dto.Cust;
 import com.kbstar.dto.Notice;
 import com.kbstar.service.ContactService;
 import com.kbstar.service.NoticeService;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -26,8 +28,13 @@ public class ContactsController {
     NoticeService noticeService;
 
     @RequestMapping("")
-    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model) throws Exception {
+    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpSession session) throws Exception {
         PageInfo<Notice> p;
+        Cust cust = (Cust) session.getAttribute("logincust");
+        List<Contact> mycontactlist = null;
+        if (cust != null) {
+            mycontactlist = contactService.getmycontact(cust.getCustpin());
+        }
         try {
             p = new PageInfo<>(noticeService.getPage(pageNo), 5);
         } catch (Exception e) {
@@ -35,6 +42,7 @@ public class ContactsController {
         }
         model.addAttribute("target", "contacts");
         model.addAttribute("nlist", p);
+        model.addAttribute("mycontactlist", mycontactlist);
         model.addAttribute("center", "contacts");
         return "index";
     }
@@ -56,6 +64,15 @@ public class ContactsController {
         n = noticeService.get(notice.getNoticepin());
         model.addAttribute("noticedetail", n);
         model.addAttribute("center", "notice_detail");
+        return "index";
+    }
+
+    @RequestMapping("/contact_detail")
+    public String contact_detail(Model model, Contact contact, HttpSession session) throws Exception {
+        Contact n;
+        n = contactService.get(contact.getContactpin());
+        model.addAttribute("contactdetail", n);
+        model.addAttribute("center", "contact_detail");
         return "index";
     }
 }

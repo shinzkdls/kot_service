@@ -73,5 +73,9 @@ public class ClassService implements KBService<Integer, ClassBasic> {
         return classList;
     }
 
+    public List<ClassBasic> getmyclass(Integer custpin) throws Exception {
+        return mapper.getmyclass(custpin);
+    }
+
 
 }
