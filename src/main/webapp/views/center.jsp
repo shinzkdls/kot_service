@@ -115,12 +115,6 @@
                                             <a href="/recipe/detail?recipepin=${obj.recipepin}">
                                                 <div class="product__item__pic set-bg"
                                                      data-setbg="/uimg/${obj.thumbnailimg}">
-                                                    <div class="comment">
-                                                        <i class="fa-regular fa-comment" style="color: #ffffff;"> </i>
-                                                    </div>
-                                                    <div class="view">
-                                                        <i class="fa-regular fa-heart" style="color: #ffffff;"></i>
-                                                    </div>
                                                 </div>
                                             </a>
                                             <div class="product__item__text">
