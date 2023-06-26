@@ -94,9 +94,10 @@
 
 <!-- Page Preloder -->
 <div id="preloder" class="search-model-form">
-    <div class="search-model-form">
-        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    </div>
+    <form class="search-model-form">
+        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"
+                class="giphy-embed" allowFullScreen></iframe>
+    </form>
 </div>
 
 <!-- Header Section Begin -->
