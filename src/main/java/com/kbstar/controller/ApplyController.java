@@ -1,8 +1,10 @@
 package com.kbstar.controller;
 
+import com.kbstar.dto.ClassBasic;
 import com.kbstar.dto.Cust;
 import com.kbstar.dto.RecipeBasic;
 import com.kbstar.dto.Subscribe;
+import com.kbstar.service.ClassService;
 import com.kbstar.service.CustService;
 import com.kbstar.service.RecipeService;
 import com.kbstar.service.SubscribeService;
@@ -33,6 +35,8 @@ public class ApplyController {
     SubscribeService subscribeService;
     @Autowired
     SendMailUtil sendMailUtil;
+    @Autowired
+    ClassService classService;
     String dir = "apply/";
     @Value("${uploadimgdir}")
     String imgdir;
@@ -56,8 +60,10 @@ public class ApplyController {
         List<RecipeBasic> rlist = recipeService.getMyRecipe(cust.getCustid());
         List<RecipeBasic> likelist = recipeService.getMyLikeRecipe(c.getCustpin());
         List<Subscribe> slist = subscribeService.getMySubscribe(cust.getCustid());
+        List<ClassBasic> clist = classService.getmyclass(c.getCustpin());
         model.addAttribute("substatus", subscribe);
         model.addAttribute("mypagecust", c);
+        model.addAttribute("myclasslist", clist);
         model.addAttribute("myrecipelist", rlist);
         model.addAttribute("mylikerecipelist", likelist);
         model.addAttribute("mysubscribelist", slist);

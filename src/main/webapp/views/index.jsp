@@ -116,7 +116,8 @@
                         <ul>
                             <li><a id="recipe" href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=&sort=0">Recipe</a>
                             </li>
-                            <li><a id="class" href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
+                            <li><a id="class" href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a>
+                            </li>
                             <li><a id="contact" href="/contacts">Contact</a></li>
                             <c:choose>
                                 <c:when test="${logincust != null}">
@@ -134,7 +135,7 @@
             </div>
             <div class="col-lg-2">
                 <div class="header__right">
-                    <ul>
+                    <ul style="display: flex; flex-direction: row">
                         <c:choose>
                             <c:when test="${logincust == null}">
                                 <li><a href="/login" class="search-switch">Login</a></li>
@@ -143,8 +144,25 @@
                             <c:otherwise>
                                 <li><a href="/login/logout" class="search-switch">Logout
                                 </a></li>
-                                <li><a href="/apply/mypage?custid=${logincust.custid}" class="search-switch">
-                                    My Page
+                                <li style="margin: 0">
+                                    <c:choose>
+                                        <c:when test="${logincust.profileimgname == null || logincust.profileimgname ==''}">
+                                            <a href="/apply/mypage?custid=${logincust.custid}">
+                                                <img src="/img/basic_profile.png" alt=""
+                                                     style="width: 25px; height: 25px; border-radius: 50%">
+                                            </a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <a href="/apply/mypage?custid=${logincust.custid}">
+                                                <img src="/uimg/${logincust.profileimgname}" alt=""
+                                                     style="width: 25px; height: 25px; border-radius: 50%">
+                                            </a>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </li>
+                                <li style="margin-left: 3px"><a href="/apply/mypage?custid=${logincust.custid}"
+                                                                class="search-switch">
+                                        ${logincust.custid}
                                 </a></li>
                             </c:otherwise>
                         </c:choose>
@@ -223,14 +241,13 @@
                 </div>
 
 
+                <script>
+                    function openPopup(code) {
+                        // 팝업 창을 띄우는 코드
 
-                    <script>
-                        function openPopup(code) {
-                            // 팝업 창을 띄우는 코드
-
-                            window.open("http://127.0.0.1/chat/"+code, "popupWindow", "width=500, height=400");
-                        }
-                    </script>
+                        window.open("http://127.0.0.1/chat/" + code, "popupWindow", "width=500, height=400");
+                    }
+                </script>
                 </p>
             </div>
             <div class="col-lg-2">

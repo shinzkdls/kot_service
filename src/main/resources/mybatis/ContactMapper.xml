@@ -11,4 +11,19 @@
                 'N')
     </insert>
 
+    <select id="getmycontact" parameterType="Integer" resultType="contact">
+        SELECT *
+        FROM CONTACT
+        WHERE CUSTPIN = #{CUSTPIN}
+        ORDER BY CONTACTDATE desc
+    </select>
+
+
+    <select id="select" parameterType="Integer" resultType="contact">
+        SELECT *
+        FROM CONTACT
+        WHERE contactpin = #{contactpin}
+        ORDER BY CONTACTDATE
+    </select>
+
 </mapper>

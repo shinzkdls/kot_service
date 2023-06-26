@@ -15,12 +15,12 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="anime__details__text">
-                        <div class="anime__details__title">
-                            <h3>${noticedetail.noticetitle}</h3>
+                        <div class="section-title">
+                            <h4 style="margin-bottom: 20px">${noticedetail.noticetitle}</h4>
                             <span><fmt:formatDate value="${noticedetail.noticedate}"
                                                   pattern="yyyy-MM-dd hh:mm:ss"/></span>
                         </div>
-                        <div style="height: 250px">
+                        <div style="height: 150px; background-color: #FFFFFF; margin-bottom: 50px; padding: 10px; border-radius: 10px; border: #b7b7b7 1px solid">
                             <p>${noticedetail.noticecontent}</p>
                         </div>
                         <div class="anime__details__btn">

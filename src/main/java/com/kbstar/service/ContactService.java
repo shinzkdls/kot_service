@@ -40,4 +40,8 @@ public class ContactService implements KBService<Integer, Contact> {
         return mapper.selectall();
     }
 
+    public List<Contact> getmycontact(Integer custpin) throws Exception {
+        return mapper.getmycontact(custpin);
+    }
+
 }

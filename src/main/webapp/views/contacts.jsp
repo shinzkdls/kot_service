@@ -66,24 +66,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-6">
-                <div class="login__form">
+                <div class="login__form" style=" padding-left: 0">
                     <h3 style="color: black">Contact</h3>
                     <form id="contact_form">
-                        <div class="input__item">
+                        <div class="input__item" style="width: 100%">
                             <input type="text" placeholder="Your ID" name="custid" id="custid"
                                    value="${logincust.custid}" readonly>
                             <span class="icon_profile"></span>
                         </div>
-                        <div class="input__item">
+                        <div class="input__item" style="width: 100%">
                             <input type="email" placeholder="Email address" name="email" id="email"
                                    value="${logincust.email}">
                             <span class="icon_mail"></span>
                         </div>
-                        <div class="input__item">
+                        <div class="input__item" style="width: 100%">
                             <input type="text" placeholder="Title" name="contacttitle" id="contacttitle">
                             <span class="icon_comment"></span>
                         </div>
-                        <div class="input__item" id="textareazone">
+                        <div class="input__item" id="textareazone" style="width: 100%">
                             <textarea placeholder="Input content" name="contactcontent" id="contactcontent"
                                       style="width: 100%; border: none; padding: 10px;"
                                       rows="5"></textarea>
@@ -96,33 +96,50 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="login__form">
-                    <h3 style="color: black">Notice</h3>
-                    <table class="table table-bordered" id="dataTable"
-                           style="background-color: #FFFFFF; border: none">
-                        <thead>
-                        <tr>
-                            <th style="padding-left: 50px">Title</th>
-                            <th>Date</th>
-                        </tr>
-                        <colgroup>
-                            <col style="width: 70%;">
-                            <col style="width: 30%;">
-                        </colgroup>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="obj" items="${nlist.getList()}">
-                            <tr>
-                                <td class="input__item"><span class="arrow_carrot-2down"></span><a
-                                        href="/contacts/notice_detail?noticepin=${obj.noticepin}"
-                                        style="color: black; padding-left: 30px">${obj.noticetitle}</a>
-                                </td>
-                                <td><fmt:formatDate value="${obj.noticedate}" pattern="yyyy-MM-dd"/></td>
+                <div class="login__form" style="padding-left: 0px;">
+                    <h3 style="color: black">Answer</h3>
+                    <div style=" max-height: 370px; overflow-y: scroll; overflow-x: hidden">
+                        <table class="table table-bordered" id="dataTable"
+                               style="background-color: #FFFFFF; border: none;">
+                            <thead>
+                            <tr style="background-color: #f28123; color: #FFFFFF">
+                                <th style="padding-left: 50px">Title</th>
+                                <th style="text-align: center">Date</th>
+                                <th style="text-align: center">Answer</th>
                             </tr>
-                        </c:forEach>
-                        </tbody>
-                    </table>
-                    <jsp:include page="page.jsp"/>
+                            <colgroup>
+                                <col style="width: 68%;">
+                                <col style="width: 22%;">
+                                <col style="width: 10%;">
+                            </colgroup>
+                            </thead>
+                            <tbody>
+                            <c:forEach var="obj" items="${mycontactlist}">
+                                <tr>
+                                    <c:choose>
+                                        <c:when test="${obj.answer=='Y'}">
+                                            <td class="input__item"><img style="width: 20px" src="/img/answer.png"><a
+                                                    href="/contacts/contact_detail?contactpin=${obj.contactpin}"
+                                                    style="color: black; padding-left: 30px">${obj.contacttitle}</a>
+                                            </td>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <td class="input__item"><img style="width: 20px" src="/img/noanswer.png"><a
+                                                    href="/contacts/contact_detail?contactpin=${obj.contactpin}"
+                                                    style="color: black; padding-left: 30px">${obj.contacttitle}</a>
+                                            </td>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <td style="text-align: center;font-size: 15px">
+                                        <fmt:formatDate
+                                                value="${obj.contactdate}" pattern="yy-MM-dd"/></td>
+                                    <td style="text-align: center">${obj.answer}</td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                        <%--                    <jsp:include page="page.jsp"/>--%>
+                    </div>
                 </div>
             </div>
         </div>
