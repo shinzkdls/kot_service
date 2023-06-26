@@ -216,48 +216,48 @@ ol {
     margin-top: -13px;
     margin-left: -13px;
     border-radius: 60px;
-    animation: loader 0.8s linear infinite;
-    -webkit-animation: loader 0.8s linear infinite;
+    /*animation: loader 0.8s linear infinite;*/
+    /*-webkit-animation: loader 0.8s linear infinite;*/
 }
 
-@keyframes loader {
-    0% {
-        -webkit-transform: rotate(0deg);
-        transform: rotate(0deg);
-        border: 4px solid #f44336;
-        border-left-color: transparent;
-    }
-    50% {
-        -webkit-transform: rotate(180deg);
-        transform: rotate(180deg);
-        border: 4px solid #673ab7;
-        border-left-color: transparent;
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-        border: 4px solid #f44336;
-        border-left-color: transparent;
-    }
-}
+/*@keyframes loader {*/
+/*    0% {*/
+/*        -webkit-transform: rotate(0deg);*/
+/*        transform: rotate(0deg);*/
+/*        border: 4px solid #f44336;*/
+/*        border-left-color: transparent;*/
+/*    }*/
+/*    50% {*/
+/*        -webkit-transform: rotate(180deg);*/
+/*        transform: rotate(180deg);*/
+/*        border: 4px solid #673ab7;*/
+/*        border-left-color: transparent;*/
+/*    }*/
+/*    100% {*/
+/*        -webkit-transform: rotate(360deg);*/
+/*        transform: rotate(360deg);*/
+/*        border: 4px solid #f44336;*/
+/*        border-left-color: transparent;*/
+/*    }*/
+/*}*/
 
-@-webkit-keyframes loader {
-    0% {
-        -webkit-transform: rotate(0deg);
-        border: 4px solid #f44336;
-        border-left-color: transparent;
-    }
-    50% {
-        -webkit-transform: rotate(180deg);
-        border: 4px solid #673ab7;
-        border-left-color: transparent;
-    }
-    100% {
-        -webkit-transform: rotate(360deg);
-        border: 4px solid #f44336;
-        border-left-color: transparent;
-    }
-}
+/*@-webkit-keyframes loader {*/
+/*    0% {*/
+/*        -webkit-transform: rotate(0deg);*/
+/*        border: 4px solid #f44336;*/
+/*        border-left-color: transparent;*/
+/*    }*/
+/*    50% {*/
+/*        -webkit-transform: rotate(180deg);*/
+/*        border: 4px solid #673ab7;*/
+/*        border-left-color: transparent;*/
+/*    }*/
+/*    100% {*/
+/*        -webkit-transform: rotate(360deg);*/
+/*        border: 4px solid #f44336;*/
+/*        border-left-color: transparent;*/
+/*    }*/
+/*}*/
 
 .spacial-controls {
     position: fixed;
@@ -284,7 +284,7 @@ ol {
     height: 100%;
     left: 0;
     top: 0;
-    background: #000;
+    background: #fff;
     z-index: 99999;
 }
 
@@ -305,7 +305,7 @@ ol {
     position: absolute;
     width: 50px;
     height: 50px;
-    background: #333;
+    background: #fff;
     color: #fff;
     text-align: center;
     border-radius: 50%;

@@ -96,7 +96,7 @@
 <div id="preloder" class="search-model-form">
     <form class="search-model-form">
         <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"
-                class="giphy-embed" allowFullScreen></iframe>
+                class="giphy-embed"></iframe>
     </form>
 </div>
 
