@@ -130,36 +130,5 @@ public class MainController {
         model.addAttribute("weather", weather);
         return "index";
     }
-
-    @RequestMapping("/gptchatbot")
-    public String gptchatbot(Model model) throws Exception {
-        model.addAttribute("center", "gptchatbot");
-        return "index";
-    }
-
-    @RequestMapping("/gptchatting")
-    @ResponseBody
-    public Object gptchatting(String question) throws Exception {
-        log.info("챗지티피 시작하자!!");
-        String answer ="";
-        try {
-            answer = chatgptService.sendMessage(question + "20자 이내로 답변줘");
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-        log.info("============= 대답 출력: ");
-        log.info(answer);
-        String imageUrl = chatgptService.imageGenerate("boy");
-        log.info(imageUrl);  // image url
-
-        JSONArray ja = new JSONArray();
-        JSONObject jo = new JSONObject();
-
-        jo.put("question", question);
-        jo.put("answer", answer);
-        ja.add(jo);
-
-        return ja;
-    }
 }
 

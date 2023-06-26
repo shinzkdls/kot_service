@@ -94,6 +94,10 @@
         img.src = src;
     }
 
+    $(function () {
+        $('.magicIcon').html("  "); //소라고둥 들어오면 오른쪽 아이콘 안보이게
+    })
+
 </script>
 
 <style>
@@ -172,7 +176,7 @@
 
 <div class="container">
     <div class="set-bg" data-setbg="/img/bg.jpg" id="bg">
-        <h1><br>Ask the Magic Conch Shell</h1>
+        <h1><br>Ask to the Magic Conch Shell</h1>
         <h4><br>마법의 소라고둥님, 무엇을 먹을까요?</h4>
         <div id="conchShell" >
             <a id="conchShellImg" type="button" onclick="playAnswer();">

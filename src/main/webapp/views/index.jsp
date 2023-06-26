@@ -2,12 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<%--<script>--%>
-<%--    function openPopup() {--%>
-<%--        // 팝업창 열기--%>
-<%--        window.open('/gptchatbot', 'popup', 'width=700,height=1500');--%>
-<%--    }--%>
-<%--</script>--%>
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -53,14 +48,6 @@
             animation: action 1s infinite alternate
         }
 
-        .gptIcon {
-            position: fixed;
-            right: 45px;
-            bottom: 130px;
-            z-index: 11;
-            animation: action 1s infinite alternate
-        }
-
         @keyframes action {
             0% {
                 transform: translateY(0)
@@ -75,14 +62,13 @@
             height: 100px
         }
 
-        #gptIcon {
-            width: 60px;
-            height: 60px
+        .chatLink:hover{
+            cursor: pointer;
         }
 
         .navActive {
             background-color: #F28123;
-            color: white;
+            color: white !important;
         }
     </style>
 </head>
@@ -91,9 +77,6 @@
 
 <div class="magicIcon">
     <a href="/magic"><img id="magicIcon" src="/img/conch.png" alt="Conch Shell"></a>
-</div>
-<div class="gptIcon">
-    <a href="/gptchatbot"><img id="gptIcon" src="/img/kollyJump.png" alt="KollyGPT"></a>
 </div>
 <!-- Page Preloder -->
 <div id="preloder">
@@ -115,13 +98,13 @@
                 <div class="header__nav">
                     <nav class="header__menu mobile-menu">
                         <ul>
-                            <li id="recipe"><a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=&sort=0">Recipe</a>
+                            <li><a id="recipe" href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=&sort=0">Recipe</a>
                             </li>
-                            <li id="class"><a href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
-                            <li id="contact"><a href="/contacts">Contacts</a></li>
+                            <li><a id="class" href="/cookingclass/class?location=&type=&classtitle=&sort=1">Class</a></li>
+                            <li><a id="contact" href="/contacts">Contact</a></li>
                             <c:choose>
                                 <c:when test="${logincust != null}">
-                                    <li id="register"><a>Register</a>
+                                    <li><a id="register">Register</a>
                                         <ul class="dropdown">
                                             <li><a href="/recipe/add">Recipe</a></li>
                                             <li><a href="/cookingclass/add">Class</a></li>
@@ -180,25 +163,70 @@
     </div>
     <div class="container">
         <div class="row">
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <div class="footer__logo">
                     <a href="/"><img style="width: 125px" src="/img/logo.png" alt=""/></a>
                 </div>
             </div>
-            <div class="col-lg-6">
+            <div class="col-lg-8">
+                <p>
+                <div class="row">
+                    <a class="chatLink" onclick="('chatWithAdmin')">
+                        <i class="fas fa-comments"></i> 관리자와 대화
+                    </a>
+                    <hr>
+                </div>
+                <div class="row">
+                    <a class="chatLink" href="/chat/chatWithAdmin ">
+                        <i class="fas fa-comments"></i> 관리자와 대화
+                    </a>
+                    <hr>
+                </div>
+                <div class="row">
+                    <a class="chatLink" onclick="openPopup('howToUse')">
+                        <i class="fas fa-headset"></i> 사용법 챗봇으로 확인
+                    </a>
+                    <hr>
+                </div>
+                <div class="row">
+                    <a class="chatLink" href="/chat/howToUse ">
+                        <i class="fas fa-headset"></i> 사용법 챗봇으로 확인
+                    </a>
+                    <hr>
+                </div>
+                <div class="row">
+                    <a class="chatLink" onclick="openPopup('chatGPT')">
+                        <i class="fas fa-brain"></i> gpt
+                    </a>
+                    <hr>
+                </div>
+                <div class="row">
+                    <a class="chatLink" href="/chat/chatGPT ">gpt
+                    </a>
+                    <hr>
+                </div>
 
+
+
+                    <script>
+                        function openPopup(code) {
+                            // 팝업 창을 띄우는 코드
+
+                            window.open("http://127.0.0.1/chat/"+code, "popupWindow", "width=500, height=400");
+                        }
+                    </script>
+                </p>
             </div>
-            <div class="col-lg-3">
+            <div class="col-lg-2">
                 <p>
                     <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                     Copyright &copy;
                     <script>
                         document.write(new Date().getFullYear());
                     </script>
-                    All rights reserved | This template is made with
-                    <i class="fa fa-heart" aria-hidden="true"></i> by
-                    <a href="https://colorlib.com" target="_blank">Colorlib</a>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                    CHOJANG SPOON All rights reserved
+                    <i class="fa fa-heart" aria-hidden="true"></i> from
+                    <a href="https://www.kbstar.com" target="_blank">KB국민은행</a>
                 </p>
             </div>
         </div>
