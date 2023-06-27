@@ -284,7 +284,7 @@ ol {
     height: 100%;
     left: 0;
     top: 0;
-    background: #fff;
+    background: #000;
     z-index: 99999;
 }
 
@@ -305,7 +305,7 @@ ol {
     position: absolute;
     width: 50px;
     height: 50px;
-    background: #fff;
+    background: #333;
     color: #fff;
     text-align: center;
     border-radius: 50%;
