@@ -19,6 +19,9 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
+    <script src="/webjars/sockjs-client/sockjs.min.js"></script>
+    <script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
     <meta charset="UTF-8"/>
     <meta name="description" content="Anime Template"/>
     <meta name="keywords" content="Anime, unica, creative, html"/>

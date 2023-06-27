@@ -41,8 +41,11 @@ public class ClassController {
 
 
     @RequestMapping("/class")
-    public String get(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, ClassBasic classBasic) throws Exception {
+    public String get(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, ClassBasic classBasic, HttpSession session) throws Exception {
         PageInfo<ClassBasic> c;
+        Cust cust = (Cust) session.getAttribute("logincust");
+        if (cust != null)
+            classBasic.setLogincustpin(cust.getCustpin());
         try {
             c = new PageInfo<>(classService.getPage(pageNo, classBasic), 5);
         } catch (Exception e) {
@@ -113,12 +116,13 @@ public class ClassController {
         return "index";
     }
 
-
     @RequestMapping("/detail")
-    public String get(Model model, Integer classpin) throws Exception {
-        ClassBasic classBasic = null;
+    public String get(Model model, Integer classpin, HttpSession session) throws Exception {
+        ClassBasic classBasic = classService.get(classpin);
         List<ClassComment> comment = null;
-        classBasic = classService.get(classpin);
+        Cust sessioncust = (Cust) session.getAttribute("logincust");
+        if (sessioncust != null)
+            classBasic.setLogincustjoin(classJoinInfoService.searchjoin(classpin, sessioncust.getCustpin()));
         Cust classcust = custService.get(classBasic.getCustid());
         comment = commentService.getClassAllComment(classpin);
         model.addAttribute("classdetail", classBasic);

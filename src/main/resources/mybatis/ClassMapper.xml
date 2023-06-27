@@ -4,38 +4,46 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.ClassMapper">
     <select id="select" parameterType="Integer" resultType="ClassBasic">
-        SELECT *
-        FROM Class_Basic
-        WHERE classpin = #{classpin}
+        SELECT C.*,
+               NVL2(J.custpin, '1', '0') as logincustjoin
+        FROM Class_Basic C
+                 LEFT OUTER JOIN class_join_info J
+                                 ON C.classpin = J.classpin
+                                     AND J.custpin = #{logincustpin}
+        WHERE C.classpin = #{classpin}
     </select>
     <select id="selectall" resultType="ClassBasic">
         SELECT *
         FROM Class_Basic
     </select>
     <select id="getpage" parameterType="ClassBasic" resultType="ClassBasic">
-        SELECT *
-        FROM Class_Basic
+        SELECT C.*,
+        NVL2(J.custpin,'1','0') as logincustjoin
+        FROM Class_Basic C
+        LEFT OUTER JOIN class_join_info J
+        ON C.classpin = J.classpin
+        AND J.custpin = #{logincustpin}
         WHERE 1=1
         <if test="location != ''">
-            AND location LIKE '%' || #{location} || '%'
+            AND C.location LIKE '%' || #{location} || '%'
         </if>
         <if test="type != ''">
-            AND type LIKE '%' || #{type} || '%'
+            AND C.type LIKE '%' || #{type} || '%'
         </if>
         <if test="classtitle != ''">
-            AND classtitle LIKE '%' || #{classtitle} || '%'
+            AND C.classtitle LIKE '%' || #{classtitle} || '%'
         </if>
         <if test="sort == 1">
-            ORDER BY classdate DESC
+            ORDER BY C.classdate DESC
         </if>
         <if test="sort == 2">
-            ORDER BY classdate ASC
+            ORDER BY C.classdate ASC
         </if>
         <if test="sort == 3">
-            ORDER BY amount ASC
+            ORDER BY C.amount ASC
         </if>
         <if test="sort == 4">
-            ORDER BY amount DESC
+            ORDER BY C.amount DESC
         </if>
     </select>
     <select id="search" parameterType="String" resultType="ClassBasic">
