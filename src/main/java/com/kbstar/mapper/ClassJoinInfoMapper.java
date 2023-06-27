@@ -8,5 +8,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface ClassJoinInfoMapper extends KBMapper<Integer, ClassJoinInfo> {
-
+    public String searchjoin(Integer classpin, Integer custpin);
 }

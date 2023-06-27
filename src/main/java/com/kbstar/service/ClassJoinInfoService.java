@@ -44,4 +44,9 @@ public class ClassJoinInfoService implements KBService<Integer, ClassJoinInfo> {
     public List<ClassJoinInfo> get() throws Exception {
         return null;
     }
+
+    public String searchjoin(Integer classpin, Integer custpin) {
+        return mapper.searchjoin(classpin, custpin);
+    }
+
 }
