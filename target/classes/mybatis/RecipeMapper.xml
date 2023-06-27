@@ -116,15 +116,16 @@
     </select>
     <select id="latestRecipe" resultType="RecipeBasic">
     <![CDATA[
-        SELECT A.*, NVL(B.GOODCOUNT, 0) AS GOODCOUNT
-        FROM (SELECT *
-              FROM recipe_basic
-              ORDER BY RECIPEDATE DESC) A
-                 LEFT OUTER JOIN (SELECT RECIPEPIN, COUNT(*) AS GOODCOUNT
-                                  FROM GOODLIST
-                                  GROUP BY RECIPEPIN) B
-                                 ON A.RECIPEPIN = B.RECIPEPIN
-        WHERE ROWNUM <= 6
+        SELECT * FROM (
+                          SELECT A.*, NVL(B.GOODCOUNT, 0) AS GOODCOUNT
+                          FROM recipe_basic A
+                                   LEFT OUTER JOIN (
+                              SELECT RECIPEPIN, COUNT(*) AS GOODCOUNT
+                              FROM GOODLIST
+                              GROUP BY RECIPEPIN
+                          ) B ON A.RECIPEPIN = B.RECIPEPIN
+                          ORDER BY A.RECIPEDATE DESC
+                      ) WHERE ROWNUM <= 6
         ]]>
     </select>
     <select id="subscribeRecipe" parameterType="Integer" resultType="RecipeBasic">
@@ -137,22 +138,16 @@
         ]]>
     </select>
     <select id="getMyRecipe" parameterType="String" resultType="recipebasic">
-<![CDATA[
         SELECT *
         FROM recipe_basic
         WHERE custid = #{custid}
-          AND ROWNUM < 4
-        ]]>
     </select>
     <select id="getMyLikeRecipe" parameterType="Integer" resultType="recipebasic">
-     <![CDATA[
         SELECT R.*
         FROM recipe_basic R
                  INNER JOIN goodlist G
                             ON R.recipepin = G.recipepin
         WHERE G.custpin = #{custpin}
-          AND ROWNUM < 4
-        ]]>
     </select>
     <update id="viewup" parameterType="Integer">
         UPDATE RECIPE_BASIC

@@ -97,7 +97,7 @@
     <form class="search-model-form">
         <%--        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"--%>
         <%--                class="giphy-embed" allowFullScreen></iframe>--%>
-        <img src="/img/loading.gif">
+        <img style="width: 220px;" src="/img/loading.gif">
     </form>
 </div>
 
