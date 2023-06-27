@@ -75,7 +75,7 @@
             height: 100px
         }
 
-        .chatLink:hover{
+        .chatLink:hover {
             cursor: pointer;
         }
 
@@ -94,9 +94,11 @@
 
 <!-- Page Preloder -->
 <div id="preloder" class="search-model-form">
-    <div class="search-model-form">
-        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="480" height="480" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
-    </div>
+    <form class="search-model-form">
+        <%--        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"--%>
+        <%--                class="giphy-embed" allowFullScreen></iframe>--%>
+        <img style="width: 220px;" src="/img/loading.gif">
+    </form>
 </div>
 
 <!-- Header Section Begin -->
@@ -138,11 +140,11 @@
                     <ul style="display: flex; flex-direction: row">
                         <c:choose>
                             <c:when test="${logincust == null}">
-                                <li><a href="/login" class="search-switch">Login</a></li>
+                                <li><a href="/login">Login</a></li>
                                 <li><a href="/apply">Apply</a></li>
                             </c:when>
                             <c:otherwise>
-                                <li><a href="/login/logout" class="search-switch">Logout
+                                <li><a href="/login/logout">Logout
                                 </a></li>
                                 <li style="margin: 0">
                                     <c:choose>
@@ -160,8 +162,7 @@
                                         </c:otherwise>
                                     </c:choose>
                                 </li>
-                                <li style="margin-left: 3px"><a href="/apply/mypage?custid=${logincust.custid}"
-                                                                class="search-switch">
+                                <li style="margin-left: 3px"><a href="/apply/mypage?custid=${logincust.custid}">
                                         ${logincust.custid}
                                 </a></li>
                             </c:otherwise>

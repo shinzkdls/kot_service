@@ -206,33 +206,33 @@ public class RecipeController {
         return "redirect:/recipe/detail?recipepin=" + recipeBasic.getRecipepin();
     }
 
-    @RequestMapping("/likeImpl")
-    public String likeImpl(Model model, Integer custpinlike, Integer recipepinlike, HttpSession session) throws Exception {
-        try {
-            Goodlist goodlist = new Goodlist();
-            goodlist.setCustpin(custpinlike);
-            goodlist.setRecipepin(recipepinlike);
-            goodlistService.register(goodlist);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-            // e.printStackTrace();
-        }
-        return "redirect:/recipe/detail?recipepin=" + recipepinlike;
-    }
-
-    @RequestMapping("/likeDel")
-    public String likeDel(Model model, Integer custpinlike, Integer recipepinlike, HttpSession session) throws Exception {
-        try {
-            Goodlist goodlist = new Goodlist();
-            goodlist.setCustpin(custpinlike);
-            goodlist.setRecipepin(recipepinlike);
-            goodlistService.removegood(goodlist);
-        } catch (Exception e) {
-            throw new Exception(e.getMessage());
-            // e.printStackTrace();
-        }
-        return "redirect:/recipe/detail?recipepin=" + recipepinlike;
-    }
+//    @RequestMapping("/likeImpl")
+//    public String likeImpl(Model model, Integer custpinlike, Integer recipepinlike, HttpSession session) throws Exception {
+//        try {
+//            Goodlist goodlist = new Goodlist();
+//            goodlist.setCustpin(custpinlike);
+//            goodlist.setRecipepin(recipepinlike);
+//            goodlistService.register(goodlist);
+//        } catch (Exception e) {
+//            throw new Exception(e.getMessage());
+//            // e.printStackTrace();
+//        }
+//        return "redirect:/recipe/detail?recipepin=" + recipepinlike;
+//    }
+//
+//    @RequestMapping("/likeDel")
+//    public String likeDel(Model model, Integer custpinlike, Integer recipepinlike, HttpSession session) throws Exception {
+//        try {
+//            Goodlist goodlist = new Goodlist();
+//            goodlist.setCustpin(custpinlike);
+//            goodlist.setRecipepin(recipepinlike);
+//            goodlistService.removegood(goodlist);
+//        } catch (Exception e) {
+//            throw new Exception(e.getMessage());
+//            // e.printStackTrace();
+//        }
+//        return "redirect:/recipe/detail?recipepin=" + recipepinlike;
+//    }
 
 
 }

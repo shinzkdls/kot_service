@@ -144,7 +144,6 @@ public class MainController {
         model.addAttribute("nlist", p);
         model.addAttribute("noticedetail", n);
         model.addAttribute("weather", weather);
-        //model.addAttribute("likeCounts", likeCounts);
         return "index";
     }
 

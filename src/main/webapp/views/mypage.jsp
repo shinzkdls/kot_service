@@ -215,7 +215,7 @@
                     <c:forEach var="obj" items="${myclasslist}">
                         <div class="product__sidebar__view__item set-bg" data-setbg="/uimg/${obj.thumbnailimg}">
                             <h5>
-                                <a href="/class/detail?class=${obj.classpin}"
+                                <a href="/cookingclass/detail?classpin=${obj.classpin}"
                                    style="padding: 5px; background-color: rgba(0,0,0, 0.5); border-radius: 5px;"
                                 >${obj.classtitle}</a>
                             </h5>
