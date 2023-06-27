@@ -13,6 +13,7 @@
         });
         $('#join_form').submit();
     };
+
     function requestPay() {
         var IMP = window.IMP; // 생략 가능
         IMP.init("imp63768343"); // 예: imp00000000
@@ -224,7 +225,7 @@
         }
     }
 
-    window.onload = function() {
+    window.onload = function () {
         buildCalendar(); // 페이지 로드되면 buildCalendar 실행
         var classdate = "${classdetail.classdate.substring(0,10)}";
         var dday = calculateDday(classdate);
@@ -280,7 +281,7 @@
                         <h2 style="color:#F28123; font-weight: bolder">
                             [${classdetail.location}] ${classdetail.classtitle}</h2>
                     </div>
-                    <div class="class-step" >
+                    <div class="class-step">
                         <div class="section-title">
                             <h5>클래스 소개</h5>
                         </div>
@@ -393,7 +394,7 @@
                 <div class="sidebar-section">
                     <div class="archive-posts">
                         <div class="section-title">
-                        <h4>호스트 소개</h4>
+                            <h4>호스트 소개</h4>
                         </div>
                         <a href="/apply/mypage?custid=${classcust.custid}">
                             <div style="display: flex; flex-direction: row; align-items: center">
@@ -432,10 +433,35 @@
                             <input type="hidden" id="amount" name="amount" value="${classdetail.amount}">
                             <input type="hidden" id="joinstatus" name="joinstatus" value="1">
                             <input type="hidden" id="paymentstatus" name="paymentstatus" value="1">
-                            <a role="button" class="btn cart-btn" id="class-btn" onclick="requestPay()"
-                               style="width: 80%;">
-                                클래스 신청
-                            </a>
+                            <c:choose>
+                                <c:when test="${logincust != null}">
+                                    <c:choose>
+                                        <c:when test="${classdetail.logincustjoin == '0'}">
+                                            <button class="like-btn cart-btn"
+                                                    id="${logincust.custpin}${classdetail.classpin}"
+                                                    value="${classdetail.logincustjoin}"
+                                                    type="button"
+                                                    style="border: none; background-color: #b7b7b7"
+                                                    onclick="requestPay()">
+                                                <span class="icon_check_alt2"></span> 클래스 신청
+                                            </button>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <button class="like-btn cart-btn"
+                                                    id="${logincust.custpin}${classdetail.classpin}"
+                                                    value="${classdetail.logincustjoin}"
+                                                    type="button"
+                                                    style="border: none">
+                                                <span class="icon_check_alt2"></span> 신청 완료
+                                            </button>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:when>
+                                <c:otherwise>
+                                    <a class="cart-btn" href="/login">
+                                        <span class="icon_check_alt2"></span> 클래스 신청</a>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </form>
                     <div class="Calendarsection">
@@ -468,7 +494,7 @@
                         <p id="message" style="font-size: 15px; font-weight: bold;"></p>
                     </div>
                     <div class="section-title" style="margin-bottom: 10px">
-                    <h4>공유하기</h4>
+                        <h4>공유하기</h4>
                     </div>
                     <ul class="product-share">
                         <li><a href="#" style="font-size: 30px"><span class="social_facebook_circle"></span></a></li>

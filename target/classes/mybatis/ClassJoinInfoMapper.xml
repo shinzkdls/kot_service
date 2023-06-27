@@ -8,6 +8,11 @@
         INSERT INTO class_join_info
         VALUES (#{classpin}, #{custpin}, #{joinstatus}, SYSDATE)
     </insert>
-
+    <select id="searchjoin" parameterType="Integer" resultType="String">
+        SELECT count(*) as logincustjoin
+        FROM class_join_info
+        WHERE custpin = #{custpin}
+          AND classpin = #{classpin}
+    </select>
 </mapper>
 
