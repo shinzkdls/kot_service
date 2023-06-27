@@ -243,7 +243,7 @@
     function scrollToBottom(){
              $('body').animate({
              	scrollTop: $('body')[0].scrollHeight
-             }, 400);
+             }, 1000);
         };
 
 
