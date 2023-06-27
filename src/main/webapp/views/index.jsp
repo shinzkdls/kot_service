@@ -137,37 +137,33 @@
             </div>
             <div class="col-lg-2">
                 <div class="header__right">
-                    <ul style="display: flex; flex-direction: row">
-                        <c:choose>
-                            <c:when test="${logincust == null}">
-                                <li><a href="/login">Login</a></li>
-                                <li><a href="/apply">Apply</a></li>
-                            </c:when>
-                            <c:otherwise>
-                                <li><a href="/login/logout">Logout
-                                </a></li>
-                                <li style="margin: 0">
-                                    <c:choose>
-                                        <c:when test="${logincust.profileimgname == null || logincust.profileimgname ==''}">
-                                            <a href="/apply/mypage?custid=${logincust.custid}">
-                                                <img src="/img/basic_profile.png" alt=""
-                                                     style="width: 25px; height: 25px; border-radius: 50%">
-                                            </a>
-                                        </c:when>
-                                        <c:otherwise>
-                                            <a href="/apply/mypage?custid=${logincust.custid}">
-                                                <img src="/uimg/${logincust.profileimgname}" alt=""
-                                                     style="width: 25px; height: 25px; border-radius: 50%">
-                                            </a>
-                                        </c:otherwise>
-                                    </c:choose>
-                                </li>
-                                <li style="margin-left: 3px"><a href="/apply/mypage?custid=${logincust.custid}">
-                                        ${logincust.custid}
-                                </a></li>
-                            </c:otherwise>
-                        </c:choose>
-                    </ul>
+                    <c:choose>
+                        <c:when test="${logincust == null}">
+                            <a href="/login" style="font-family: Cafe24Ssurround; color: black">Login</a>&nbsp;
+                            <a href="/apply" style="font-family: Cafe24Ssurround; color: black">Apply</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="/login/logout" style="font-family: Cafe24Ssurround; color: black">Logout</a>&nbsp;
+                            <c:choose>
+                                <c:when test="${logincust.profileimgname == null || logincust.profileimgname ==''}">
+                                    <a href="/apply/mypage?custid=${logincust.custid}">
+                                        <img src="/img/basic_profile.png" alt=""
+                                             style="width: 25px; height: 25px; border-radius: 50%">
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="/apply/mypage?custid=${logincust.custid}">
+                                        <img src="/uimg/${logincust.profileimgname}" alt=""
+                                             style="width: 25px; height: 25px; border-radius: 50%">
+                                    </a>
+                                </c:otherwise>
+                            </c:choose>
+                            <a href="/apply/mypage?custid=${logincust.custid}"
+                               style="font-family: Cafe24Ssurround; color: black">
+                                    ${logincust.custid}
+                            </a>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>
