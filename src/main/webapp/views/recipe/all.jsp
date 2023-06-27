@@ -5,6 +5,10 @@
 
 <script>
     let recipe_search = {
+        sleep: function (ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        },
+
         init: function () {
             $('#search_btn').click(function () {
                 $('#category_form').attr({
@@ -126,56 +130,57 @@
                 }
             });
 
-            let dblclickHeart = 0;
-
             async function dblclickGood(recipepin) {
+                let dblclickHeart = 0;
                 var heartzoneid = recipepin + '_heartzone';
-                if (dblclickHeart == 0) {
+                if (true) {
                     dblclickHeart++;
                     const heartImg = document.createElement("img");
-                    heartImg.setAttribute("id", "dblclickGood");
                     heartImg.setAttribute("src", "/img/likeheart.png");
                     heartImg.style.width = '5px';
                     heartImg.style.userSelect = "none";
                     document.getElementById(heartzoneid).appendChild(heartImg);
 
-                    for (let i = 0; i < 35; i++) {
+                    for (let i = 0; i < 40; i++) {
                         let htsize = parseInt(heartImg.style.width) + 3;
                         heartImg.style.width = htsize + "px";
-                        await sleep(5);
+                        await recipe_search.sleep(3);
                     }
-                    await sleep(30);
-                    for (let i = 0; i < 5; i++) {
+
+                    await recipe_search.sleep(200);
+
+                    for (let i = 0; i < 7; i++) {
                         let htsize = parseInt(heartImg.style.width) - 3;
                         heartImg.style.width = htsize + "px";
-                        await sleep(10);
+                        await recipe_search.sleep(10);
                     }
-                    for (let i = 0; i < 2; i++) {
+
+                    await recipe_search.sleep(200);
+
+                    for (let i = 0; i < 3; i++) {
                         let htsize = parseInt(heartImg.style.width) + 3;
                         heartImg.style.width = htsize + "px";
-                        await sleep(10);
+                        await recipe_search.sleep(10);
                     }
-                    await sleep(700);
+
+                    await recipe_search.sleep(700);
+
                     for (let i = 0; i < 33; i++) {
                         let htsize = parseInt(heartImg.style.width) - 3;
                         heartImg.style.width = htsize + "px";
-                        await sleep(2);
+                        await recipe_search.sleep(3);
                     }
+
+                    await recipe_search.sleep(80);
                     document.getElementById(heartzoneid).removeChild(heartImg);
                     dblclickHeart--;
                 }
             }
 
-            function sleep(ms) {
-                return new Promise((resolve) => setTimeout(resolve, ms));
-            }
-
         }
     };
-    // $(document).ready(function () {
-    //     recipe_search.init();
-    // });
     $(function () {
+
         $("#recipe").addClass("navActive");
         recipe_search.init();
 
@@ -413,13 +418,13 @@
                             <a href="/recipe/detail?recipepin=${obj.recipepin}">
                                 <div style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
                                         background-size: cover; background-position: center; background-repeat: no-repeat;
-                                        display: flex; flex-direction: row">
+                                        display: flex; flex-direction: column">
                                     <div class="view"
-                                         style="margin: 5px; padding-right: 5px; padding-left: 5px; height: 22px; background-color: black; border-radius: 5px; opacity: 0.7; color: #FFFFFF">
+                                         style="width: 20%; margin: 5px; padding-right: 5px; padding-left: 5px; height: 22px; background-color: black; border-radius: 5px; opacity: 0.7; color: #FFFFFF">
                                         <i class="fa fa-eye"></i> ${obj.views}
                                     </div>
-                                    <div id="${obj.recipepin}_heartzone">
-
+                                    <div id="${obj.recipepin}_heartzone"
+                                         style="display: flex; justify-content: center; align-content: center; margin: auto">
                                     </div>
                                 </div>
                             </a>
