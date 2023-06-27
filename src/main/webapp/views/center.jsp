@@ -133,7 +133,7 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8">
                             <div class="section-title">
-                                <h4>최신 쿠킹 클래스</h4>
+                                <h4>추천 쿠킹 클래스</h4>
                             </div>
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
