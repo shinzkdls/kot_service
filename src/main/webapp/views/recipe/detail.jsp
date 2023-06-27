@@ -19,6 +19,58 @@
                 </c:choose>
                 // register_form.send();
             });
+
+            $('.like-btn').click(function () {
+                var thisbtn = $(this);
+                var thisbtnid = $(this).attr('id');
+                var thisval = thisbtn.val();
+                var custpin = parseInt(thisbtnid.substring(0, 5));
+                var recipepin = parseInt(thisbtnid.substring(5, 10));
+                console.log(typeof custpin);
+                console.log(typeof recipepin);
+                console.log(thisbtnid.substring(0, 5));
+                console.log(thisbtnid.substring(5, 10));
+                if (thisval == 0) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/likeImpl',
+                        data: {
+                            custpin: custpin,
+                            recipepin: recipepin
+                        },
+                        success: function (response) {
+                            // 서버 응답에 대한 처리
+                            console.log(response);
+                            thisbtn.css('background-color', '#f28123');
+                            thisbtn.val(1);
+                        },
+                        error: function (xhr, status, error) {
+                            // 에러 처리
+                            console.log(error);
+                        }
+                    });
+                }
+                if (thisval == 1) {
+                    $.ajax({
+                        type: 'post',
+                        url: '/likeDel',
+                        data: {
+                            custpin: custpin,
+                            recipepin: recipepin
+                        },
+                        success: function (response) {
+                            // 서버 응답에 대한 처리
+                            console.log(response);
+                            thisbtn.css('background-color', '#b7b7b7');
+                            thisbtn.val(0);
+                        },
+                        error: function (xhr, status, error) {
+                            // 에러 처리
+                            console.log(error);
+                        }
+                    });
+                }
+            });
         },
         send: function () {
             var recipepin = $('#recipepin').val();
@@ -244,14 +296,22 @@
                             <c:when test="${logincust != null}">
                                 <c:choose>
                                     <c:when test="${recipedetail.logincustlike == '0'}">
-                                        <a class="btn cart-btn" style="background-color: #b7b7b7; width: 80%;"
-                                           href="/recipe/likeImpl?custpinlike=${logincust.custpin}&recipepinlike=${recipedetail.recipepin}">
-                                            <span class="icon_heart_alt"></span> 레시피 찜</a>
+                                        <button class="like-btn cart-btn"
+                                                id="${logincust.custpin}${recipedetail.recipepin}"
+                                                value="${recipedetail.logincustlike}"
+                                                type="button"
+                                                style="border: none; background-color: #b7b7b7; width: 80%;">
+                                            <span class="icon_heart_alt"></span> 레시피 찜
+                                        </button>
                                     </c:when>
                                     <c:otherwise>
-                                        <a class="btn cart-btn" style="width: 80%;"
-                                           href="/recipe/likeDel?custpinlike=${logincust.custpin}&recipepinlike=${recipedetail.recipepin}">
-                                            <span class="icon_heart_alt"></span> 레시피 찜</a>
+                                        <button class="like-btn cart-btn"
+                                                id="${logincust.custpin}${recipedetail.recipepin}"
+                                                value="${recipedetail.logincustlike}"
+                                                type="button"
+                                                style="border: none; width: 80%;">
+                                            <span class="icon_heart_alt"></span> 레시피 찜
+                                        </button>
                                     </c:otherwise>
                                 </c:choose>
                             </c:when>
@@ -261,15 +321,7 @@
                             </c:otherwise>
                         </c:choose>
                     </div>
-                    <div class="section-title" style="margin-bottom: 10px">
-                        <h4 style="color: #008000">공유하기</h4>
-                    </div>
-                    <ul class="product-share">
-                        <li><a href="#" style="font-size: 30px"><span class="social_facebook_circle"></span></a></li>
-                        <li><a href="#" style="font-size: 30px"><span class="social_twitter_circle"></span></a></li>
-                        <li><a href="#" style="font-size: 30px"><span class="social_googleplus_circle"></span></a></li>
-                        <li><a href="#" style="font-size: 30px"><span class="social_instagram_circle"></span></a></li>
-                    </ul>
+
                     <div class="section-title" style="margin-bottom: 10px; margin-top: 30px">
                         <h4>이 레시피를 좋아하는 스푸너들이 좋아하는 다른 레시피</h4>
                     </div>
@@ -282,6 +334,15 @@
                             </h5>
                         </div>
                     </c:forEach>
+                    <div class="section-title" style="margin-bottom: 10px">
+                        <h4 style="color: #008000">공유하기</h4>
+                    </div>
+                    <ul class="product-share">
+                        <li><a href="#" style="font-size: 30px"><span class="social_facebook_circle"></span></a></li>
+                        <li><a href="#" style="font-size: 30px"><span class="social_twitter_circle"></span></a></li>
+                        <li><a href="#" style="font-size: 30px"><span class="social_googleplus_circle"></span></a></li>
+                        <li><a href="#" style="font-size: 30px"><span class="social_instagram_circle"></span></a></li>
+                    </ul>
                 </div>
             </div>
         </div>

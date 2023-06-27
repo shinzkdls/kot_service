@@ -1,7 +1,9 @@
 package com.kbstar.controller;
 
 import com.kbstar.dto.Cust;
+import com.kbstar.dto.Goodlist;
 import com.kbstar.service.CustService;
+import com.kbstar.service.GoodlistService;
 import com.kbstar.util.FileUploadUtil;
 import com.kbstar.util.OCRUtil;
 import io.github.flashvayne.chatgpt.service.ChatgptService;
@@ -24,6 +26,8 @@ import java.util.Map;
 public class AjaxImplController {
     @Autowired
     ChatgptService chatgptService;
+    @Autowired
+    GoodlistService goodlistService;
 
     @Autowired
     CustService custService;
@@ -79,6 +83,34 @@ public class AjaxImplController {
         JSONObject result = (JSONObject) OCRUtil.getResult(imgdir, imgname);
         Map map = OCRUtil.getData(result);
         return map;
+    }
+
+    @RequestMapping("/likeImpl")
+    public Integer likeImpl(Model model, Integer custpin, Integer recipepin, HttpSession session) throws Exception {
+        try {
+            Goodlist goodlist = new Goodlist();
+            goodlist.setCustpin(custpin);
+            goodlist.setRecipepin(recipepin);
+            goodlistService.register(goodlist);
+        } catch (Exception e) {
+//            throw new Exception(e.getMessage());
+            e.printStackTrace();
+        }
+        return 1;
+    }
+
+    @RequestMapping("/likeDel")
+    public Integer likeDel(Model model, Integer custpin, Integer recipepin, HttpSession session) throws Exception {
+        try {
+            Goodlist goodlist = new Goodlist();
+            goodlist.setCustpin(custpin);
+            goodlist.setRecipepin(recipepin);
+            goodlistService.removegood(goodlist);
+        } catch (Exception e) {
+//            throw new Exception(e.getMessage());
+            e.printStackTrace();
+        }
+        return 0;
     }
 
 
