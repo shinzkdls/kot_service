@@ -5,6 +5,10 @@
 
 <script>
     let comment_form = {
+
+        sleep: function (ms) {
+            return new Promise((resolve) => setTimeout(resolve, ms));
+        },
         init: function () {
             $("#comment_btn").click(function () {
                 <c:choose>
@@ -43,6 +47,7 @@
                             console.log(response);
                             thisbtn.css('background-color', '#f28123');
                             thisbtn.val(1);
+                            dblclickGood(recipepin);
                         },
                         error: function (xhr, status, error) {
                             // 에러 처리
@@ -71,6 +76,53 @@
                     });
                 }
             });
+
+            async function dblclickGood(recipepin) {
+                let dblclickHeart = 0;
+                var heartzoneid = recipepin + '_zone';
+                if (true) {
+                    dblclickHeart++;
+                    const heartImg = document.createElement("img");
+                    heartImg.setAttribute("src", "/img/likeheart.png");
+                    heartImg.style.width = '5px';
+                    heartImg.style.userSelect = "none";
+                    document.getElementById(heartzoneid).appendChild(heartImg);
+
+                    for (let i = 0; i < 40; i++) {
+                        let htsize = parseInt(heartImg.style.width) + 5;
+                        heartImg.style.width = htsize + "px";
+                        await comment_form.sleep(5);
+                    }
+
+                    await comment_form.sleep(30);
+
+                    for (let i = 0; i < 7; i++) {
+                        let htsize = parseInt(heartImg.style.width) - 5;
+                        heartImg.style.width = htsize + "px";
+                        await comment_form.sleep(30);
+                    }
+
+                    await comment_form.sleep(30);
+
+                    for (let i = 0; i < 3; i++) {
+                        let htsize = parseInt(heartImg.style.width) + 5;
+                        heartImg.style.width = htsize + "px";
+                        await comment_form.sleep(30);
+                    }
+
+                    await comment_form.sleep(700);
+
+                    for (let i = 0; i < 36; i++) {
+                        let htsize = parseInt(heartImg.style.width) - 5;
+                        heartImg.style.width = htsize + "px";
+                        await comment_form.sleep(3);
+                    }
+
+                    await comment_form.sleep(80);
+                    document.getElementById(heartzoneid).removeChild(heartImg);
+                    dblclickHeart--;
+                }
+            }
         },
         send: function () {
             var recipepin = $('#recipepin').val();
@@ -124,7 +176,10 @@
                 <div class="single-article-section">
                     <div class="single-article-text" style="margin-bottom: 50px">
                         <div class="class-bg"
-                             style="margin-bottom: 30px; background-image: url('/uimg/${recipedetail.thumbnailimg}');background-size: cover; background-position: center; background-repeat: no-repeat;">
+                             style="margin-bottom: 30px; background-image: url('/uimg/${recipedetail.thumbnailimg}');background-size: cover; background-position: center; background-repeat: no-repeat;
+                                     display: flex; justify-content: center; align-content: center">
+                            <div id="${recipedetail.recipepin}_zone"
+                                 style="display: flex; justify-content: center; align-content: center; margin: auto"></div>
                         </div>
                         <h2 style="color:#F28123; font-weight: bolder">
                             [${recipedetail.type}] ${recipedetail.recipetitle}</h2>
