@@ -129,6 +129,7 @@
                         </c:choose>
                     </div>
                 </div>
+
                 <div class="Latest_class" style="margin-top: 50px">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8">
