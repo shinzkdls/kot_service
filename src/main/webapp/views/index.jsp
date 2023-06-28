@@ -179,7 +179,7 @@
 <%--우측 하단 아이콘 end--%>
 
 <!-- Page Preloder -->
-<div id="preloder" class="search-model-form">
+<div id="preloder">
     <form class="search-model-form">
         <%--        <iframe src="https://giphy.com/embed/vOOjguTG3XUKNxfd7R" width="300" height="300" frameBorder="0"--%>
         <%--                class="giphy-embed" allowFullScreen></iframe>--%>

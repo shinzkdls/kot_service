@@ -138,7 +138,7 @@ public class ClassController {
         String imgUrl = "https://www.w3schools.com/css/img_5terre.jpg";
         try {
             commentService.register(classComment);
-            pushNotificationUtil.sendTargetMessage("A comment is registered on your class.", classComment.getContent(), "/register", userToken);
+            pushNotificationUtil.sendTargetMessage("A comment is registered on your class.", classComment.getContent(), "/", userToken);
         } catch (Exception e) {
             throw new Exception("등록 오류");
         }
