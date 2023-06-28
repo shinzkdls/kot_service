@@ -221,7 +221,15 @@
                                                     <span>일식</span>
                                                 </label>
                                                 <label>
-                                                    <input type="radio" id="type5" name="type" value="기타"/>&nbsp
+                                                    <input type="radio" id="type5" name="type" value="동남아식"/>&nbsp
+                                                    <span>동남아식</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" id="type6" name="type" value="디저트"/>&nbsp
+                                                    <span>디저트</span>
+                                                </label>
+                                                <label>
+                                                    <input type="radio" id="type7" name="type" value="기타"/>&nbsp
                                                     <span>기타</span>
                                                 </label>
                                             </fieldset>

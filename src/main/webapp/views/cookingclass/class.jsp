@@ -2,20 +2,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<style>
-    .class-image {
-        width: 100%;
-        height: 250px;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-    }
-
-    .class-image-gray {
-        background-color: rgba(0, 0, 0, 0.5); /* 반투명 회색 배경색 */
-    }
-</style>
-
 <head>
     <script>
         let class_search = {
@@ -85,28 +71,51 @@
             class_search.init();
         })
 
-        // 최신 쿠킹 클래스 D-day
-        window.onload = function() {
+        // D-day
+        function calculateDday(classdate) {
+            var currentDate = new Date();
+            var year = parseInt(classdate.substring(0, 4));
+            var month = parseInt(classdate.substring(5, 7));
+            var day = parseInt(classdate.substring(8, 10));
+            var inputDate = new Date(year, month - 1, day);
+            var timeDiff = inputDate.getTime() - currentDate.getTime();
+            var daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            if (daysRemaining > 0) {
+                return "D-" + daysRemaining;
+            } else if (daysRemaining === 0) {
+                return "D-Day";
+            } else {
+                return "종료";
+            }
+        }
+        window.onload = function () {
             var classDates = document.querySelectorAll('[id^="classImage"]');
-            classDates.forEach(function(classDate) {
-                var classPin = classDate.getAttribute('id').substring(10);
+            var classdatesArray = [
+                <c:forEach var="obj" items="${clist.getList()}">
+                "${obj.classdate.substring(0,10)}",
+                </c:forEach>
+            ];
+            classDates.forEach(function (classDate, index) {
                 var classImage = classDate;
                 var imageCover = classDate.querySelector('.image-cover'); // 회색 불투명 커버 요소 선택
                 var classDateStr = classDate.style.backgroundImage; // 배경 이미지 URL 추출
-                var currentDate = new Date();
-                var year = parseInt(classDateStr.substring(5, 9));
-                var month = parseInt(classDateStr.substring(10, 12)) - 1;
-                var day = parseInt(classDateStr.substring(13, 15));
-                var inputDate = new Date(year, month, day);
-                var timeDiff = inputDate.getTime() - currentDate.getTime();
-                var daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+                var classdate = classdatesArray[index];
+                var dday = calculateDday(classdate);
 
-                if (daysRemaining > 0) {
+                if (dday === "D-Day" || dday.startsWith("D-")) {
                     imageCover.style.display = 'none';
-                } else if (daysRemaining === 0) {
-                    imageCover.style.display = 'block';
                 } else {
                     imageCover.style.display = 'block';
+                    imageCover.style.position = 'relative';
+
+                    var imageElement = document.createElement('img');
+                    imageElement.src = '/uimg/expired.png';
+                    imageElement.style.position = 'absolute';
+                    imageElement.style.top = '50%';
+                    imageElement.style.left = '50%';
+                    imageElement.style.transform = 'translate(-50%, -50%)';
+                    imageElement.style.width = '130px';
+                    imageCover.appendChild(imageElement);
                 }
             });
         };
@@ -169,10 +178,12 @@
                             <li class="${sortinfo.type eq '양식' ? 'active' : ''}" data-filter="양식">양식</li>
                             <li class="${sortinfo.type eq '중식' ? 'active' : ''}" data-filter="중식">중식</li>
                             <li class="${sortinfo.type eq '일식' ? 'active' : ''}" data-filter="일식">일식</li>
+                            <li class="${sortinfo.type eq '동남아식' ? 'active' : ''}" data-filter="동남아식">동남아식</li>
+                            <li class="${sortinfo.type eq '디저트' ? 'active' : ''}" data-filter="디저트">디저트</li>
                             <li class="${sortinfo.type eq '기타' ? 'active' : ''}" data-filter="기타">기타</li>
                         </ul>
                     </div>
-                    <div style="display: flex; justify-content: space-between">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
                         <div style="display: flex">
                             <input class="form-control me-2" type="text" placeholder="Class Title"
                                    aria-label="Search"
@@ -211,9 +222,9 @@
                                      style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
                                              background-size: cover; background-position: center; background-repeat: no-repeat;
                                              position: relative;">
-                                <!-- 회색 불투명 커버 -->
-                                <div class="image-cover" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-                                background-color: rgba(0, 0, 0, 0.5); display: none;"></div>
+                                    <!-- 회색 불투명 커버 -->
+                                    <div class="image-cover" style="position: relative; top: 0; left: 0; width: 100%; height: 100%;
+                                    background-color: rgba(0, 0, 0, 0.5); display: none;"></div>
                                 </div>
                             </a>
                         </div>
@@ -221,6 +232,8 @@
                         <h5 style="margin-bottom: 10px">${obj.cooking}</h5>
                         <h5 style="color: black; font-size: 15px; margin-bottom: 10px">${obj.location}
                             / ${obj.classdate.substring(0,10)}</h5>
+                        <h5 style="color: black; font-size: 15px; margin-bottom: 10px">${obj.joincount}명
+                            / ${obj.personal}명</h5>
                         <h5 style="color: black; font-weight: bold" class="product-price">
                             <fmt:formatNumber value="${obj.amount}" type="currency"
                                               currencyCode="KRW" pattern="###,###원"/></h5>

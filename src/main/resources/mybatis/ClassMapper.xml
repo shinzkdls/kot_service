@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.ClassMapper">
+
     <select id="select" parameterType="Integer" resultType="ClassBasic">
         SELECT C.*,
                NVL2(J.custpin, '1', '0') as logincustjoin
@@ -18,11 +19,16 @@
     </select>
     <select id="getpage" parameterType="ClassBasic" resultType="ClassBasic">
         SELECT C.*,
-        NVL2(J.custpin,'1','0') as logincustjoin
+        NVL2(J.custpin,'1','0') as logincustjoin,
+        NVL(I.JOINCOUNT,0) AS joincount
         FROM Class_Basic C
         LEFT OUTER JOIN class_join_info J
         ON C.classpin = J.classpin
         AND J.custpin = #{logincustpin}
+        LEFT OUTER JOIN (SELECT CLASSPIN, COUNT(*) AS joincount
+        FROM CLASS_JOIN_INFO
+        GROUP BY CLASSPIN) I
+        ON C.classpin = I.classpin
         WHERE 1=1
         <if test="location != ''">
             AND C.location LIKE '%' || #{location} || '%'
