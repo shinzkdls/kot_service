@@ -2,20 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
-<style>
-    #preloder {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-    }
 
-    .search-model-form {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-</style>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -54,28 +41,94 @@
     <link rel="stylesheet" href="/css/slicknav.min.css" type="text/css"/>
     <link rel="stylesheet" href="/css/style.css" type="text/css"/>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <style>
-        .magicIcon {
+        #preloder {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .search-model-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+        .floating-wrapper[data-v-ea12492a]:hover {
+            width: 75px;
+            height: 75px;
+            animation-play-state: paused;
+        }
+        .floating-wrapper[data-v-ea12492a] {
+            opacity: 0;
             position: fixed;
-            right: 20px;
-            bottom: 30px;
-            z-index: 11;
-            animation: action 1s infinite alternate
+            top: auto;
+            left: auto;
+            right: 70px;
+            bottom: 70px;
+            width: 74px;
+            height: 74px;
+            z-index: 99;
+            border-radius: 50%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            animation: action 2s infinite alternate; /* 2s animation + 1s delay = 3s total */
         }
 
         @keyframes action {
-            0% {
-                transform: translateY(0)
+            0%, 100% {
+                transform: scale(1);
             }
-            100% {
-                transform: translateY(-15px)
+            25%, 75% {
+                transform: scale(1.1);
+            }
+            12.5%, 62.5% {
+                animation-timing-function: steps(1);
+            }
+            37.5%, 87.5% {
+                animation-timing-function: steps(1);
             }
         }
+        .eachIconDiv {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #ffffff;
+            position: relative;
+            z-index: 11;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
+        .eachIconDiv img {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
         #magicIcon {
-            width: 100px;
-            height: 100px
+            position: fixed;
+            right: 25px;
+            bottom: 130px;
+        }
+        #chatWithAdminIcon {
+            position: fixed;
+            right: 80px;
+            bottom: 155px;
+        }
+        #howToUseIcon {
+            position: fixed;
+            right: 140px;
+            bottom: 130px;
+        }
+        #chatGPTIcon {
+            position: fixed;
+            right: 155px;
+            bottom: 65px;
+        }
+        #scrollToTop {
+            position: fixed;
+            right: 120px;
+            bottom: 15px;
         }
 
         .chatLink:hover {
@@ -85,15 +138,45 @@
         .navActive {
             background-color: #F28123;
             color: white !important;
-        }
+        }  /*활성화 menu 색 지정 */
     </style>
 </head>
 
 <body>
-
-<div class="magicIcon">
-    <a href="/magic"><img id="magicIcon" src="/img/conch.png" alt="Conch Shell"></a>
+<%--우측 아이콘--%>
+<div data-v-ea12492a="" class="floating-wrapper" style="opacity: 1; transform: scale(1);">
+    <div data-v-ea12492a="" class="button-trigger" onclick="toggle()">
+        <img data-v-ea12492a="" src="/img/floating_c.png" alt="아이콘"></div>
 </div>
+
+<div class="icons" style="display:none;">
+    <div class="eachIconDiv" id="magicIcon" >
+        <a href="/magic">
+            <img src="/img/conch.png" alt="Conch Shell">
+        </a>
+        </div>
+    <div class="eachIconDiv " id="chatWithAdminIcon" >
+        <a class="chatLink" onclick="openPopup('chatWithAdmin')">
+            <img src="https://cdn-icons-gif.flaticon.com/11186/11186861.gif" style="width: 30px; margin-right:3px">
+        </a>
+    </div>
+    <div class="eachIconDiv" id="howToUseIcon" >
+        <a class="chatLink" onclick="openPopup('howToUse')">
+            <img src="https://cdn-icons-gif.flaticon.com/11184/11184177.gif" style="width: 30px; margin-right:3px">
+        </a>
+    </div>
+    <div class="eachIconDiv" id="chatGPTIcon" >
+        <a class="chatLink" onclick="openPopup('chatGPT')">
+            <img src="https://cdn-icons-gif.flaticon.com/11184/11184172.gif" style="width: 30px; margin-right:3px">
+        </a>
+    </div>
+    <div class="eachIconDiv" id="scrollToTop">
+        <a href="#" class="btn back-to-top chatLink" >
+            <img src="https://cdn-icons-gif.flaticon.com/10522/10522219.gif" style="width: 30px; margin-right:3px">
+        </a>
+    </div>
+</div>
+<%--우측 하단 아이콘 end--%>
 
 <!-- Page Preloder -->
 <div id="preloder">
@@ -111,7 +194,7 @@
             <div class="col-lg-2">
                 <div class="header__logo">
                     <a href="/">
-                        <img style="width: 125px" src="/img/logo.png" alt="logo"/>
+                        <img style="width: 125px;height: auto" src="/img/logo.png" alt="logo"/>
                     </a>
                 </div>
             </div>
@@ -190,11 +273,6 @@
 
 <!-- Footer Section Begin -->
 <footer class="footer">
-    <div class="page-up">
-        <a href="#" id="scrollToTopButton"
-        ><span class="arrow_carrot-up"></span
-        ></a>
-    </div>
     <div class="container">
         <div class="row">
             <div class="col-lg-2">
@@ -202,50 +280,23 @@
                     <a href="/"><img style="width: 125px" src="/img/logo.png" alt=""/></a>
                 </div>
             </div>
-            <div class="col-lg-8">
-                <p>
-                <div class="row">
-                    <a class="chatLink" onclick="('chatWithAdmin')">
-                        <i class="fas fa-comments"></i> 관리자와 대화
-                    </a>
-                    <hr>
+            <div class="row">
+                <div class="col-lg-10">
+                    <p>
+                        <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
+                        Copyright &copy;
+                        <script>
+                            document.write(new Date().getFullYear());
+                        </script>
+                        CHOJANG SPOON All rights reserved
+                        <i class="fa fa-heart" aria-hidden="true"></i> from
+                        <a href="https://www.kbstar.com" target="_blank">KB국민은행</a>
+                    </p>
                 </div>
-                <div class="row">
-                    <a class="chatLink" onclick="openPopup('howToUse')">
-                        <i class="fas fa-headset"></i> 사용법 챗봇으로 확인
-                    </a>
-                    <hr>
-                </div>
-                <div class="row">
-                    <a class="chatLink" onclick="openPopup('chatGPT')">
-                        <i class="fas fa-brain"></i> gpt
-                    </a>
-                    <hr>
-                </div>
-
-                <script>
-                    function openPopup(code) {
-                        // 팝업 창을 띄우는 코드
-
-                        window.open("http://127.0.0.1/chat/" + code, "popupWindow", "width=500, height=400");
-                    }
-                </script>
-                </p>
-            </div>
-            <div class="col-lg-2">
-                <p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    Copyright &copy;
-                    <script>
-                        document.write(new Date().getFullYear());
-                    </script>
-                    CHOJANG SPOON All rights reserved
-                    <i class="fa fa-heart" aria-hidden="true"></i> from
-                    <a href="https://www.kbstar.com" target="_blank">KB국민은행</a>
-                </p>
             </div>
         </div>
     </div>
+
 </footer>
 <!-- Footer Section End -->
 
@@ -272,8 +323,13 @@
 <script src="/js/main.js"></script>
 <script src="jquery.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<%--index js--%>
+<script src="/js/index.js"></script>
 <%--fontawesome icon--%>
 <script src="https://kit.fontawesome.com/b115a141fc.js" crossorigin="anonymous"></script>
+
+
 </body>
 
 
