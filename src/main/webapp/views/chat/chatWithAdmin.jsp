@@ -119,7 +119,7 @@
 
 </script>
 <!-- Begin Page Content -->
-<div class="container-fluid">
+<div class="container">
 
     <!-- Page Heading -->
     <h1 class="h3 mb-2 text-gray-800">Live Chart</h1>
