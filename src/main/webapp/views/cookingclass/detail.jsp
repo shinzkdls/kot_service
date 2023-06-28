@@ -232,15 +232,28 @@
         var ddayElement = document.getElementById("dday");
         ddayElement.textContent = dday;
 
-        if (dday === "D-Day") {
-            document.getElementById("message").textContent = "클래스 당일이에요! 호스트에게 문의하세요";
-        } else if (dday === "D-1" || dday === "D-2" || dday === "D-3") {
-            document.getElementById("message").textContent = "아직 늦지 않았어요. 서두르세요!";
-        } else if (dday.startsWith("D-")) {
-            document.getElementById("message").textContent = "우리 함께 해요!";
-        } else {
+        var personal = parseInt("${classdetail.personal}");
+        var joincount = parseInt("${classdetail.joincount}");
+        console.log("${classdetail.personal}");
+        console.log("${classdetail.joincount}");
+
+        if (dday === "종료") {
+            console.log("Condition 1");
             document.getElementById("message").textContent = "아쉽지만 이미 종료된 클래스에요.";
             ddayElement.style.backgroundColor = "#818181";
+        } else if (dday === "D-Day") {
+            console.log("Condition 2");
+            document.getElementById("message").textContent = "클래스 당일이에요! 호스트에게 문의하세요";
+        } else if (dday === "D-1" || dday === "D-2" || dday === "D-3") {
+            console.log("Condition 3");
+            document.getElementById("message").textContent = "아직 늦지 않았어요. 서두르세요!";
+        } else if (personal === joincount) {
+            console.log("Condition 4");
+            document.getElementById("message").textContent = "아쉽지만 모집이 완료된 클래스에요.";
+            ddayElement.style.backgroundColor = "#818181";
+        } else {
+            console.log("Condition 5");
+            document.getElementById("message").textContent = "우리 함께 해요!";
         }
     };
 </script>
