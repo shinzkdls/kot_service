@@ -131,11 +131,11 @@
         --font-size-sm: clamp(1rem, 2vw, 1.5rem);
     }
 
-    h1 {
+    #forMagic h1 {
         font-size: var(--font-size-lg);
     }
 
-    h4 {
+    #forMagic h4 {
         font-size: var(--font-size-sm);
     }
 
@@ -145,11 +145,13 @@
         height: 85%;
     }
 
-    img {
+    #forMagic img {
         width: auto;
         height: 100%;
     }
-
+    #forMagic {
+        position: relative;
+    }
     #conchShell {
         margin: auto;
         width: 100%;
@@ -157,34 +159,37 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        position: relative;
     }
+
     #detail_url {
         position: absolute;
         bottom: 25px;
     }
 
-    h1, h4 {
+    #forMagic h1, h4 {
         text-align: center;
         font-family: Arial;
         font-weight: bold;
         color: white;
         text-shadow: 0px 0px 12px #565656;
     }
-
 </style>
 
 <div class="container">
     <div class="set-bg" data-setbg="/img/bg.jpg" id="bg">
-        <h1><br>Ask to the Magic Conch Shell</h1>
-        <h4><br>마법의 소라고둥님, 무엇을 먹을까요?</h4>
-        <div id="conchShell" >
-            <a id="conchShellImg" type="button" onclick="playAnswer();">
-                <img id="img" src="/img/conch_glow.png" alt="Conch Shell" onmouseover="changeImage('/img/conch_glow.png')" onmouseout=" if (!clickEvent){changeImage('/img/conch.png');}">
-            </a>
-            <a id="detail_url" href="">
-                <h1 id="answerText"></h1>
-            </a>
+        <div id="forMagic">
+            <h1><br>Ask to the Magic Conch Shell</h1>
+            <h4><br>마법의 소라고둥님, 무엇을 먹을까요?</h4>
+            <div id="conchShell" >
+                <a id="conchShellImg" type="button" onclick="playAnswer();">
+                    <img id="img" src="/img/conch_glow.png" alt="Conch Shell" onmouseover="changeImage('/img/conch_glow.png')" onmouseout=" if (!clickEvent){changeImage('/img/conch.png');}">
+                </a>
+                <div id="detail_url">
+                    <a href="">
+                        <h1 id="answerText"></h1>
+                    </a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
