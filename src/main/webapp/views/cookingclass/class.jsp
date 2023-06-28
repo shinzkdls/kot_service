@@ -86,46 +86,31 @@
         })
 
         // 최신 쿠킹 클래스 D-day
-        function calculateDday(classdate) {
-            var currentDate = new Date();
-            var year = parseInt(classdate.substring(0, 4));
-            var month = parseInt(classdate.substring(5, 7));
-            var day = parseInt(classdate.substring(8, 10));
-            var inputDate = new Date(year, month - 1, day);
-            var timeDiff = inputDate.getTime() - currentDate.getTime();
-            var daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-            return daysRemaining;
-        }
+        window.onload = function() {
+            var classDates = document.querySelectorAll('[id^="classImage"]');
+            classDates.forEach(function(classDate) {
+                var classPin = classDate.getAttribute('id').substring(10);
+                var classImage = classDate;
+                var imageCover = classDate.querySelector('.image-cover'); // 회색 불투명 커버 요소 선택
+                var classDateStr = classDate.style.backgroundImage; // 배경 이미지 URL 추출
+                var currentDate = new Date();
+                var year = parseInt(classDateStr.substring(5, 9));
+                var month = parseInt(classDateStr.substring(10, 12)) - 1;
+                var day = parseInt(classDateStr.substring(13, 15));
+                var inputDate = new Date(year, month, day);
+                var timeDiff = inputDate.getTime() - currentDate.getTime();
+                var daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
 
-        <%--window.onload = function() {--%>
-        <%--    var classList = document.querySelectorAll('.single-product-item');--%>
-        <%--    for (var i = 0; i < classList.length; i++) {--%>
-        <%--        var obj = ${clist.getList()}; --%>
-
-        <%--        var classdate = obj.classdate.substring(0, 10);--%>
-        <%--        var dday = calculateDday(classdate);--%>
-        <%--        var ddayElement = document.getElementById("ddayValue" + obj.classpin);--%>
-        <%--        ddayElement.textContent = dday;--%>
-
-        <%--        var classImage = document.getElementById("classImage" + obj.classpin);--%>
-        <%--        classImage.style.backgroundImage = "url('/uimg/" + obj.thumbnailimg + "')";--%>
-
-        <%--        if (daysRemaining > 0) {--%>
-        <%--            // daysRemaining이 0보다 큰 경우--%>
-        <%--            classImage.style.backgroundImage = `url('/uimg/${obj.thumbnailimg}')`;--%>
-        <%--        } else if (daysRemaining === 0) {--%>
-        <%--            // daysRemaining이 0인 경우--%>
-        <%--            classImage.style.backgroundImage = `url('/uimg/${obj.thumbnailimg}'), linear-gradient(rgba(128, 128, 128, 0.5), rgba(128, 128, 128, 0.5))`;--%>
-        <%--        } else {--%>
-        <%--            // 그 외의 경우--%>
-        <%--            $('.wrap').append(chatMessageHtml);--%>
-        <%--            classImage.style.backgroundImage = `url('/uimg/${obj.thumbnailimg}'), linear-gradient(rgba(128, 128, 128, 0.7), rgba(128, 128, 128, 0.7))`;--%>
-        <%--        }--%>
-        <%--    }--%>
-        <%--};--%>
-
+                if (daysRemaining > 0) {
+                    imageCover.style.display = 'none';
+                } else if (daysRemaining === 0) {
+                    imageCover.style.display = 'block';
+                } else {
+                    imageCover.style.display = 'block';
+                }
+            });
+        };
     </script>
-
     <!-- fontawesome -->
     <link rel="stylesheet" href="/css/all.min.css">
     <!-- bootstrap -->
@@ -224,7 +209,11 @@
                             <a href="/cookingclass/detail?classpin=${obj.classpin}">
                                 <div id="classImage${obj.classpin}" class="class-image"
                                      style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
-                                             background-size: cover; background-position: center; background-repeat: no-repeat;">
+                                             background-size: cover; background-position: center; background-repeat: no-repeat;
+                                             position: relative;">
+                                <!-- 회색 불투명 커버 -->
+                                <div class="image-cover" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+                                background-color: rgba(0, 0, 0, 0.5); display: none;"></div>
                                 </div>
                             </a>
                         </div>
