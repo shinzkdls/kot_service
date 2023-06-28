@@ -383,21 +383,22 @@
                     </div>
                     <div style="display: flex; justify-content: space-between">
                         <div style="display: flex;">
-                            <input class="form-control me-2" type="text" placeholder="Search by recipe name"
+                            <input class="form-control me-2" type="text" placeholder="Recipe Title"
                                    aria-label="Search"
                                    name="recipetitle" id="recipetitle" value="${recipesortinfo.recipetitle}"
-                                   style="width: 200px; border: none;">&nbsp;
+                                   style="width: 150px; border: none;">&nbsp;
                             <button id="search_btn" class="btn" type="button"
-                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">Search
+                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;"><span
+                                    class="icon_search"></span>
                             </button>
                         </div>
 
-                        <div class="btn-group" style="float: right; margin-bottom: 30px">
-                            <button id="time_btn" type="button" class="btn"
-                                    style="background-color: #F28123; color: #fff; border: none; border-radius: 10%">시간순
+                        <div style="display: flex;">
+                            <button id="time_btn" class="btn" type="button"
+                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">시간순
                             </button>&nbsp;
-                            <button id="views_btn" type="button" class="btn"
-                                    style="background-color: #F28123; color: #fff; border: none; border-radius: 10%">조회순
+                            <button id="views_btn" class="btn" type="button"
+                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">조회순
                             </button>
                         </div>
                     </div>
@@ -420,7 +421,7 @@
                                         background-size: cover; background-position: center; background-repeat: no-repeat;
                                         display: flex; flex-direction: column">
                                     <div class="view"
-                                         style="width: 20%; margin: 5px; padding-right: 5px; padding-left: 5px; height: 22px; background-color: black; border-radius: 5px; opacity: 0.7; color: #FFFFFF">
+                                         style="width: 25%; margin: 5px; padding-right: 5px; padding-left: 5px; height: 22px; background-color: black; border-radius: 5px; opacity: 0.7; color: #FFFFFF">
                                         <i class="fa fa-eye"></i> ${obj.views}
                                     </div>
                                     <div id="${obj.recipepin}_heartzone"
@@ -434,7 +435,7 @@
                         <h5 style="color: black; font-size: 15px; margin-bottom: 10px">${obj.type}
                             / ${obj.situation}</h5>
                         <h5 style="color: black; font-weight: bold; font-size: 15px; margin-bottom: 10px">${obj.time}분
-                            / ${obj.recipelevel}Level</h5>
+                            / Level ${obj.recipelevel}</h5>
                         <c:choose>
                             <c:when test="${logincust != null}">
                                 <c:choose>

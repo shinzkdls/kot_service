@@ -2,7 +2,19 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<style>
+    .class-image {
+        width: 100%;
+        height: 250px;
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
 
+    .class-image-gray {
+        background-color: rgba(0, 0, 0, 0.5); /* 반투명 회색 배경색 */
+    }
+</style>
 
 <head>
     <script>
@@ -72,10 +84,47 @@
             $("#class").addClass("navActive");
             class_search.init();
         })
+
+        // 최신 쿠킹 클래스 D-day
+        function calculateDday(classdate) {
+            var currentDate = new Date();
+            var year = parseInt(classdate.substring(0, 4));
+            var month = parseInt(classdate.substring(5, 7));
+            var day = parseInt(classdate.substring(8, 10));
+            var inputDate = new Date(year, month - 1, day);
+            var timeDiff = inputDate.getTime() - currentDate.getTime();
+            var daysRemaining = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+            return daysRemaining;
+        }
+
+        <%--window.onload = function() {--%>
+        <%--    var classList = document.querySelectorAll('.single-product-item');--%>
+        <%--    for (var i = 0; i < classList.length; i++) {--%>
+        <%--        var obj = ${clist.getList()}; --%>
+
+        <%--        var classdate = obj.classdate.substring(0, 10);--%>
+        <%--        var dday = calculateDday(classdate);--%>
+        <%--        var ddayElement = document.getElementById("ddayValue" + obj.classpin);--%>
+        <%--        ddayElement.textContent = dday;--%>
+
+        <%--        var classImage = document.getElementById("classImage" + obj.classpin);--%>
+        <%--        classImage.style.backgroundImage = "url('/uimg/" + obj.thumbnailimg + "')";--%>
+
+        <%--        if (daysRemaining > 0) {--%>
+        <%--            // daysRemaining이 0보다 큰 경우--%>
+        <%--            classImage.style.backgroundImage = `url('/uimg/${obj.thumbnailimg}')`;--%>
+        <%--        } else if (daysRemaining === 0) {--%>
+        <%--            // daysRemaining이 0인 경우--%>
+        <%--            classImage.style.backgroundImage = `url('/uimg/${obj.thumbnailimg}'), linear-gradient(rgba(128, 128, 128, 0.5), rgba(128, 128, 128, 0.5))`;--%>
+        <%--        } else {--%>
+        <%--            // 그 외의 경우--%>
+        <%--            $('.wrap').append(chatMessageHtml);--%>
+        <%--            classImage.style.backgroundImage = `url('/uimg/${obj.thumbnailimg}'), linear-gradient(rgba(128, 128, 128, 0.7), rgba(128, 128, 128, 0.7))`;--%>
+        <%--        }--%>
+        <%--    }--%>
+        <%--};--%>
+
     </script>
-    <!-- google font -->
-    <%--    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet">--%>
-    <%--    <link href="https://fonts.googleapis.com/css?family=Poppins:400,700&display=swap" rel="stylesheet">--%>
 
     <!-- fontawesome -->
     <link rel="stylesheet" href="/css/all.min.css">
@@ -140,22 +189,24 @@
                     </div>
                     <div style="display: flex; justify-content: space-between">
                         <div style="display: flex">
-                            <input class="form-control me-2" type="text" placeholder="Search by class name"
+                            <input class="form-control me-2" type="text" placeholder="Class Title"
                                    aria-label="Search"
                                    name="classtitle" id="classtitle" value="${sortinfo.classtitle}"
-                                   style="width: 200px; border: none;">&nbsp;
+                                   style="width: 150px; border: none;">&nbsp;
                             <button id="search_btn" class="btn" type="button"
-                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">Search
+                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">
+                                <span class="icon_search"></span>
                             </button>
                         </div>
-                        <div class="btn-group" style="float: right; margin-bottom: 30px">
-                            <button id="datepin_btn" type="button" class="btn"
-                                    style="background-color: #F28123; color: #fff; border: none; border-radius: 10%">날짜순
+                        <div style="display: flex">
+                            <button id="datepin_btn" class="btn" type="button"
+                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">날짜순
                             </button>&nbsp;
-                            <button id="amount_btn" type="button" class="btn"
-                                    style="background-color: #F28123; color: #fff; border: none; border-radius: 10%">가격순
+                            <button id="amount_btn" class="btn" type="button"
+                                    style="background-color: #F28123; color: #fff; height: 31.5px; border: none;">가격순
                             </button>
                         </div>
+
                     </div>
                     <input type="hidden" id="location" name="location" value="${sortinfo.location}">
                     <input type="hidden" id="type" name="type" value="${sortinfo.type}">
@@ -171,8 +222,9 @@
                     <div class="single-product-item" style="padding-bottom: 20px">
                         <div class="product-image" style="margin-bottom: 10px">
                             <a href="/cookingclass/detail?classpin=${obj.classpin}">
-                                <div style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
-                                        background-size: cover; background-position: center; background-repeat: no-repeat;">
+                                <div id="classImage${obj.classpin}" class="class-image"
+                                     style="width: 100%; height: 250px; background-image: url('/uimg/${obj.thumbnailimg}');
+                                             background-size: cover; background-position: center; background-repeat: no-repeat;">
                                 </div>
                             </a>
                         </div>
@@ -184,8 +236,35 @@
                             <fmt:formatNumber value="${obj.amount}" type="currency"
                                               currencyCode="KRW" pattern="###,###원"/></h5>
                         <br>
-                        <a href="#" class="cart-btn" data-toggle="modal" data-target="#target${obj.classpin}">
-                            <span class="icon_check_alt2"></span> 클래스 신청</a>
+                        <c:choose>
+                            <c:when test="${logincust != null}">
+                                <c:choose>
+                                    <c:when test="${obj.logincustjoin == '0'}">
+                                        <button class="like-btn cart-btn"
+                                                id="${logincust.custpin}${obj.classpin}"
+                                                value="${obj.logincustjoin}"
+                                                type="button"
+                                                style="border: none; background-color: #b7b7b7"
+                                                data-toggle="modal" data-target="#target${obj.classpin}">
+                                            <span class="icon_check_alt2"></span> 클래스 신청
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <button class="like-btn cart-btn"
+                                                id="${logincust.custpin}${obj.classpin}"
+                                                value="${obj.logincustjoin}"
+                                                type="button"
+                                                style="border: none">
+                                            <span class="icon_check_alt2"></span> 신청 완료
+                                        </button>
+                                    </c:otherwise>
+                                </c:choose>
+                            </c:when>
+                            <c:otherwise>
+                                <a class="cart-btn" href="/login">
+                                    <span class="icon_check_alt2"></span> 클래스 신청</a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                     <div id="target${obj.classpin}" class="modal fade" role="dialog">
                         <div class="modal-dialog">
@@ -229,7 +308,6 @@
                                        style="background-color: #b7b7b7; color: #FFFFFF">취소</a>
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
