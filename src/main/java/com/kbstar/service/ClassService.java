@@ -77,5 +77,4 @@ public class ClassService implements KBService<Integer, ClassBasic> {
         return mapper.getmyclass(custpin);
     }
 
-
 }
