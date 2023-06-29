@@ -36,6 +36,7 @@ public class LoginController {
             if (cust != null && encoder.matches(password, cust.getPassword())) {
                 session.setMaxInactiveInterval(1000000);
                 session.setAttribute("logincust", cust);
+                custService.loginlog(cust.getCustpin());
             }
         } catch (Exception e) {
             throw new Exception("시스템 장애 잠시후 다시 로그인 하세요");
