@@ -15,6 +15,5 @@ function toggle() {
 }
 
 function openPopup(code) {
-    // 팝업 창을 띄우는 코드
-    window.open("http://127.0.0.1/chat/" + code, "popupWindow", "width=500, height=700");
+    window.open("http://127.0.0.1/chat/" + code, "popupWindow", "width=500, height=400");
 }

@@ -193,7 +193,7 @@ public class RecipeController {
         String imgUrl = "https://www.w3schools.com/css/img_5terre.jpg";
         try {
             commentService.register(recipeComment);
-            pushNotificationUtil.sendTargetMessage("A comment is registered on your recipe.", recipeComment.getContent(), "/register", userToken);
+            pushNotificationUtil.sendTargetMessage("A comment is registered on your recipe.", recipeComment.getContent(), "/", userToken);
         } catch (Exception e) {
             throw new Exception("등록 오류");
         }

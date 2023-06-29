@@ -27,9 +27,10 @@ public class ClassBasic {
     private int sort;
     private int logincustpin;
     private String logincustjoin;
+    private int joincount;
 
     public ClassBasic(int classpin, String thumbnailimg, String location, String cooking, String classtitle, String address, String classdate
-            , int classtime, int personal, int amount, int logincustpin, String logincustjoin ) {
+            , int classtime, int personal, int amount, int logincustpin, String logincustjoin, int joincount ) {
         this.classpin = classpin;
         this.thumbnailimg = thumbnailimg;
         this.location = location;
@@ -42,6 +43,7 @@ public class ClassBasic {
         this.amount = amount;
         this.logincustpin = logincustpin;
         this.logincustjoin = logincustjoin;
+        this.joincount = joincount;
     }
 
 }

@@ -381,7 +381,7 @@
                             </li>
                         </ul>
                     </div>
-                    <div style="display: flex; justify-content: space-between">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px">
                         <div style="display: flex;">
                             <input class="form-control me-2" type="text" placeholder="Recipe Title"
                                    aria-label="Search"
