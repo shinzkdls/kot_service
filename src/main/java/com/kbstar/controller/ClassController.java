@@ -123,11 +123,13 @@ public class ClassController {
         Cust sessioncust = (Cust) session.getAttribute("logincust");
         if (sessioncust != null)
             classBasic.setLogincustjoin(classJoinInfoService.searchjoin(classpin, sessioncust.getCustpin()));
+
         Cust classcust = custService.get(classBasic.getCustid());
         comment = commentService.getClassAllComment(classpin);
         model.addAttribute("classdetail", classBasic);
         model.addAttribute("classComment", comment);
         model.addAttribute("classcust", classcust);
+
         model.addAttribute("center", dir + "detail");
         return "index";
     }
