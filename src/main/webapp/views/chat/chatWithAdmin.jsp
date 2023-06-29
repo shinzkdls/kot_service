@@ -162,8 +162,17 @@
         id:null,
         stompClient:null,
         init:function(){
-            this.id = $('#adm_id').text();
-            websocket.connect();
+            this.id = $('#cust_id').text();
+            if(this.id==""){
+                var answer = '<h4>로그아웃 상태입니다.</h4>' ;// 첫 번째 대답 가져오기
+                answer += "로그인이 되어있지 않으면 전체 공지만 볼 수 있고 답변은 받을 수 없습니다. <a href='http://127.0.0.1/login/' target='_blank'>로그인</a> 후 이용해 주세요."; // 첫 번째 대답 가져오기
+                var time2 = new Date().toLocaleTimeString(); // 현재 시간
+                var receiverMessage = answer; // 답변 내용
+                var receiverTime = time2; // 답변 시간
+                var isSender = false; // 사용자가 보낸 메시지 여부
+                var chatMessageHtml = createChatMessage(receiverMessage, receiverTime, isSender);
+                $('.wrap').append(chatMessageHtml);
+            }
             $("#totext").keypress(function(event) { // enter 시에도 실행
                 if (event.which === 13) {
                     event.preventDefault();
@@ -182,6 +191,16 @@
                 var chatMessageHtml = createChatMessage(senderMessage, senderTime, isSender);
                 scrollToBottom();
                 $('.wrap').append(chatMessageHtml);
+                var answer = '<h4>자동 응답입니다.</h4>' ;// 첫 번째 대답 가져오기
+                answer += "기다려 주세요. 순차적으로 답변드리겠습니다. 채팅방을 나가실 경우 질문을 다시 해주세요."; // 첫 번째 대답 가져오기
+                var time2 = new Date().toLocaleTimeString(); // 현재 시간
+                var receiverMessage = answer; // 답변 내용
+                var receiverTime = time2; // 답변 시간
+                var isSender = false; // 사용자가 보낸 메시지 여부
+                var chatMessageHtml = createChatMessage(receiverMessage, receiverTime, isSender);
+                scrollToBottom();
+                $('.wrap').append(chatMessageHtml);
+
                 websocket.sendTo();
             });
         },
@@ -253,8 +272,9 @@
 </script>
 <!-- Begin Page Content -->
 <div id="header">
-    <div>   관리자와 1:1 대화 </div>
+    <div>관리자와 1:1 대화 </div>
 </div>
+<h1 id="cust_id" style="display: none">${logincust.custid}</h1>
 <div class="wrap">
     <div class="chat received">
         <img src="/uimg/kbstar_profileimg.jpg">
