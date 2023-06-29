@@ -3,7 +3,6 @@
         PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.kbstar.mapper.ClassMapper">
-
     <select id="select" parameterType="Integer" resultType="ClassBasic">
         SELECT C.*,
                NVL2(J.custpin, '1', '0') as logincustjoin
@@ -99,9 +98,8 @@
         WHERE ROWNUM < 7
         ]]>
     </select>
-
     <select id="getmyclass" parameterType="Integer" resultType="ClassBasic">
-<![CDATA[
+        <![CDATA[
         SELECT *
         FROM class_basic
         WHERE classpin in (SELECT classpin

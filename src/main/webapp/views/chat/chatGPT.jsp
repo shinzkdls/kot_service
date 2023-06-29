@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %><!doctype html>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<!doctype html>
 <html lang="kor">
 <head>
     <meta charset="UTF-8">
@@ -12,8 +13,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <title>chatting with AI</title>
 </head>
-<body  style="height: 100%;">
-
 <style>
     * {
         padding: 0;
@@ -26,6 +25,7 @@
     }
     body{
         overflow-y: scroll;
+        height: 100%;
     }
 
     .wrap {
@@ -37,7 +37,7 @@
     .wrap .chat {
         display: flex;
         align-items: flex-start;
-        padding: 20px;
+        padding: 0px 20px 20px 20px;
     }
 
     .wrap .chat .icon,img {
@@ -94,14 +94,11 @@
         margin-right: 20px;
         background-color: #F9EB54;
     }
-
     .wrap .sent .textbox::before {
         right: -15px;
         content: "▶";
         color: #F9EB54;
     }
-
-
     .form-container {
         display: flex;
         flex-direction: row;
@@ -144,11 +141,98 @@
         opacity: 0.8;
     }
     .time {
-             font-size: 12px;
-             color: #777;
-         }
+        font-size: 12px;
+        color: #777;
+    }
 
 </style>
+
+<script>
+    let chatGPT = {
+        init:function(){
+            $("#questionInput").keypress(function(event) {
+                // enter 시에도 실행
+                if (event.which === 13) {
+                    event.preventDefault();
+                    scrollToBottom();
+                    $("#sendBtn").click();
+                }
+            });
+
+
+            $("#sendBtn").click(function () {
+                scrollToBottom();
+                // SEND 버튼을 누르면 대답 가져오기
+                var question = $('#questionInput').val(); // 질문 내용 가져오기
+
+                // 질문을 채팅창에 추가
+                var senderName = "You"; // 사용자 이름
+                var senderMessage = question; // 질문 내용
+                var senderTime = new Date().toLocaleTimeString(); // 현재 시간
+                var isSender = true; // 사용자가 보낸 메시지 여부
+
+                var chatMessageHtml = createChatMessage(senderName, senderMessage, senderTime, isSender);
+
+                scrollToBottom();
+                $('.wrap').append(chatMessageHtml);
+
+                // 스크롤 맨 아래로 이동
+                scrollToBottom();
+
+                // 답변 요청을 서버에 보내고 처리
+                $.ajax({
+                    url: '/askToGPT?q='+question,
+                    success: function (data) {
+                        var answer = data; // 첫 번째 대답 가져오기
+                        var time2 = new Date().toLocaleTimeString(); // 현재 시간
+
+                        // 답변을 채팅창에 추가
+                        var receiverName = "Chatbot"; // 챗봇 이름
+                        var receiverMessage = answer; // 답변 내용
+                        var receiverTime = time2; // 답변 시간
+                        var isSender = false; // 사용자가 보낸 메시지 여부
+
+                        var chatMessageHtml = createChatMessage(receiverName, receiverMessage, receiverTime, isSender);
+                        scrollToBottom();
+                        $('.wrap').append(chatMessageHtml);
+
+                        // 스크롤 맨 아래로 이동
+                        scrollToBottom();
+
+                    },
+                    error: function() {
+                        console.log('error');
+                        hideLoading();
+                    }
+                });
+
+                // 질문 입력 필드 비우기
+                $('#questionInput').val('');
+            });
+        }
+    }
+    $(function(){
+        chatGPT.init();
+    })
+
+    // 채팅 메시지 생성 함수
+    function createChatMessage(senderName, message, time, isSender) {
+        let containerClass = isSender ? "sent" : "received";
+        let profile = !isSender ? '<div class="icon"><i class="fa fa-user"></i></div>':(${logincust!=null})? '<img src="/uimg/${logincust.custid}_profileimg.jpg">':'<div class="icon"><i class="fa fa-user"></i></div>';
+        let messageHtml = '<div class="chat '+containerClass+'">'+profile+'<div class="textbox">'+message+'<span class="time"><br>'+time+'</span></div></div>';
+
+        return messageHtml;
+    }
+    // 화면 하단이동 함수
+    function scrollToBottom(){
+        $('body').animate({
+            scrollTop: $('body')[0].scrollHeight
+        }, 1000);
+    };
+
+</script>
+<body>
+
 <div class="wrap">
     <div class="chat received">
         <div class="icon"><i class="fa fa-user"></i></div>
@@ -169,87 +253,6 @@
 </div>
 
 
-<script>
-    $(function () {
-        $("#questionInput").keypress(function(event) {
-            if (event.which === 13) {
-                event.preventDefault();
-                scrollToBottom();
-                $("#sendBtn").click();
-            }
-        });
 
-        // enter 시에도 실행
-
-        $("#sendBtn").click(function () {
-            scrollToBottom();
-        // SEND 버튼을 누르면 대답 가져오기
-        var question = $('#questionInput').val(); // 질문 내용 가져오기
-
-        // 질문을 채팅창에 추가
-        var senderName = "You"; // 사용자 이름
-        var senderMessage = question; // 질문 내용
-        var senderTime = new Date().toLocaleTimeString(); // 현재 시간
-        var isSender = true; // 사용자가 보낸 메시지 여부
-            console.log(question);
-
-        var chatMessageHtml = createChatMessage(senderName, senderMessage, senderTime, isSender);
-
-            scrollToBottom();
-        $('.wrap').append(chatMessageHtml);
-
-        // 스크롤 맨 아래로 이동
-        scrollToBottom();
-
-        // 답변 요청을 서버에 보내고 처리
-        $.ajax({
-            url: '/askToGPT?q='+question,
-            success: function (data) {
-                var answer = data; // 첫 번째 대답 가져오기
-                var time2 = new Date().toLocaleTimeString(); // 현재 시간
-
-                // 답변을 채팅창에 추가
-                var receiverName = "Chatbot"; // 챗봇 이름
-                var receiverMessage = answer; // 답변 내용
-                var receiverTime = time2; // 답변 시간
-                var isSender = false; // 사용자가 보낸 메시지 여부
-
-                var chatMessageHtml = createChatMessage(receiverName, receiverMessage, receiverTime, isSender);
-                scrollToBottom();
-                $('.wrap').append(chatMessageHtml);
-
-                // 스크롤 맨 아래로 이동
-                scrollToBottom();
-                
-            },
-            error: function() {
-                console.log('error');
-                hideLoading();
-            }
-        });
-
-        // 질문 입력 필드 비우기
-        $('#questionInput').val('');
-    });
-
-    // 채팅 메시지 생성 함수
-    function createChatMessage(senderName, message, time, isSender) {
-        let containerClass = isSender ? "sent" : "received";
-        let profile = !isSender ? '<div class="icon"><i class="fa fa-user"></i></div>':(${logincust!=null})? '<img src="/uimg/${logincust.custid}_profileimg.jpg">':'<div class="icon"><i class="fa fa-user"></i></div>';
-        let messageHtml = '<div class="chat '+containerClass+'">'+profile+'<div class="textbox">'+message+'<span class="time"><br>'+time+'</span></div></div>';
-
-        return messageHtml;
-    }
-    function scrollToBottom(){
-             $('body').animate({
-             	scrollTop: $('body')[0].scrollHeight
-             }, 1000);
-        };
-
-
-    });
-
-
-</script>
 </body>
 </html>

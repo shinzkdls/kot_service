@@ -92,19 +92,24 @@
             var classDates = document.querySelectorAll('[id^="classImage"]');
             var classdatesArray = [
                 <c:forEach var="obj" items="${clist.getList()}">
-                "${obj.classdate.substring(0,10)}",
+                {
+                    classdate: "${obj.classdate.substring(0,10)}",
+                    personal: parseInt("${obj.personal}"),
+                    joincount: parseInt("${obj.joincount}")
+                },
                 </c:forEach>
             ];
+
             classDates.forEach(function (classDate, index) {
                 var classImage = classDate;
                 var imageCover = classDate.querySelector('.image-cover'); // 회색 불투명 커버 요소 선택
                 var classDateStr = classDate.style.backgroundImage; // 배경 이미지 URL 추출
-                var classdate = classdatesArray[index];
+                var classdate = classdatesArray[index].classdate;
                 var dday = calculateDday(classdate);
+                var personal = classdatesArray[index].personal;
+                var joincount = classdatesArray[index].joincount;
 
-                if (dday === "D-Day" || dday.startsWith("D-")) {
-                    imageCover.style.display = 'none';
-                } else {
+                if (dday === "종료") {
                     imageCover.style.display = 'block';
                     imageCover.style.position = 'relative';
 
@@ -116,6 +121,20 @@
                     imageElement.style.transform = 'translate(-50%, -50%)';
                     imageElement.style.width = '130px';
                     imageCover.appendChild(imageElement);
+                } else if (personal === joincount) {
+                    imageCover.style.display = 'block';
+                    imageCover.style.position = 'relative';
+
+                    var imageElement = document.createElement('img');
+                    imageElement.src = '/uimg/soldout.png';
+                    imageElement.style.position = 'absolute';
+                    imageElement.style.top = '50%';
+                    imageElement.style.left = '50%';
+                    imageElement.style.transform = 'translate(-50%, -50%)';
+                    imageElement.style.width = '130px';
+                    imageCover.appendChild(imageElement);
+                } else {
+                    imageCover.style.display = 'none';
                 }
             });
         };
