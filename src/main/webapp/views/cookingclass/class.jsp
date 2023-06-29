@@ -275,11 +275,12 @@
                             <c:when test="${logincust != null}">
                                 <c:choose>
                                     <c:when test="${obj.personal == obj.joincount}">
-                                        <button class="like-btn cart-btn disabled"
+                                        <button class="like-btn cart-btn"
                                                 id="${obj.classpin}"
                                                 value="${obj.joincount}"
                                                 type="button"
-                                                style="border: none; background-color: #b7b7b7">
+                                                style="border: none; background-color: #b7b7b7"
+                                                data-toggle="modal" data-target="#target${obj.classpin}">
                                             <span class="icon_check_alt2"></span> 모집 마감
                                         </button>
                                     </c:when>
@@ -307,13 +308,10 @@
                             <c:otherwise>
                                 <c:choose>
                                     <c:when test="${obj.personal == obj.joincount}">
-                                        <button class="like-btn cart-btn disabled"
-                                                id="${obj.classpin}"
-                                                value="${obj.joincount}"
-                                                type="button"
-                                                style="border: none; background-color: #b7b7b7">
+                                        <a class="cart-btn" id="cart-btn_${obj.classpin}" href="/login"
+                                        style="border: none; background-color: #b7b7b7">
                                             <span class="icon_check_alt2"></span> 모집 마감
-                                        </button>
+                                        </a>
                                     </c:when>
                                     <c:otherwise>
                                         <a class="cart-btn" id="cart-btn_${obj.classpin}" href="/login">
