@@ -19,7 +19,6 @@
         margin: 0;
         box-sizing: border-box;
     }
-
     a {
         text-decoration: none;
     }
@@ -29,7 +28,7 @@
     }
 
     .wrap {
-        padding: 40px 0;
+        padding: 10px 0;
         background-color: #A8C0D6;
         min-height: 85vh;
     }
@@ -144,6 +143,13 @@
         font-size: 12px;
         color: #777;
     }
+    #header {
+        display: flex;
+        align-items: center;
+        height: 40px;
+        padding: 5px 0 0 15px;
+        background-color: #A8C0D9;
+    }
 
 </style>
 
@@ -232,7 +238,9 @@
 
 </script>
 <body>
-
+<div id="header">
+    <div>chat GPT</div>
+</div>
 <div class="wrap">
     <div class="chat received">
         <div class="icon"><i class="fa fa-user"></i></div>

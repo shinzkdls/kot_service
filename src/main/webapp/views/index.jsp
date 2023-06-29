@@ -143,33 +143,33 @@
 <%--우측 아이콘--%>
 <div data-v-ea12492a="" class="floating-wrapper" style="opacity: 1; transform: scale(1);">
     <div data-v-ea12492a="" class="button-trigger" onclick="toggle()">
-        <img data-v-ea12492a="" src="/img/floating_c.png" alt="아이콘"></div>
+        <img data-v-ea12492a="" src="/img/floating_c.png" alt="리모컨"></div>
 </div>
 
 <div class="icons" style="display:none;">
-    <div class="eachIconDiv" id="magicIcon" >
+    <div title="magic conch shell" class="eachIconDiv" id="magicIcon" >
         <a href="/magic">
             <img src="/img/conch.png" alt="Conch Shell">
         </a>
         </div>
-    <div class="eachIconDiv " id="chatWithAdminIcon" >
+    <div title="관리자와 대화" class="eachIconDiv " id="chatWithAdminIcon" >
         <a class="chatLink" onclick="openPopup('chatWithAdmin')">
             <img src="https://cdn-icons-gif.flaticon.com/11186/11186861.gif" style="width: 30px; margin-right:3px">
         </a>
     </div>
-    <div class="eachIconDiv" id="howToUseIcon" >
+    <div title="챗봇" class="eachIconDiv" id="howToUseIcon" >
         <a class="chatLink" onclick="openPopup('howToUse')">
             <img src="https://cdn-icons-gif.flaticon.com/11184/11184177.gif" style="width: 30px; margin-right:3px">
         </a>
     </div>
-    <div class="eachIconDiv" id="chatGPTIcon" >
+    <div title="gpt" class="eachIconDiv" id="chatGPTIcon" >
         <a class="chatLink" onclick="openPopup('chatGPT')">
             <img src="https://cdn-icons-gif.flaticon.com/11184/11184172.gif" style="width: 30px; margin-right:3px">
         </a>
     </div>
-    <div class="eachIconDiv" id="scrollToTop">
+    <div title="화면 위로" class="eachIconDiv" id="scrollToTop">
         <a href="#" class="btn back-to-top chatLink" >
-            <img src="https://cdn-icons-gif.flaticon.com/10522/10522219.gif" style="width: 30px; margin-right:3px">
+            <img  title="화면 위로"  src="https://cdn-icons-gif.flaticon.com/10522/10522219.gif" style="width: 30px; margin-right:3px">
         </a>
     </div>
 </div>
