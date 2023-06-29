@@ -129,7 +129,6 @@ public class ClassController {
         model.addAttribute("classdetail", classBasic);
         model.addAttribute("classComment", comment);
         model.addAttribute("classcust", classcust);
-
         model.addAttribute("center", dir + "detail");
         return "index";
     }
