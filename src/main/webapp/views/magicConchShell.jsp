@@ -161,7 +161,7 @@
         align-items: center;
     }
 
-    #detail_url {
+    .detail_url {
         position: absolute;
         bottom: 25px;
     }
@@ -184,8 +184,8 @@
                 <a id="conchShellImg" type="button" onclick="playAnswer();">
                     <img id="img" src="/img/conch_glow.png" alt="Conch Shell" onmouseover="changeImage('/img/conch_glow.png')" onmouseout=" if (!clickEvent){changeImage('/img/conch.png');}">
                 </a>
-                <div id="detail_url">
-                    <a href="">
+                <div class="detail_url">
+                    <a id="detail_url" href="">
                         <h1 id="answerText"></h1>
                     </a>
                 </div>

@@ -27,8 +27,7 @@ public class ChatController {
 
     @RequestMapping("/chatWithAdmin")
     public String chatWithAdmin(Model model) {
-        model.addAttribute("center", dir + "chatWithAdmin");
-        return "index";
+        return "chat/chatWithAdmin";
     }
     @RequestMapping("/howToUse")
     public String howToUse(Model model) {
