@@ -3,7 +3,6 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <!doctype html>
-<html lang="kor">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
