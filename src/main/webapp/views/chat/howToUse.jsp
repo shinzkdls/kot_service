@@ -60,7 +60,9 @@
         $("form").on('submit', function (e) {
             e.preventDefault();
         });
-        $( "#connect" ).click(function() {connect(); });
+
+        connect(); // 자동으로 connect() 함수 호출
+
         $( "#disconnect" ).click(function() { disconnect(); });
         $( "#send" ).click(function() { sendMessage(); });
     });
@@ -82,16 +84,16 @@
     Javascript and reload this page!</h2></noscript>
 <div id="main-content" class="container">
     <div class="row">
-        <div class="col-md-6">
-            <form class="form-inline">
-                <div class="form-group">
-                    <label for="connect">웹소켓 연결:</label>
-                    <button id="connect" class="btn btn-default" type="submit">연결</button>
-                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">해제
-                    </button>
-                </div>
-            </form>
-        </div>
+<%--        <div class="col-md-6">--%>
+<%--            <form class="form-inline">--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="connect">웹소켓 연결:</label>--%>
+<%--                    <button id="connect" class="btn btn-default" type="submit">연결</button>--%>
+<%--                    <button id="disconnect" class="btn btn-default" type="submit" disabled="disabled">해제--%>
+<%--                    </button>--%>
+<%--                </div>--%>
+<%--            </form>--%>
+<%--        </div>--%>
         <div class="col-md-6">
             <form class="form-inline">
                 <div class="form-group">
