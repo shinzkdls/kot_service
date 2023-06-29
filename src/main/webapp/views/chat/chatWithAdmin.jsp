@@ -8,10 +8,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="/webjars/sockjs-client/sockjs.min.js"></script>
     <script src="/webjars/stomp-websocket/stomp.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
     <title>chatting with Admin</title>
@@ -162,10 +161,11 @@
         id:null,
         stompClient:null,
         init:function(){
+            websocket.connect();
             this.id = $('#cust_id').text();
             if(this.id==""){
-                var answer = '<h4>로그아웃 상태입니다.</h4>' ;// 첫 번째 대답 가져오기
-                answer += "로그인이 되어있지 않으면 전체 공지만 볼 수 있고 답변은 받을 수 없습니다. <a href='http://127.0.0.1/login/' target='_blank'>로그인</a> 후 이용해 주세요."; // 첫 번째 대답 가져오기
+                var answer = '<h4>로그아웃 상태입니다.</h4>' ;
+                answer += "로그인이 되어있지 않으면 전체 공지만 볼 수 있고 답변은 받을 수 없습니다. <a href='http://127.0.0.1/login/' target='_blank'>로그인</a> 후 이용해 주세요.";
                 var time2 = new Date().toLocaleTimeString(); // 현재 시간
                 var receiverMessage = answer; // 답변 내용
                 var receiverTime = time2; // 답변 시간

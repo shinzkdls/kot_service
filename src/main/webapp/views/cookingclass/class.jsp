@@ -94,6 +94,7 @@
                 <c:forEach var="obj" items="${clist.getList()}">
                 {
                     classdate: "${obj.classdate.substring(0,10)}",
+                    classpin: ${obj.classpin},
                     personal: parseInt("${obj.personal}"),
                     joincount: parseInt("${obj.joincount}")
                 },
@@ -105,6 +106,7 @@
                 var imageCover = classDate.querySelector('.image-cover'); // 회색 불투명 커버 요소 선택
                 var classDateStr = classDate.style.backgroundImage; // 배경 이미지 URL 추출
                 var classdate = classdatesArray[index].classdate;
+                var classpin = classdatesArray[index].classpin;
                 var dday = calculateDday(classdate);
                 var personal = classdatesArray[index].personal;
                 var joincount = classdatesArray[index].joincount;
@@ -121,6 +123,18 @@
                     imageElement.style.transform = 'translate(-50%, -50%)';
                     imageElement.style.width = '130px';
                     imageCover.appendChild(imageElement);
+
+                    var tagid;
+                    // 버튼 스타일 변경
+                    if (${logincust != null}) {
+                        tagid = ${logincust.custpin}+''+classpin;
+                    } else {
+                        tagid = "cart-btn_"+classpin;
+                    }
+                    var buttonElement = document.getElementById(tagid);
+                    buttonElement.style.backgroundColor = '#b7b7b7';
+                    buttonElement.innerHTML = '<span class="icon_check_alt2"></span> 클래스 종료';
+
                 } else if (personal === joincount) {
                     imageCover.style.display = 'block';
                     imageCover.style.position = 'relative';
@@ -260,6 +274,15 @@
                         <c:choose>
                             <c:when test="${logincust != null}">
                                 <c:choose>
+                                    <c:when test="${obj.personal == obj.joincount}">
+                                        <button class="like-btn cart-btn disabled"
+                                                id="${obj.classpin}"
+                                                value="${obj.joincount}"
+                                                type="button"
+                                                style="border: none; background-color: #b7b7b7">
+                                            <span class="icon_check_alt2"></span> 모집 마감
+                                        </button>
+                                    </c:when>
                                     <c:when test="${obj.logincustjoin == '0'}">
                                         <button class="like-btn cart-btn"
                                                 id="${logincust.custpin}${obj.classpin}"
@@ -282,8 +305,22 @@
                                 </c:choose>
                             </c:when>
                             <c:otherwise>
-                                <a class="cart-btn" href="/login">
-                                    <span class="icon_check_alt2"></span> 클래스 신청</a>
+                                <c:choose>
+                                    <c:when test="${obj.personal == obj.joincount}">
+                                        <button class="like-btn cart-btn disabled"
+                                                id="${obj.classpin}"
+                                                value="${obj.joincount}"
+                                                type="button"
+                                                style="border: none; background-color: #b7b7b7">
+                                            <span class="icon_check_alt2"></span> 모집 마감
+                                        </button>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a class="cart-btn" id="cart-btn_${obj.classpin}" href="/login">
+                                            <span class="icon_check_alt2"></span> 클래스 신청
+                                        </a>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                     </div>
