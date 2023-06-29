@@ -94,10 +94,6 @@
         img.src = src;
     }
 
-    $(function () {
-        $('.magicIcon').html("  "); //소라고둥 들어오면 오른쪽 아이콘 안보이게
-    })
-
 </script>
 
 <style>
