@@ -234,8 +234,6 @@
 
         var personal = parseInt("${classdetail.personal}");
         var joincount = parseInt("${classdetail.joincount}");
-        console.log("${classdetail.personal}");
-        console.log("${classdetail.joincount}");
 
         if (dday === "종료") {
             console.log("Condition 1");
