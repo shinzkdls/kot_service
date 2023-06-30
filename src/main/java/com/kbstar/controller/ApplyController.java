@@ -86,6 +86,7 @@ public class ApplyController {
             custService.register(cust);
             Cust newcust = custService.get(cust.getCustid());
             session.setAttribute("logincust", newcust);
+            custService.loginlog(newcust.getCustpin());
             String email = cust.getEmail();
             sendMailUtil.sendSimpleMessage(email, "123");
         } catch (Exception e) {
