@@ -161,8 +161,8 @@
         id:null,
         stompClient:null,
         init:function(){
-            websocket.connect();
             this.id = $('#cust_id').text();
+            websocket.connect();
             if(this.id==""){
                 var answer = '<h4>로그아웃 상태입니다.</h4>' ;
                 answer += "로그인이 되어있지 않으면 전체 공지만 볼 수 있고 답변은 받을 수 없습니다. 로그인 후 이용해 주세요.<a href='http://127.0.0.1/login/' target='_blank'>로그인 바로가기</a>";
@@ -225,7 +225,6 @@
                     $('.wrap').append(chatMessageHtml);
                 });
                 this.subscribe('/send/to/'+sid, function(msg) {
-                    console.log("ok");
                     var answer = JSON.parse(msg.body).content1; // 첫 번째 대답 가져오기
                     var time2 = new Date().toLocaleTimeString(); // 현재 시간
 
