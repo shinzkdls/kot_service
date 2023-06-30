@@ -40,4 +40,8 @@ public class CustService implements KBService<String, Cust> {
         return mapper.selectall();
     }
 
+    public void loginlog(Integer custpin) throws Exception {
+        mapper.loginlog(custpin);
+    }
+
 }

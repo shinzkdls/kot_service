@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Mapper
 @Repository
 public interface CustMapper extends KBMapper<String, Cust> {
+    public void loginlog(Integer custpin) throws Exception;
 }

@@ -36,4 +36,9 @@
         WHERE CUSTID = #{custid}
     </delete>
 
+    <insert id="loginlog" parameterType="Integer">
+        INSERT INTO custlogin (custpin, logindate)
+        VALUES (#{custpin}, SYSDATE)
+    </insert>
+
 </mapper>
