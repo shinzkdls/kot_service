@@ -28,6 +28,7 @@ public class ClassBasic {
     private int logincustpin;
     private String logincustjoin;
     private int joincount;
+    private String classdateinfo;
 
 
     public ClassBasic(int classpin, String thumbnailimg, String location, String cooking, String classtitle, String address, String classdate

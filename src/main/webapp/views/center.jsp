@@ -83,9 +83,18 @@
                                 </div>
                             </c:when>
                             <c:otherwise>
-                                <div class="section-title">
-                                    <h4>${logincust.nickname}님의 구독 LIST</h4>
-                                </div>
+                                <c:choose>
+                                    <c:when test="${logincust.nickname != null}">
+                                        <div class="section-title">
+                                            <h4>${logincust.nickname}님의 구독 LIST</h4>
+                                        </div>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <div class="section-title">
+                                            <h4>${logincust.custid}님의 구독 LIST</h4>
+                                        </div>
+                                    </c:otherwise>
+                                </c:choose>
                             </c:otherwise>
                         </c:choose>
                         </div>

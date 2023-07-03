@@ -231,6 +231,7 @@
         var dday = calculateDday(classdate);
         var ddayElement = document.getElementById("dday");
         ddayElement.textContent = dday;
+        console.log(classdate);
 
         var personal = parseInt("${classdetail.personal}");
         var joincount = parseInt("${classdetail.joincount}");
@@ -448,14 +449,40 @@
                                 <c:when test="${logincust != null}">
                                     <c:choose>
                                         <c:when test="${classdetail.logincustjoin == '0'}">
-                                            <button class="like-btn cart-btn"
-                                                    id="${logincust.custpin}${classdetail.classpin}"
-                                                    value="${classdetail.logincustjoin}"
-                                                    type="button"
-                                                    style="border: none; background-color: #b7b7b7"
-                                                    onclick="requestPay()">
-                                                <span class="icon_check_alt2"></span> 클래스 신청
-                                            </button>
+                                            <c:choose>
+                                                <c:when test="${classdetail.classdateinfo == '1'}">
+                                                    <button class="like-btn cart-btn"
+                                                            id="${logincust.custpin}${classdetail.classpin}"
+                                                            value="${classdetail.logincustjoin}"
+                                                            type="button"
+                                                            style="border: none; background-color: #b7b7b7">
+                                                        <span class="icon_check_alt2"></span> 클래스 종료
+                                                    </button>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <c:choose>
+                                                        <c:when test="${classdetail.personal == classdetail.joincount}">
+                                                            <button class="like-btn cart-btn"
+                                                                    id="${logincust.custpin}${classdetail.classpin}"
+                                                                    value="${classdetail.logincustjoin}"
+                                                                    type="button"
+                                                                    style="border: none; background-color: #b7b7b7">
+                                                                <span class="icon_check_alt2"></span> 모집 종료
+                                                            </button>
+                                                        </c:when>
+                                                        <c:otherwise>
+                                                            <button class="like-btn cart-btn"
+                                                                    id="${logincust.custpin}${classdetail.classpin}"
+                                                                    value="${classdetail.logincustjoin}"
+                                                                    type="button"
+                                                                    style="border: none; background-color: #b7b7b7"
+                                                                    onclick="requestPay()">
+                                                                <span class="icon_check_alt2"></span> 클래스 신청
+                                                            </button>
+                                                        </c:otherwise>
+                                                    </c:choose>
+                                                </c:otherwise>
+                                            </c:choose>
                                         </c:when>
                                         <c:otherwise>
                                             <button class="like-btn cart-btn"
@@ -469,8 +496,25 @@
                                     </c:choose>
                                 </c:when>
                                 <c:otherwise>
-                                    <a class="cart-btn" href="/login">
-                                        <span class="icon_check_alt2"></span> 클래스 신청</a>
+                                    <c:choose>
+                                        <c:when test="${classdetail.classdateinfo == '1'}">
+                                            <a class="cart-btn" href="/login" style="background-color: #b7b7b7;">
+                                                <span class="icon_check_alt2"></span> 클래스 종료</a>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <c:choose>
+                                                <c:when test="${classdetail.personal == classdetail.joincount}">
+                                                    <a class="cart-btn" href="/login"
+                                                       style="background-color: #b7b7b7;">
+                                                        <span class="icon_check_alt2"></span> 모집 마감</a>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <a class="cart-btn" href="/login">
+                                                        <span class="icon_check_alt2"></span> 클래스 신청</a>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </c:otherwise>
+                                    </c:choose>
                                 </c:otherwise>
                             </c:choose>
                         </div>
