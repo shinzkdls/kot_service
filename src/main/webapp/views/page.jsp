@@ -3,17 +3,17 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 
 <!-- pagination start -->
-<div class="text-center">
-    <ul style="display: flex; flex-grow: 0;   list-style-type: none; justify-content: space-around">
+<div class="pagination-wrap">
+    <ul style="display: flex; flex-grow: 0; list-style-type: none; justify-content: space-around">
         <c:choose>
             <c:when test="${nlist.getPrePage() != 0}">
-                <li>
-                    <a href="/${target}?pageNo=${nlist.getPrePage()}" style="color: #b7b7b7; font-size: 20px"><</a>
+                <li class="pagination-wrap">
+                    <a  class="pagination-wrap" href="/${target}?pageNo=${nlist.getPrePage()}" style="color: #b7b7b7; font-size: 15px"><</a>
                 </li>
             </c:when>
             <c:otherwise>
-                <li class="disabled">
-                    <a href="#" style="color: #b7b7b7; font-size: 20px"><</a>
+                <li class="pagination-wrap disabled">
+                    <a class="pagination-wrap" href="#" style="color: #b7b7b7; font-size: 15px"><</a>
                 </li>
             </c:otherwise>
         </c:choose>
@@ -22,13 +22,13 @@
                    var="page">
             <c:choose>
                 <c:when test="${nlist.getPageNum() == page}">
-                    <li class="active">
-                        <a href="/${target}?pageNo=${page}" style="color: #b7b7b7; font-size: 20px">${page}</a>
+                    <li class="pagination-wrap active">
+                        <a class="pagination-wrap active" href="/${target}?pageNo=${page}" style="color: #b7b7b7; font-size: 15px">${page}</a>
                     </li>
                 </c:when>
                 <c:otherwise>
                     <li>
-                        <a href="/${target}?pageNo=${page}" style="color: #b7b7b7; font-size: 20px">${page}</a>
+                        <a class="pagination-wrap" href="/${target}?pageNo=${page}" style="color: #b7b7b7; font-size: 15px">${page}</a>
                     </li>
                 </c:otherwise>
             </c:choose>
@@ -36,13 +36,13 @@
         </c:forEach>
         <c:choose>
             <c:when test="${nlist.getNextPage() != 0}">
-                <li>
-                    <a href="/${target}?pageNo=${nlist.getNextPage()}" style="color: #b7b7b7; font-size: 20px">></a>
+                <li class="pagination-wrap">
+                    <a class="pagination-wrap" href="/${target}?pageNo=${nlist.getNextPage()}" style="color: #b7b7b7; font-size: 15px">></a>
                 </li>
             </c:when>
             <c:otherwise>
-                <li class="disabled">
-                    <a href="#" style="color: #b7b7b7; font-size: 20px">></a>
+                <li class="pagination-wrap disabled">
+                    <a class="pagination-wrap" href="#" style="color: #b7b7b7; font-size: 15px">></a>
                 </li>
             </c:otherwise>
         </c:choose>

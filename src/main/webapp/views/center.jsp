@@ -37,6 +37,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/fontawesome.min.css"
           integrity="sha512-..." crossorigin="anonymous"/>
 </head>
+<body>
 <!-- Hero Section Begin -->
 <section class="hero">
     <div class="container">
@@ -76,27 +77,27 @@
                 <div class="subscribeList">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8">
-                        <c:choose>
-                            <c:when test="${logincust == null}">
-                                <div class="section-title">
-                                    <h4>구독 LIST</h4>
-                                </div>
-                            </c:when>
-                            <c:otherwise>
-                                <c:choose>
-                                    <c:when test="${logincust.nickname != null}">
-                                        <div class="section-title">
-                                            <h4>${logincust.nickname}님의 구독 LIST</h4>
-                                        </div>
-                                    </c:when>
-                                    <c:otherwise>
-                                        <div class="section-title">
-                                            <h4>${logincust.custid}님의 구독 LIST</h4>
-                                        </div>
-                                    </c:otherwise>
-                                </c:choose>
-                            </c:otherwise>
-                        </c:choose>
+                            <c:choose>
+                                <c:when test="${logincust == null}">
+                                    <div class="section-title">
+                                        <h4>구독 LIST</h4>
+                                    </div>
+                                </c:when>
+                                <c:otherwise>
+                                    <c:choose>
+                                        <c:when test="${logincust.nickname != null}">
+                                            <div class="section-title">
+                                                <h4>${logincust.nickname}님의 구독 LIST</h4>
+                                            </div>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <div class="section-title">
+                                                <h4>${logincust.custid}님의 구독 LIST</h4>
+                                            </div>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </c:otherwise>
+                            </c:choose>
                         </div>
                     </div>
                     <div class="row">
@@ -113,7 +114,8 @@
                                 <div class="col-lg-8 col-md-8 col-sm-8">
                                     <div style="margin-left: 20px; margin-bottom: 50px;">
                                         <p>스푸너를 구독하여 최신 레시피를 확인할 수 있어요!
-                                            <a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=" class="btn-outline-primary">레시피 보러 가기</a></p>
+                                            <a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle="
+                                               class="btn-outline-primary">레시피 보러 가기</a></p>
                                     </div>
                                 </div>
                             </c:when>
@@ -138,7 +140,6 @@
                         </c:choose>
                     </div>
                 </div>
-
                 <div class="Latest_class" style="margin-top: 50px">
                     <div class="row">
                         <div class="col-lg-8 col-md-8 col-sm-8">
@@ -187,7 +188,8 @@
                         </div>
                         <div class="col-lg-4 col-md-4 col-sm-4">
                             <div class="btn__all">
-                                <a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=" class="primary-btn">View All
+                                <a href="/recipe/all?type=&ingredients1=&recipelevel=&recipetitle=" class="primary-btn">View
+                                    All
                                     <span class="arrow_right"></span></a>
                             </div>
                         </div>
@@ -261,18 +263,71 @@
                                                 href="/contacts/notice_detail?noticepin=${nobj.noticepin}"
                                                 style="color: black;">${nobj.noticetitle}</a>
                                         </td>
-                                        <td data-th="Date"><fmt:formatDate value="${nobj.noticedate}" pattern="yyyy-MM-dd"/></td>
+                                        <td data-th="Date"><fmt:formatDate value="${nobj.noticedate}"
+                                                                           pattern="yyyy-MM-dd"/></td>
                                     </tr>
                                 </c:forEach>
                                 </tbody>
                             </table>
-                            <jsp:include page="page.jsp"/>
+                            <div class="pagination-wrap">
+                                <ul style="display: flex; flex-grow: 0; list-style-type: none; justify-content: space-around">
+                                    <c:choose>
+                                        <c:when test="${nlist.getPrePage() != 0}">
+                                            <li class="pagination-wrap">
+                                                <a class="pagination-wrap"
+                                                   href="/${target}?pageNo=${nlist.getPrePage()}"
+                                                   style="color: #b7b7b7; font-size: 15px"><</a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="pagination-wrap disabled">
+                                                <a class="pagination-wrap" href="#"
+                                                   style="color: #b7b7b7; font-size: 15px"><</a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                    <c:forEach begin="${nlist.getNavigateFirstPage() }"
+                                               end="${nlist.getNavigateLastPage() }"
+                                               var="page">
+                                        <c:choose>
+                                            <c:when test="${nlist.getPageNum() == page}">
+                                                <li class="pagination-wrap active">
+                                                    <a class="pagination-wrap active" href="/${target}?pageNo=${page}"
+                                                       style="color: #b7b7b7; font-size: 15px">${page}</a>
+                                                </li>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <li>
+                                                    <a class="pagination-wrap" href="/${target}?pageNo=${page}"
+                                                       style="color: #b7b7b7; font-size: 15px">${page}</a>
+                                                </li>
+                                            </c:otherwise>
+                                        </c:choose>
+                                    </c:forEach>
+                                    <c:choose>
+                                        <c:when test="${nlist.getNextPage() != 0}">
+                                            <li class="pagination-wrap">
+                                                <a class="pagination-wrap"
+                                                   href="/${target}?pageNo=${nlist.getNextPage()}"
+                                                   style="color: #b7b7b7; font-size: 15px">></a>
+                                            </li>
+                                        </c:when>
+                                        <c:otherwise>
+                                            <li class="pagination-wrap disabled">
+                                                <a class="pagination-wrap" href="#"
+                                                   style="color: #b7b7b7; font-size: 15px">></a>
+                                            </li>
+                                        </c:otherwise>
+                                    </c:choose>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-    </div>
+
 </section>
 <!-- Product Section End -->
+</body>

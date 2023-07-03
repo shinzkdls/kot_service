@@ -47,7 +47,7 @@ public class MainController {
     GoodlistService goodlistService;
 
     @RequestMapping("/")
-    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpSession session, Notice notice) throws Exception {
+    public String main(@RequestParam(required = false, defaultValue = "1") int pageNo, Model model, HttpSession session) throws Exception {
 
         // 네이버 날씨 크롤링
         String url = "https://m.search.naver.com/search.naver?sm=mtp_hty.top&where=m&query=서울날씨";
@@ -128,8 +128,6 @@ public class MainController {
         } catch (Exception e) {
             throw new Exception("시스템 장애: ER0001");
         }
-        Notice n;
-        n = noticeService.get(notice.getNoticepin());
         // notice end
 
         //log.info("------------------------------");
@@ -142,7 +140,6 @@ public class MainController {
         model.addAttribute("subscribeList", subscribeList);
         model.addAttribute("recipeRanking", recipeRanking);
         model.addAttribute("nlist", p);
-        model.addAttribute("noticedetail", n);
         model.addAttribute("weather", weather);
         return "index";
     }
