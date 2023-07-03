@@ -24,6 +24,8 @@ import java.util.List;
 @RequestMapping("/recipe")
 public class RecipeController {
 
+    @Value("${key}")
+    String key;
     @Autowired
     RecipeService recipeService;
     @Autowired
@@ -79,6 +81,17 @@ public class RecipeController {
         step = recipeStepService.getRecipeAllStep(recipepin);
         comment = commentService.getRecipeAllComment(recipepin);
         recommendlist = recipeService.recommendlist(recipe);
+
+
+        StringBuilder sb = new StringBuilder();
+        for (RecipeStep recipeStep : step) {
+            sb.append(recipeStep.getStepdesc()).append(" ");
+        }
+
+        String combinedStepdesc = sb.toString().trim();
+        model.addAttribute("text", combinedStepdesc);
+        model.addAttribute("key",key);
+
 
         model.addAttribute("recipecust", cust);
         model.addAttribute("recipedetail", recipe);
