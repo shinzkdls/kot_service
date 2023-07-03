@@ -58,11 +58,11 @@
                     <h3 style="color: black">Login</h3>
                     <form id="login_form">
                         <div class="input__item">
-                            <input type="text" placeholder="Your ID" name="custid" id="custid" value="id001">
+                            <input type="text" placeholder="Your ID" name="custid" id="custid" >
                             <span class="icon_profile"></span>
                         </div>
                         <div class="input__item">
-                            <input type="password" placeholder="Password" name="password" id="password" value="pwd001">
+                            <input type="password" placeholder="Password" name="password" id="password">
                             <span class="icon_lock"></span>
                         </div>
                         <button type="button" class="site-btn" id="login_btn">Login Now</button>

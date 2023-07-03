@@ -92,7 +92,7 @@
                             <span class="icon_profile"></span>
                         </div>
                         <div style="height: 20px"><span id="check_id"
-                                                        style="color: #b7b7b7; margin-left: 50px; font-size: 12px"></span>
+                                                        style="color: black; margin-left: 50px; font-size: 12px"></span>
                         </div>
                         <div class="input__item">
                             <input type="password" placeholder="Password" name="password" id="password">
