@@ -206,7 +206,7 @@
         },
         connect:function(){
             var sid = this.id;
-            var socket = new SockJS('http://127.0.0.1:8088/ws');
+            var socket = new SockJS('http://127.0.0.1/:8088/ws');
             this.stompClient = Stomp.over(socket);
 
             this.stompClient.connect({}, function(frame) {
